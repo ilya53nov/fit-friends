@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@fit-friends/shared-types": ["libs/shared-types/src/index.ts"]
+      "@fit-friends/shared-types": ["libs/shared-types/src/index.ts"],
+      "@fit-friends/shared-validation": ["libs/shared-validation/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
