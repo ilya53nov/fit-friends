@@ -1,33 +1,34 @@
-import { LevelTrainingEnum } from "./level-training.enum";
+import { ExerciseLevelEnum } from "./exercise-level.enum";
 import { LocationEnum } from "./location.enum";
 import { RoleEnum } from "./role.enum";
-import { SexEnum } from "./sex.enum";
-import { TimeTrainingEnum } from "./time-training.enum";
-import { TypeTrainingEnum } from "./type-training.enum";
+import { UserGenderEnum } from "./user-gender.enum";
+import { ExerciseDurationEnum } from "./exercise-duration.enum";
+import { ExerciseTypeEnum } from "./exercise-type.enum";
 
-export interface UserInterface {
+export interface BaseUserInterface {
   id: string;
   name: string;
   email: string;
   avatar: string;
   password: string;
-  sex: SexEnum;
+  gender: UserGenderEnum;
   dateBirth: Date;
   role: RoleEnum;
   locationDefault: LocationEnum;
   createdAt: Date;
+  exerciseLevel: ExerciseLevelEnum;
+  exerciseTypes: ExerciseTypeEnum[]; 
+}
 
-  levelTraining: LevelTrainingEnum;
-  typeTraining: TypeTrainingEnum[];
-
-  timeTraining: TimeTrainingEnum;
+export interface UserInterface extends BaseUserInterface {
+  durationTraining: ExerciseDurationEnum;
   caloriesResetCount: number;
   caloriesSpendPerDayCount: number;
-  isReadyUser: boolean;
+  isReadyUser: boolean;  
+}
 
+export interface CoachInterface extends BaseUserInterface {
   comment: string;
-
   certificate: string;
   isReadyCoach: boolean;
-
 }
