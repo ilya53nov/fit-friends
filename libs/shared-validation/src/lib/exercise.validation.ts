@@ -1,5 +1,7 @@
 import { ExerciseDurationEnum, ExerciseGenderEnum, ExerciseLevelEnum, ExerciseTypeEnum } from "@fit-friends/shared-types";
 
+
+
 export const ExerciseValidation = {
   TitleLength: {
     min: 1,
