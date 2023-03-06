@@ -16,3 +16,5 @@ export * from './lib/purchase.interface';
 export * from './lib/role.enum';
 export * from './lib/user-gender.enum';
 export * from './lib/user.interface';
+export * from './lib/api-route.enum';
+export * from './lib/parametr-key.enum';
