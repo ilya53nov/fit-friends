@@ -16,6 +16,11 @@
     "baseUrl": ".",
     "paths": {
       "@fit-friends/core": ["libs/core/src/index.ts"],
+      "@fit-friends/shared-description-property": [
+        "libs/shared-description-property/src/index.ts"
+      ],
+      "@fit-friends/shared-dto": ["libs/shared-dto/src/index.ts"],
+      "@fit-friends/shared-rdo": ["libs/shared-rdo/src/index.ts"],
       "@fit-friends/shared-types": ["libs/shared-types/src/index.ts"],
       "@fit-friends/shared-validation": ["libs/shared-validation/src/index.ts"]
     }
