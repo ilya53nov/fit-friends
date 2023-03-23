@@ -1,0 +1,26 @@
+{
+  "name": "shared-description-property",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared-description-property/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared-description-property",
+        "main": "libs/shared-description-property/src/index.ts",
+        "tsConfig": "libs/shared-description-property/tsconfig.lib.json",
+        "assets": ["libs/shared-description-property/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared-description-property/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

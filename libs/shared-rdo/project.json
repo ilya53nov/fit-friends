@@ -1,0 +1,26 @@
+{
+  "name": "shared-rdo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared-rdo/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared-rdo",
+        "main": "libs/shared-rdo/src/index.ts",
+        "tsConfig": "libs/shared-rdo/tsconfig.lib.json",
+        "assets": ["libs/shared-rdo/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/shared-rdo/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
