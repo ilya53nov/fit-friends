@@ -1,7 +1,7 @@
-import { CoachInterface, UserInterface } from "./user.interface";
+import { UserType } from "./user.interface";
 
 export interface NotificationInterface {
   createdAt: Date;
-  user: UserInterface | CoachInterface;
+  user: UserType;
   text: string;
 }
