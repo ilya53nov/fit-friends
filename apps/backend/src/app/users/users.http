@@ -1,0 +1,33 @@
+# Get all users
+GET http://localhost:3333/api/users HTTP/1.1
+
+###
+
+# Get user 
+GET http://localhost:3333/api/users/c733fe4-712d-4adb-848c-51d22fd035e1 HTTP/1.1
+
+###
+
+# Update sportsman 
+PATCH http://localhost:3333/api/users/update-sportsman HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZWMwNGI0Ni02OWQ0LTQ0M2YtYWMzYi04YzFjYmM2NjA2OTMiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQ2LmxvY2FsIiwibmFtZSI6ItCc0L7RgdC60LLQsCIsImlhdCI6MTY3OTYwNTM0OCwiZXhwIjoxNjc5NjA2MjQ4fQ.y95f6VBHPNYwiTK6Xort0AI0cGSnBlQmSLsnx4U4PZM
+Content-Type: application/json
+
+{
+  "avatar": "user2.png",
+  "gender": "Женский"
+}
+
+###
+
+# Update sportsman 
+PATCH http://localhost:3333/api/users/update-coach HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZWMwNGI0Ni02OWQ0LTQ0M2YtYWMzYi04YzFjYmM2NjA2OTMiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQ2LmxvY2FsIiwibmFtZSI6ItCc0L7RgdC60LLQsCIsImlhdCI6MTY3OTYwNTM0OCwiZXhwIjoxNjc5NjA2MjQ4fQ.y95f6VBHPNYwiTK6Xort0AI0cGSnBlQmSLsnx4U4PZM
+Content-Type: application/json
+
+{
+  "avatar": "user2.png",
+  "gender": "Женский"
+}
+
+###
