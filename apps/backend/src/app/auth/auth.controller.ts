@@ -1,42 +1,70 @@
+import { RefreshTokenGuard } from '@fit-friends/core';
+import { CreateCoachUserDto, CreateSportsmanUserDto, LoginUserDto } from '@fit-friends/shared-dto';
+import { CoachUserRdo, LoggedUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
+import { ApiRouteEnum, ParametrKey } from '@fit-friends/shared-types';
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
+  HttpStatus,
+  Get,
+  Request,
+  Headers,
+  UseGuards,
 } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
+import { AuthUserDescription } from './auth.constants';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
 
-@Controller('auth')
+@Controller(ApiRouteEnum.Auth)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+  @Post(ApiRouteEnum.RegisterSportsman)
+  @ApiResponse({
+    type: SportsmanUserRdo,
+    status: HttpStatus.CREATED,
+    description: AuthUserDescription.Created
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+  })
+  public async registerSportsman(@Body() userDto: CreateSportsmanUserDto) {
+    return await this.authService.registerSpotsman(userDto);    
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
+  @Post(ApiRouteEnum.RegisterCoach)
+  @ApiResponse({
+    type: CoachUserRdo,
+    status: HttpStatus.CREATED,
+    description: AuthUserDescription.Created
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+  })
+  public async registerCoach(@Body() userDto: CreateCoachUserDto) {
+    return await this.authService.registerCoach(userDto);    
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+  @Post(ApiRouteEnum.Login)
+  @ApiResponse({
+    type: LoggedUserRdo,
+    status: HttpStatus.OK,
+    description: AuthUserDescription.Logged
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: AuthUserDescription.PasswordOrLoginWrong
+  })
+  public async login(@Body() loginUserDto: LoginUserDto) {        
+    return this.authService.loginUser(loginUserDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
+  @UseGuards(RefreshTokenGuard)
+  @Get(ApiRouteEnum.RefreshToken)
+  public async refreshTokens(@Request() req, @Headers(ParametrKey.Authorization) bearerToken: string) {
+    return this.authService.refreshTokens(req.user.email, bearerToken);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
-  }
+  
 }
