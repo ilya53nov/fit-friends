@@ -1,9 +1,9 @@
 import { ExerciseInterface } from "./exercise.interface";
-import { UserInterface } from "./user.interface";
+import { UserType } from "./user.interface";
 
 export interface CommentInterface {
   id: string;
-  author: UserInterface;
+  author: UserType;
   exercise: ExerciseInterface;
   score: number;
   text: string;

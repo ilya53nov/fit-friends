@@ -1,9 +1,9 @@
 import { PersonalExerciseStatusEnum } from "./personal-exercise-status.enum";
-import { CoachInterface, UserInterface } from "./user.interface";
+import { SportsmanInterface, UserType } from "./user.interface";
 
 export interface PersonalExerciseInterface {
-  initiator: UserInterface;
-  user: UserInterface | CoachInterface;
+  initiator: SportsmanInterface;
+  user: UserType;
   createdAt: Date;
   udatedAt: Date;
   status: PersonalExerciseStatusEnum;

@@ -6,4 +6,5 @@ export enum ParametrKey {
   Roles = 'roles',
   Authorization = 'Authorization',
   File = 'file',
+  Token = 'token',
 }

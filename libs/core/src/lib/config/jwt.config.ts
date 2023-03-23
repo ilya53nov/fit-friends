@@ -2,20 +2,41 @@ import { Injectable } from '@nestjs/common';
 import {ConfigService, registerAs} from '@nestjs/config';
 import {JwtModuleOptions, JwtSignOptions} from '@nestjs/jwt';
 
-export const JWT_ACCESS_SECRET = 'jwt-access.secret';
-export const JWT_REFRESH_SECRET = 'jwt-refresh.secret';
-export const JWT_ACCESS_DESCRIPTION = 'jwt-access';
-export const JWT_REFRESH_DESCRIPTION = 'jwt-refresh';
-const LIFE_ACCESS_TIME_TOKEN = '2000s';
-const LIFE_REFRESH_TIME_TOKEN = '4000s';
+export const JwtOption = {
+  Access: {
+    Key: 'jwt-access',
+    Secret: {
+      Key: 'jwt-access.secret',
+      EnvKey: 'JWT_ACCESS_SECRET',
+    },
+    LifeTime: {
+      Key: 'jwt-access.lifeTime',
+      EnvKey: 'JWT_ACCESS_LIFE_TIME',      
+    },
+  },
+  Refresh: {
+    Key: 'jwt-refresh',
+    Secret: {
+      Key: 'jwt-refresh.secret',
+      EnvKey: 'JWT_REFRESH_SECRET',
+    },
+    LifeTime: {
+      Key: 'jwt-refresh.lifeTime',
+      EnvKey: 'JWT_REFRESH_LIFE_TIME',      
+    },
+  },
+}
+
 const ENCRYPTION_ALGORITHM = 'HS256';
 
-export const jwtAccessOptions = registerAs(JWT_ACCESS_DESCRIPTION, () => ({
-  secret: process.env['JWT_ACCESS_SECRET'],
+export const jwtAccessOptions = registerAs(JwtOption.Access.Key, () => ({
+  secret: process.env[JwtOption.Access.Secret.EnvKey],
+  lifeTime: process.env[JwtOption.Access.LifeTime.EnvKey],
 }));
 
-export const jwtRefreshOptions = registerAs(JWT_REFRESH_DESCRIPTION, () => ({
-  secret: process.env['JWT_REFRESH_SECRET'],
+export const jwtRefreshOptions = registerAs(JwtOption.Refresh.Key, () => ({
+  secret: process.env[JwtOption.Refresh.Secret.EnvKey],
+  lifeTime: process.env[JwtOption.Refresh.LifeTime.EnvKey],
 }));
 
 @Injectable()
@@ -26,21 +47,21 @@ export class JwtConfig {
 
   public async getJwtAccessConfig(): Promise<JwtSignOptions> {
     return {
-      secret: this.configService.get<string>(JWT_ACCESS_SECRET),
-      expiresIn: LIFE_ACCESS_TIME_TOKEN,
+      secret: this.configService.get<string>(JwtOption.Access.Secret.Key),
+      expiresIn: this.configService.get<string>(JwtOption.Access.LifeTime.Key),
     }
   }
 
   public async getJwtRefreshConfig(): Promise<JwtSignOptions> {
     return {
-      secret: this.configService.get<string>(JWT_REFRESH_SECRET),
-      expiresIn: LIFE_REFRESH_TIME_TOKEN
+      secret: this.configService.get<string>(JwtOption.Refresh.Secret.Key),
+      expiresIn: this.configService.get<string>(JwtOption.Refresh.LifeTime.Key),
     }
   }
 }
 
 export async function getJwtOptions(): Promise<JwtModuleOptions> {
   return {
-    signOptions: { algorithm: ENCRYPTION_ALGORITHM }
+    signOptions: { algorithm: ENCRYPTION_ALGORITHM}
   }
 }

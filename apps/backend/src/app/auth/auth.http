@@ -1,0 +1,60 @@
+# Register a new sportsman 
+POST http://localhost:3333/api/auth/register-sportsman HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@notfound15.local",
+  "dateBirth": "2020-12-23T12:45:00.000Z",
+  "password": "123456",
+  "role": "user",
+  "name": "Москва",
+  "avatar": "user1.png",
+  "gender": "Мужской",
+  "locationDefault": "ст. м. Пионерская",
+  "exerciseLevel": "Новичок",
+  "exerciseTypes": ["Аэробика"],
+  "durationTraining": "10-30 мин",
+  "caloriesResetCount": 3000,  
+  "caloriesSpendPerDayCount": 3000,  
+  "isReadyUser": true
+}
+
+###
+
+# Register a new coach 
+POST http://localhost:3333/api/auth/register-coach HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@notfound17.local",
+  "dateBirth": "2020-12-23T12:45:00.000Z",
+  "password": "123456",
+  "role": "coach",
+  "name": "Москва",
+  "avatar": "user1.png",
+  "gender": "Мужской",
+  "locationDefault": "ст. м. Пионерская",
+  "exerciseLevel": "Новичок",
+  "exerciseTypes": ["Аэробика"],
+  "comment": "sdgssssssssssfdgfdgfd",
+  "isReadyCoach": true
+}
+
+###
+
+# Login user by email and password
+POST http://localhost:3333/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "user@notfound6.local",
+  "password": "123456"
+}
+
+###
+
+# Refresh tokens
+GET http://localhost:3333/api/auth/refresh-token HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwZWMwNGI0Ni02OWQ0LTQ0M2YtYWMzYi04YzFjYmM2NjA2OTMiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQ2LmxvY2FsIiwibmFtZSI6ItCc0L7RgdC60LLQsCIsImlhdCI6MTY3OTYwMTIyMSwiZXhwIjoxNjgwMjA2MDIxfQ.JoqEtiloisp6n9kG579U__ZEmIcM-tcigKRKKAWiLFg
+
+###

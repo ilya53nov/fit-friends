@@ -18,3 +18,6 @@ export * from './lib/user-gender.enum';
 export * from './lib/user.interface';
 export * from './lib/api-route.enum';
 export * from './lib/parametr-key.enum';
+export * from './lib/jwt-payload.type';
+export * from './lib/jwt-token.type';
+export * from './lib/port-db.enum';
