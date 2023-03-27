@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { validateEnvironments } from './env.validation';
+import { ExercisesModule } from './exercises/exercises.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
 import { UsersService } from './users/users.service';
@@ -21,7 +22,8 @@ import { UsersService } from './users/users.service';
     }),
     UsersModule,
     AuthModule,
-    PrismaModule
+    PrismaModule,
+    ExercisesModule,
   ],
   controllers: [AppController],
   providers: [AppService, UsersService],

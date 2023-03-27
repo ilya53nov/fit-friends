@@ -38,7 +38,7 @@ export class CreateBaseUserDto {
   dateBirth?: Date;
 
   @ApiProperty(UserApiProperty.Role)
-  @Contains(RoleEnum.Coach)
+  @IsEnum(UserValidation.Role)
   role!: string;
 
   @ApiProperty(UserApiProperty.LocationDefault)
