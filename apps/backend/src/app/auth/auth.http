@@ -3,7 +3,7 @@ POST http://localhost:3333/api/auth/register-sportsman HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@notfound15.local",
+  "email": "user@notfound21.local",
   "dateBirth": "2020-12-23T12:45:00.000Z",
   "password": "123456",
   "role": "user",
