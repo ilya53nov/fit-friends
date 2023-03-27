@@ -1,0 +1,48 @@
+# Create a new exercise 
+POST http://localhost:3333/api/exercises HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk5MzI2NTgsImV4cCI6MTY3OTkzMzU1OH0.l9ZqQ9opy6QyQCQgOmAY6qIwbUrylD_yWY8x9raeZiM
+Content-Type: application/json
+
+{
+  "title": "title",
+  "image": "string",
+  "level": "Новичок",
+  "type": "Йога",
+  "duration": "больше 80 мин",
+  "price": 1000,
+  "caloriesCount": 1000,
+  "description": "description",
+  "gender": "для мужчин",
+  "video": "string",
+  "isSpecialOffer": true
+}
+
+###
+
+# Get my exercises
+GET http://localhost:3333/api/exercises?limit=10&durations=30-50 мин,10-30 мин&priceRange=10-9999&calorieRange=10-9999 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk5Mzc2NDIsImV4cCI6MTY3OTkzODU0Mn0.Jkr6McitLGf34v5llQk27h6UWC-v4YUyshLFxquy5Ro
+
+###
+
+# Get exercise by id
+GET http://localhost:3333/api/exercises/887b6b07-c474-423b-9d3e-eb5a14b3aab5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk5Mjg5MjYsImV4cCI6MTY3OTkyOTgyNn0.zGFi-SOyaEc1WThhFhQ62otMS1w_xqON4FFy4bCWdHY
+
+###
+
+# Update exercise 
+PATCH  http://localhost:3333/api/exercises/887b6b07-c474-423b-9d3e-eb5a14b3aab5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk5Mjg5MjYsImV4cCI6MTY3OTkyOTgyNn0.zGFi-SOyaEc1WThhFhQ62otMS1w_xqON4FFy4bCWdHY
+Content-Type: application/json
+
+{
+  "title": "titletitle",
+  "image": "string",
+  "level": "Новичок",
+  "type": "Йога",
+  "duration": "10-30 мин",
+  "description": "descriptiondescription"
+}
+
+###

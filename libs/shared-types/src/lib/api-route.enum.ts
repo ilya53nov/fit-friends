@@ -9,4 +9,5 @@ export enum ApiRouteEnum {
   UpdateCoach = 'update-coach',
   UpdateSportsman = 'update-sportsman',  
   Users = 'users',
+  Exercises = 'exercises',
 }

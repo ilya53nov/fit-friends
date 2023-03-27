@@ -32,3 +32,21 @@ model User {
   certificate String?
   isReadyCoach Boolean?
 }
+
+model Exercise {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  title String
+  image String
+  level String
+  type String
+  duration String
+  price Int
+  caloriesCount Int
+  description String
+  gender String
+  video String
+  rating Int @default(0)
+  coachId String
+  isSpecialOffer Boolean 
+}

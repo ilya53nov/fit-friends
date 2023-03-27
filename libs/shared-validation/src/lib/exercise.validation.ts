@@ -12,6 +12,10 @@ export const ExerciseValidation = {
   ExerciseType: ExerciseTypeEnum,
   DurationTraining: ExerciseDurationEnum,
   PriceMin: 0,
+  Rating: {
+    min: 1,
+    max: 5,
+  },
   CaloriesCount: {
     min: 1000,
     max: 5000,
