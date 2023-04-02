@@ -10,3 +10,4 @@ export * from './lib/update-sportsman-user.dto';
 export * from './lib/update-user-dto.type';
 export * from './lib/create-exercise.dto';
 export * from './lib/update-exercise.dto';
+export * from './lib/create-purchase.dto';

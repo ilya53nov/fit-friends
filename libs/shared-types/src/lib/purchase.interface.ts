@@ -4,11 +4,13 @@ import { PaymentMethodEnum } from "./payment-method.enum";
 import { PurchaseTypeEnum } from "./purchase-type.enum";
 
 export interface PurchaseInterface {
-  purchaseType: PurchaseTypeEnum;
-  serviceType: ExerciseInterface | GymInterface;
+  id?: string;
+  purchaseType: string;
+  exerciseId: string;
+  userId: string;
   priceExercise: number;
   countExercise: number;
   sum: number;
-  paymentMethod: PaymentMethodEnum;
-  createdAt: Date;
+  paymentMethod: string;
+  createdAt?: Date;
 }

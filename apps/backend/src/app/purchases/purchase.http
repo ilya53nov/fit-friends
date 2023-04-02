@@ -1,0 +1,18 @@
+# Create a new purchase
+POST http://localhost:3333/api/purchases/c3d36a1a-608d-4936-91a3-2abbfb07a814 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzZjE3MDE1Yi02YjY0LTQ2OTEtYjNkMS0wMzczODlmODlkYjAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMS5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibmFtZSI6ItCc0L7RgdC60LLQsCIsImlhdCI6MTY4MDQ1NzI0MiwiZXhwIjoxNjgwNDU4MTQyfQ.Q8vdyZ0gi2euxtDhghJC9htYeW1sqXBkGB_UIovP264
+Content-Type: application/json
+
+{
+  "purchaseType": "тренировка",
+  "countExercise": 3,
+  "paymentMethod": "visa"
+}
+
+###
+
+# Get my purchases
+GET http://localhost:3333/api/purchases HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA0NjYyOTMsImV4cCI6MTY4MDQ2NzE5M30.0GzvY9JqRWDwEtPVEirkLCn5wwRsuanbBdKd8g8ILkY
+
+###

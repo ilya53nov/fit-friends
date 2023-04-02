@@ -1,7 +1,7 @@
 import { UserApiProperty } from '@fit-friends/shared-description-property';
 import { UserValidation } from '@fit-friends/shared-validation';
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, IsEnum, IsOptional, IsString, Length } from 'class-validator';
+import { ArrayMaxSize, IsEnum, IsOptional, Length } from 'class-validator';
 
 export class UpdateBaseUserDto {
   @ApiProperty(UserApiProperty.Name)
