@@ -1,5 +1,5 @@
 import { fillObject } from '@fit-friends/core';
-import { UpdateCoachUserDto, UpdateSportsmanUserDto, UpdateUserDto } from '@fit-friends/shared-dto';
+import { UpdateCoachUserDto, UpdateSportsmanUserDto } from '@fit-friends/shared-dto';
 import { CoachUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
 import { RoleEnum } from '@fit-friends/shared-types';
 import { Injectable, UnauthorizedException } from '@nestjs/common';

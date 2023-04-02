@@ -67,4 +67,30 @@ export class ExercisesRepository {
     })
   }
 
+  public async getSoldExercises(coachId: string) {
+    return await this.prisma.exercise.findMany({
+      where: {
+        coachId,
+        AND: {
+          buyers: {
+            some: {
+              countExercise: {
+                gt: 1
+              }
+            }
+          }
+        }
+      },
+      include: {
+        buyers: {
+          select: {
+            countExercise: true,
+            sum: true,
+          }
+        }
+      },
+
+    })
+  }
+
 }

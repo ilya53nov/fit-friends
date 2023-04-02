@@ -5,12 +5,20 @@
 
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { join } from 'path';
 import { AppModule } from './app/app.module';
 import { AppOptions } from './constants';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  const path = join(__dirname, 'assets');
+
+  app.useStaticAssets(path);
+
+  console.log(path);
 
   const config = new DocumentBuilder()
   .setTitle(AppOptions.Title)

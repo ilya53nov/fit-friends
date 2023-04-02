@@ -1,7 +1,7 @@
 import { ExerciseApiProperty } from '@fit-friends/shared-description-property';
 import { ExerciseValidation } from '@fit-friends/shared-validation';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsNumber, IsString, IsUUID, Length, Max, Min } from 'class-validator';
+import { IsBoolean, IsEnum, IsNumber, IsString, Length, Max, Min } from 'class-validator';
 
 export class CreateExerciseDto {
   @ApiProperty(ExerciseApiProperty.Title)

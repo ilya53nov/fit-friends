@@ -1,8 +1,7 @@
 import { UserApiProperty } from '@fit-friends/shared-description-property';
-import { RoleEnum } from '@fit-friends/shared-types';
 import { UserValidation } from '@fit-friends/shared-validation';
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, Contains, IsEnum, IsString, Length } from 'class-validator';
+import { ArrayMaxSize, IsEnum, IsString, Length } from 'class-validator';
 
 export class CreateBaseUserDto {
   @ApiProperty(UserApiProperty.Name)

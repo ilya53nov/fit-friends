@@ -21,8 +21,7 @@ Content-Type: application/json
 
 # Get my exercises
 GET http://localhost:3333/api/exercises?limit=10&durations=30-50 мин,10-30 мин&priceRange=10-9999&calorieRange=10-9999 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk5Mzc2NDIsImV4cCI6MTY3OTkzODU0Mn0.Jkr6McitLGf34v5llQk27h6UWC-v4YUyshLFxquy5Ro
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA0NTU5NTUsImV4cCI6MTY4MDQ1Njg1NX0.e8XbPwtiqyYyji1WGGV2jikS7qkV5ggy_BL-fL2b-20
 ###
 
 # Get exercise by id
