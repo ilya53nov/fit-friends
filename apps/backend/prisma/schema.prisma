@@ -31,6 +31,7 @@ model User {
   comment String?
   certificate String?
   isReadyCoach Boolean?
+  purchases Purchase[]
 }
 
 model Exercise {
@@ -49,4 +50,21 @@ model Exercise {
   rating Int @default(0)
   coachId String
   isSpecialOffer Boolean 
+  buyers Purchase[]
+}
+
+model Purchase {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  purchaseType String
+  priceExercise Int
+  countExercise Int
+  sum Int 
+  paymentMethod String
+
+  userId String
+  user User @relation(fields: [userId], references: [id])
+
+  exerciseId String
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
 }
