@@ -12,10 +12,11 @@ import {
   Headers,
   UseGuards,
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthUserDescription } from './auth.constants';
 import { AuthService } from './auth.service';
 
+@ApiTags(ApiRouteEnum.Auth)
 @Controller(ApiRouteEnum.Auth)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

@@ -12,9 +12,6 @@ export class CreateExerciseDto {
   )
   title!: string;
 
-  @ApiProperty(ExerciseApiProperty.Image)
-  image!: string;
-
   @ApiProperty(ExerciseApiProperty.Level)
   @IsEnum(ExerciseValidation.Level)
   level!: string;

@@ -6,17 +6,18 @@ import { ExercisesDescription } from './exercises.constants';
 import { ExerciseEntity } from './exercises.entity';
 import { ExercisesRepository } from './exercises.repository';
 import { ExercisesQuery } from './query/exercises.query';
+import { FilesService } from '../files/files.service';
 
 @Injectable()
 export class ExercisesService {
   constructor(
     private readonly exercisesRepository: ExercisesRepository,
-
+    private readonly filesService: FilesService,
   ) {}
 
   public async create(coachId: string, createExerciseDto: CreateExerciseDto) {
-    const exerciseEntity = await new ExerciseEntity({...createExerciseDto, coachId, rating: 0});
-
+    const randomImage = await this.filesService.getRandomAssetsImage();
+    const exerciseEntity = await new ExerciseEntity({...createExerciseDto, image: randomImage, coachId, rating: 0});
     const newExercise = await this.exercisesRepository.create(exerciseEntity);
 
     return fillObject(ExerciseRdo, newExercise);

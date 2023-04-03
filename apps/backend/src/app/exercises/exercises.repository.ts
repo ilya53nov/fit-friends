@@ -75,14 +75,14 @@ export class ExercisesRepository {
           buyers: {
             some: {
               countExercise: {
-                gt: 1
+                gte: 1
               }
             }
           }
         }
       },
       include: {
-        buyers: {
+        buyers: {          
           select: {
             countExercise: true,
             sum: true,
