@@ -1,0 +1,16 @@
+# Add a new friend
+POST http://localhost:3333/api/friends HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU3MzE0MC0wNWQxLTQxMTktYjU2My1lODRhZmQwNjk3ODAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA1NDc1NjAsImV4cCI6MTY4MDU0ODQ2MH0.TeqeWuiubqdk82NsTNOt57MsflKIM6ZxxKjxWHEuIiY
+Content-Type: application/json
+
+{
+  "friendId": "e9ede6f8-6210-4dd2-9215-e8446663fa14"
+}
+
+###
+
+# Get my friends
+GET http://localhost:3333/api/friends HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU3MzE0MC0wNWQxLTQxMTktYjU2My1lODRhZmQwNjk3ODAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA1NDc1NjAsImV4cCI6MTY4MDU0ODQ2MH0.TeqeWuiubqdk82NsTNOt57MsflKIM6ZxxKjxWHEuIiY
+
+###

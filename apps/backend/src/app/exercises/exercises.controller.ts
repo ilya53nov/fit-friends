@@ -13,10 +13,11 @@ import {
   Query,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ExercisesService } from './exercises.service';
 import { ExercisesQuery } from './query/exercises.query';
 
+@ApiTags(ApiRouteEnum.Exercises)
 @Controller(ApiRouteEnum.Exercises)
 export class ExercisesController {
   constructor(private readonly exercisesService: ExercisesService) {}

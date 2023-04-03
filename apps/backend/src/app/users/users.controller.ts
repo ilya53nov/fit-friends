@@ -11,9 +11,10 @@ import {
   UseGuards,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 
+@ApiTags(ApiRouteEnum.Users)
 @Controller(ApiRouteEnum.Users)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

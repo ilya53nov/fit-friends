@@ -1,11 +1,10 @@
 # Create a new exercise 
 POST http://localhost:3333/api/exercises HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk5MzI2NTgsImV4cCI6MTY3OTkzMzU1OH0.l9ZqQ9opy6QyQCQgOmAY6qIwbUrylD_yWY8x9raeZiM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU3MzE0MC0wNWQxLTQxMTktYjU2My1lODRhZmQwNjk3ODAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA1NTY2NDMsImV4cCI6MTY4MDU1NzU0M30.CL2cuCtX3ihnVMThvz2f5zU1tqCA7iEC72CbiPRS8TA
 Content-Type: application/json
 
 {
   "title": "title",
-  "image": "string",
   "level": "Новичок",
   "type": "Йога",
   "duration": "больше 80 мин",

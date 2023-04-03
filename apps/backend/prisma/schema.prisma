@@ -32,6 +32,8 @@ model User {
   certificate String?
   isReadyCoach Boolean?
   purchases Purchase[]
+  friendBy Friend[] @relation("user")
+  friends  Friend[] @relation("friend")
 }
 
 model Exercise {
@@ -50,7 +52,7 @@ model Exercise {
   rating Int @default(0)
   coachId String
   isSpecialOffer Boolean 
-  buyers Purchase[]
+  buyers Purchase[] 
 }
 
 model Purchase {
@@ -61,10 +63,17 @@ model Purchase {
   countExercise Int
   sum Int 
   paymentMethod String
-
   userId String
   user User @relation(fields: [userId], references: [id])
-
   exerciseId String
   exercise Exercise @relation(fields: [exerciseId], references: [id])
+}
+
+model Friend {
+  user User @relation("user", fields: [userId], references: [id])
+  userId  String
+  friend User @relation("friend", fields: [friendId], references: [id])
+  friendId String
+
+  @@id([userId, friendId])
 }

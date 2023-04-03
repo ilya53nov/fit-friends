@@ -8,13 +8,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { PurchasesService } from './purchases.service';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PurchaseRdo } from '@fit-friends/shared-rdo';
 import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core';
-import { ParametrKey, RoleEnum } from '@fit-friends/shared-types';
+import { ApiRouteEnum, ParametrKey, RoleEnum } from '@fit-friends/shared-types';
 import { CreatePurchaseDto } from '@fit-friends/shared-dto';
 
-@Controller('purchases')
+@ApiTags(ApiRouteEnum.Purchases)
+@Controller(ApiRouteEnum.Purchases)
 export class PurchasesController {
   constructor(private readonly purchasesService: PurchasesService) {}
 
