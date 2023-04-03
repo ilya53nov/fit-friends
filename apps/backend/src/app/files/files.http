@@ -1,0 +1,38 @@
+# Upload Avatar
+POST http://localhost:3333/api/files/avatar
+Content-Type: multipart/form-data; boundary=Upload
+
+--Upload
+Content-Disposition: form-data; name="file"; filename="1.png"
+Content-Type: image/png
+
+< test-files-upload/photo-4.png
+--Upload--
+
+###
+
+# Upload Certificate
+POST http://localhost:3333/api/files/certificate
+Content-Type: multipart/form-data; boundary=Upload
+
+--Upload
+Content-Disposition: form-data; name="file"; filename="1.pdf"
+Content-Type: application/pdf
+
+< test-files-upload/_Vyalov_Berezhlivoye_proizvodstvo.pdf
+--Upload--
+
+###
+
+# Upload Video
+POST http://localhost:3333/api/files/video
+Content-Type: multipart/form-data; boundary=Upload
+
+--Upload
+Content-Disposition: form-data; name="file"; filename="1.avi"
+Content-Type: video/x-msvideo
+
+< test-files-upload/sample_960x400_ocean_with_audio.avi
+--Upload--
+
+###
