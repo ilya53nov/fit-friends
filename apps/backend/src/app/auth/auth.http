@@ -1,11 +1,9 @@
-
-
 # Register a new sportsman 
-POST http://localhost:3333/api/auth/register-sportsman HTTP/1.1
+POST http://localhost:3333/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@notfound25.local",
+  "email": "user@notfound30.local",
   "dateBirth": "2020-12-23T12:45:00.000Z",
   "password": "123456",
   "role": "user",
@@ -18,17 +16,17 @@ Content-Type: application/json
   "durationTraining": "10-30 мин",
   "caloriesResetCount": 3000,  
   "caloriesSpendPerDayCount": 3000,  
-  "isReadyUser": true
+  "isReadyUser": true,
 }
 
 ###
 
 # Register a new coach 
-POST http://localhost:3333/api/auth/register-coach HTTP/1.1
+POST http://localhost:3333/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@notfound26.local",
+  "email": "user@notfound40.local",
   "dateBirth": "2020-12-23T12:45:00.000Z",
   "password": "123456",
   "role": "coach",
@@ -50,7 +48,7 @@ POST http://localhost:3333/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "user@notfound20.local",
+  "email": "user@notfound21.local",
   "password": "123456"
 }
 

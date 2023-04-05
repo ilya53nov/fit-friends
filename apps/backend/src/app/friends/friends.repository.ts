@@ -21,7 +21,7 @@ export class FriendsRepository {
       },
       select: {
         friend: true,
-      }      
+      }
     })
   }
 }

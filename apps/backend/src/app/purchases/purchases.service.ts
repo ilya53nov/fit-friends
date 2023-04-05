@@ -1,4 +1,4 @@
-import { fillObject } from '@fit-friends/core';
+import { BaseQuery, fillObject } from '@fit-friends/core';
 import { CreatePurchaseDto } from '@fit-friends/shared-dto';
 import { PurchaseRdo } from '@fit-friends/shared-rdo';
 import { Injectable, NotFoundException } from '@nestjs/common';
@@ -33,8 +33,8 @@ export class PurchasesService {
     return fillObject(PurchaseRdo, newPurchase);
   }
 
-  public async findAll(coachId: string) {
-    return await this.exercisesRepository.getSoldExercises(coachId);
+  public async findAll(coachId: string, query: BaseQuery) {
+    return await this.exercisesRepository.getSoldExercises(coachId, query);
   }
 
 }

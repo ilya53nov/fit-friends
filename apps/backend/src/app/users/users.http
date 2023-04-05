@@ -1,28 +1,18 @@
 # Get all users
 GET http://localhost:3333/api/users HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk2MDYyMzQsImV4cCI6MTY3OTYwNzEzNH0._vAAwaBHTGp3oGPhUWvs_pWjQBcrbhtf6OSVSUT-Tt8
 
 ###
 
 # Get user 
 GET http://localhost:3333/api/users/c733fe4-712d-4adb-848c-51d22fd035e1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk2MDYyMzQsImV4cCI6MTY3OTYwNzEzNH0._vAAwaBHTGp3oGPhUWvs_pWjQBcrbhtf6OSVSUT-Tt8
 
 ###
 
-# Update sportsman 
-PATCH http://localhost:3333/api/users/update-sportsman HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk2MDYyMzQsImV4cCI6MTY3OTYwNzEzNH0._vAAwaBHTGp3oGPhUWvs_pWjQBcrbhtf6OSVSUT-Tt8
-Content-Type: application/json
-
-{
-  "avatar": "user2.png",
-  "gender": "Женский"
-}
-
-###
-
-# Update coach 
-PATCH http://localhost:3333/api/users/update-coach HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk2MDYyMzQsImV4cCI6MTY3OTYwNzEzNH0._vAAwaBHTGp3oGPhUWvs_pWjQBcrbhtf6OSVSUT-Tt8
+# Update user
+PATCH http://localhost:3333/api/users/update HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OWIyOWU4MC1mMzUyLTQzYTQtYTU2Zi0yMTY1MDU4Nzk0YzYiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMS5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibmFtZSI6ItCc0L7RgdC60LLQsCIsImlhdCI6MTY4MDcyOTQ0NywiZXhwIjoxNjgwNzMwMzQ3fQ.B7JBZyxmP9O3Lz9hZ8OdU7z_ZlbYvthoCtx2EbEIVdA
 Content-Type: application/json
 
 {

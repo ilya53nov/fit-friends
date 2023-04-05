@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ParametrKey } from '@fit-friends/shared-types';
+import { ParameterKey } from '@fit-friends/shared-types';
 
 const FORBIDDEN_ROLE_MESSAGE = 'Запрещено для данной роли';
 
@@ -9,7 +9,7 @@ export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean | Promise<boolean> {
-    const roles = this.reflector.get<string[]>(ParametrKey.Roles, context.getHandler());
+    const roles = this.reflector.get<string[]>(ParameterKey.Roles, context.getHandler());
 
     if (roles) {
       const request = context.switchToHttp().getRequest();

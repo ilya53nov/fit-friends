@@ -1,4 +1,4 @@
 import { SetMetadata } from '@nestjs/common';
-import { ParametrKey } from '@fit-friends/shared-types';
+import { ParameterKey } from '@fit-friends/shared-types';
 
-export const Roles = (...roles: string[]) => SetMetadata(ParametrKey.Roles, roles);
+export const Roles = (...roles: string[]) => SetMetadata(ParameterKey.Roles, roles);

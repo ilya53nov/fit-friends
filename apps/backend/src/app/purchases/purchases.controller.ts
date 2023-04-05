@@ -6,19 +6,22 @@ import {
   Param,
   HttpStatus,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { PurchasesService } from './purchases.service';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 import { PurchaseRdo } from '@fit-friends/shared-rdo';
-import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core';
-import { ApiRouteEnum, ParametrKey, RoleEnum } from '@fit-friends/shared-types';
+import { AccessTokenGuard, BaseQuery, GetUser, Roles, RolesGuard } from '@fit-friends/core';
+import { ApiRouteEnum, ParameterKey, RoleEnum } from '@fit-friends/shared-types';
 import { CreatePurchaseDto } from '@fit-friends/shared-dto';
+import { PurchasesApiOperation } from '@fit-friends/shared-description-operation';
 
 @ApiTags(ApiRouteEnum.Purchases)
 @Controller(ApiRouteEnum.Purchases)
 export class PurchasesController {
   constructor(private readonly purchasesService: PurchasesService) {}
 
+  @ApiOperation({description: PurchasesApiOperation.Create})
   @ApiResponse({
     type: PurchaseRdo,
     status: HttpStatus.CREATED,
@@ -32,23 +35,26 @@ export class PurchasesController {
   @Roles(RoleEnum.Sportsman)
   @UseGuards(RolesGuard)
   @UseGuards(AccessTokenGuard)
-  @Post(ParametrKey.Rout)
+  @Post(ParameterKey.Rout)
   public async create(
-    @GetUser(ParametrKey.Id) userId: string,
-    @Param(ParametrKey.Id) exerciseId: string,
+    @GetUser(ParameterKey.Id) userId: string,
+    @Param(ParameterKey.Id) exerciseId: string,
     @Body() createPurchaseDto: CreatePurchaseDto,
   ) {
     return await this.purchasesService.create(createPurchaseDto, exerciseId, userId);
   }
 
+  @ApiOperation({description: PurchasesApiOperation.FindAll})
+  @ApiQuery({schema: {example: getSchemaPath(BaseQuery)}, required: false})
   @Roles(RoleEnum.Coach)
   @UseGuards(RolesGuard)
   @UseGuards(AccessTokenGuard)
   @Get()
   public async findAll(
-    @GetUser(ParametrKey.Id) coachId: string,
+    @GetUser(ParameterKey.Id) coachId: string,
+    @Query() query: BaseQuery,
   ) {
-    return await this.purchasesService.findAll(coachId);
+    return await this.purchasesService.findAll(coachId, query);
   }
 
 

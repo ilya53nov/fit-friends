@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import { ParametrKey } from '@fit-friends/shared-types'
+import { ParameterKey } from '@fit-friends/shared-types'
 import { END_POINT_BACKEND } from '../../constants/end-point-backend';
 
 export enum ApiTag {
@@ -21,9 +21,9 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: END_POINT_BACKEND,
     prepareHeaders: (headers, { getState }) => {
-      const token = localStorage.getItem(ParametrKey.Token)
+      const token = localStorage.getItem(ParameterKey.Token)
       if (token) {
-        headers.set(ParametrKey.Authorization, `Bearer ${token}`)
+        headers.set(ParameterKey.Authorization, `Bearer ${token}`)
       }
       return headers
     },
