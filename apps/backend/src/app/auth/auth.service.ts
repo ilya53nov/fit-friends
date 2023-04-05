@@ -3,7 +3,7 @@ import { JwtPayloadType, JwtTokenType, RoleEnum, UserType } from '@fit-friends/s
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '../users/users.repository';
-import { CreateCoachUserDto, CreateSportsmanUserDto, CreateUserDto, LoginUserDto } from '@fit-friends/shared-dto';
+import { CreateUserDto, LoginUserDto } from '@fit-friends/shared-dto';
 import { UserEntity } from '../users/users.entity';
 import { AUTHORIZATION_BEARER, AuthUserDescription } from './auth.constants';
 import { CoachUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
@@ -16,18 +16,6 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly jwtConfig: JwtConfig,
   ) {}
-
-  public async registerSpotsman(userDto: CreateSportsmanUserDto) {
-    const registeredUser = await this.register(userDto);
-
-    return fillObject(SportsmanUserRdo, registeredUser);
-  }
-
-  public async registerCoach(userDto: CreateCoachUserDto) {
-    const registeredUser = await this.register(userDto);
-
-    return fillObject(CoachUserRdo, registeredUser);
-  }
 
   public async register(userDto: CreateUserDto) {
     const user = { ...userDto, passwordHash: '', refreshTokenHash: ''};
@@ -49,7 +37,7 @@ export class AuthService {
 
     this.updateRefreshToken(newUser, tokens.refreshToken);
 
-    return newUser;
+    return userDto.role === RoleEnum.Coach ? fillObject(CoachUserRdo, newUser) : fillObject(SportsmanUserRdo, newUser);
   }
 
   private async verifyUser(userDto: LoginUserDto) {

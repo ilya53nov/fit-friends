@@ -1,7 +1,7 @@
 import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core';
 import { CreateExerciseDto, UpdateExerciseDto } from '@fit-friends/shared-dto';
 import { ExerciseRdo } from '@fit-friends/shared-rdo';
-import { ApiRouteEnum, ParametrKey, RoleEnum } from '@fit-friends/shared-types';
+import { ApiRouteEnum, ParameterKey, RoleEnum } from '@fit-friends/shared-types';
 import {
   Controller,
   Get,
@@ -13,15 +13,17 @@ import {
   Query,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 import { ExercisesService } from './exercises.service';
 import { ExercisesQuery } from './query/exercises.query';
+import { ExercisesApiOperation } from '@fit-friends/shared-description-operation';
 
 @ApiTags(ApiRouteEnum.Exercises)
 @Controller(ApiRouteEnum.Exercises)
 export class ExercisesController {
   constructor(private readonly exercisesService: ExercisesService) {}
 
+  @ApiOperation({description: ExercisesApiOperation.Create})
   @ApiResponse({
     type: ExerciseRdo,
     status: HttpStatus.CREATED,
@@ -37,12 +39,14 @@ export class ExercisesController {
   @UseGuards(AccessTokenGuard)
   @Post()
   public async create(
-    @GetUser(ParametrKey.Id) userId: string,
+    @GetUser(ParameterKey.Id) userId: string,
     @Body() createExerciseDto: CreateExerciseDto
   ) {
     return this.exercisesService.create(userId, createExerciseDto);
   }
 
+  @ApiOperation({description: ExercisesApiOperation.FindAll})
+  @ApiQuery({schema: {example: getSchemaPath(ExercisesQuery)}, required: false})
   @ApiResponse({
     type: ExerciseRdo,
     status: HttpStatus.OK,
@@ -55,12 +59,13 @@ export class ExercisesController {
   @UseGuards(AccessTokenGuard)
   @Get()
   public async findAll(
-    @GetUser(ParametrKey.Id) coachId: string,
+    @GetUser(ParameterKey.Id) coachId: string,
     @Query() query: ExercisesQuery,
   ) {
     return this.exercisesService.findAll(coachId, query);
   }
 
+  @ApiOperation({description: ExercisesApiOperation.FindOne})
   @ApiResponse({
     type: ExerciseRdo,
     status: HttpStatus.OK,
@@ -69,11 +74,12 @@ export class ExercisesController {
     status: HttpStatus.NOT_FOUND,
   })
   @UseGuards(AccessTokenGuard)
-  @Get(ParametrKey.Rout)
-  public async findOne(@Param(ParametrKey.Id) id: string) {
+  @Get(ParameterKey.Rout)
+  public async findOne(@Param(ParameterKey.Id) id: string) {
     return this.exercisesService.findOne(id);
   }
 
+  @ApiOperation({description: ExercisesApiOperation.Update})
   @ApiResponse({
     type: ExerciseRdo,
     status: HttpStatus.OK,
@@ -87,10 +93,10 @@ export class ExercisesController {
   @Roles(RoleEnum.Coach)
   @UseGuards(RolesGuard)
   @UseGuards(AccessTokenGuard)
-  @Patch(ParametrKey.Rout)
+  @Patch(ParameterKey.Rout)
   public async update(
-    @Param(ParametrKey.Id) exerciseId: string,
-    @GetUser(ParametrKey.Id) coachId: string,
+    @Param(ParameterKey.Id) exerciseId: string,
+    @GetUser(ParameterKey.Id) coachId: string,
     @Body() updateExerciseDto: UpdateExerciseDto
   ) {
     return this.exercisesService.update(exerciseId, coachId, updateExerciseDto);

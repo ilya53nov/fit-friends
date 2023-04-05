@@ -1,4 +1,4 @@
-export enum ParametrKey {
+export enum ParameterKey {
   Id = 'id',
   Role = 'role',
   Rout = ':id',

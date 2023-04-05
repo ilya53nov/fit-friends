@@ -1,5 +1,5 @@
-import { fillObject } from '@fit-friends/core';
-import { UpdateCoachUserDto, UpdateSportsmanUserDto } from '@fit-friends/shared-dto';
+import { BaseQuery, fillObject } from '@fit-friends/core';
+import { UpdateUserDto } from '@fit-friends/shared-dto';
 import { CoachUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
 import { RoleEnum } from '@fit-friends/shared-types';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
@@ -13,8 +13,8 @@ export class UsersService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  public async findAll() {
-    const users = await this.userRepository.findAll();
+  public async findAll(query: BaseQuery) {
+    const users = await this.userRepository.findAll(query);
     
     return users.map((user) => user.role === RoleEnum.Coach ? fillObject(CoachUserRdo, user) : fillObject(SportsmanUserRdo, user));
   }
@@ -33,24 +33,14 @@ export class UsersService {
     return fillObject(CoachUserRdo, existUser);
   }
 
-  public async updateSpotsman(userId: string, userDto: UpdateSportsmanUserDto) {
-    const updatedUser = await this.update(userId, userDto);
+  
 
-    return fillObject(SportsmanUserRdo, updatedUser);
-  }
-
-  public async updateCoach(userId: string,userDto: UpdateCoachUserDto) {
-    const updatedUser = await this.update(userId, userDto);
-
-    return fillObject(CoachUserRdo, updatedUser);
-  }
-
-  async update(userId: string, updateUserDto: UpdateSportsmanUserDto | UpdateCoachUserDto) {
+  async update(userId: string, updateUserDto: UpdateUserDto) {
     const user = await this.userRepository.findById(userId);    
     const userEntity = new UserEntity({...user, ...updateUserDto});
     const updatedUser = await this.userRepository.update(userId, userEntity);
 
-    return updatedUser;
+    return user.role === RoleEnum.Coach ? fillObject(CoachUserRdo, updatedUser) : fillObject(SportsmanUserRdo, updatedUser);
   }
 
 }

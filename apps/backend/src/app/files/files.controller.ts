@@ -8,18 +8,20 @@ import {
   FileTypeValidator,
 } from '@nestjs/common';
 import { FilesService } from './files.service';
-import { ApiRouteEnum, ParametrKey } from '@fit-friends/shared-types';
+import { ApiRouteEnum, ParameterKey } from '@fit-friends/shared-types';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ExerciseValidation, UserValidation } from '@fit-friends/shared-validation';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { FilesApiOperation } from '@fit-friends/shared-description-operation';
 
 @ApiTags(ApiRouteEnum.Files)
 @Controller(ApiRouteEnum.Files)
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
+  @ApiOperation({description: FilesApiOperation.UploadAvatar})
   @Post(ApiRouteEnum.Avatar)
-  @UseInterceptors(FileInterceptor(ParametrKey.File))
+  @UseInterceptors(FileInterceptor(ParameterKey.File))
   public async uploadAvatar(
     @UploadedFile(
       new ParseFilePipe({
@@ -34,8 +36,9 @@ export class FilesController {
     return this.filesService.uploadAvatar(file.filename);
   }
 
+  @ApiOperation({description: FilesApiOperation.UploadCertificate})
   @Post(ApiRouteEnum.Certificate)
-  @UseInterceptors(FileInterceptor(ParametrKey.File))
+  @UseInterceptors(FileInterceptor(ParameterKey.File))
   public async uploadCertificate(
     @UploadedFile(
       new ParseFilePipe({
@@ -49,8 +52,9 @@ export class FilesController {
     return this.filesService.uploadCertificate(file.filename);
   }
 
+  @ApiOperation({description: FilesApiOperation.UploadVideo})
   @Post(ApiRouteEnum.Video)
-  @UseInterceptors(FileInterceptor(ParametrKey.File))
+  @UseInterceptors(FileInterceptor(ParameterKey.File))
   public async uploadVideo(
     @UploadedFile(
       new ParseFilePipe({

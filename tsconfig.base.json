@@ -16,6 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@fit-friends/core": ["libs/core/src/index.ts"],
+      "@fit-friends/shared-description-operation": [
+        "libs/shared-description-operation/src/index.ts"
+      ],
       "@fit-friends/shared-description-property": [
         "libs/shared-description-property/src/index.ts"
       ],

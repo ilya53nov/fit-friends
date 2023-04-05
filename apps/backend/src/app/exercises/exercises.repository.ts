@@ -1,9 +1,9 @@
-import { ExerciseInterface } from '@fit-friends/shared-types';
+import { ExerciseInterface, QueryParameter } from '@fit-friends/shared-types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { ExercisesQueryParametr } from './exercises.constants';
 import { ExerciseEntity } from './exercises.entity';
 import { ExercisesQuery } from './query/exercises.query';
+import { BaseQuery } from '@fit-friends/core';
 
 @Injectable()
 export class ExercisesRepository {
@@ -24,16 +24,14 @@ export class ExercisesRepository {
         duration: {
           in: durations,
         },
-        rating: {
-          equals: rating,
-        },
+        rating,
         price: {
-          gte: priceRange[ExercisesQueryParametr.IndexInRange.gte],
-          lte: priceRange[ExercisesQueryParametr.IndexInRange.lte],
+          gte: priceRange ? priceRange[QueryParameter.IndexInRange.gte] : undefined,
+          lte: priceRange ? priceRange[QueryParameter.IndexInRange.lte] : undefined,
         },
         caloriesCount: {
-          gte: calorieRange[ExercisesQueryParametr.IndexInRange.gte],
-          lte: calorieRange[ExercisesQueryParametr.IndexInRange.lte],
+          gte: calorieRange ? calorieRange[QueryParameter.IndexInRange.gte] : undefined,
+          lte: calorieRange ? calorieRange[QueryParameter.IndexInRange.lte] : undefined,
         }
       },
       take: limit,
@@ -67,7 +65,7 @@ export class ExercisesRepository {
     })
   }
 
-  public async getSoldExercises(coachId: string) {
+  public async getSoldExercises(coachId: string, {limit, page, sortDirection}: BaseQuery) {
     return await this.prisma.exercise.findMany({
       where: {
         coachId,
@@ -89,6 +87,13 @@ export class ExercisesRepository {
           }
         }
       },
+      take: limit,
+      orderBy: [
+        {
+          createdAt: sortDirection,
+        }
+      ],
+      skip: page > 0 ? limit * (page - 1) : undefined,
 
     })
   }
