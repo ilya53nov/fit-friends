@@ -19,7 +19,7 @@ import { FilesApiOperation } from '@fit-friends/shared-description-operation';
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
-  @ApiOperation({description: FilesApiOperation.UploadAvatar})
+  @ApiOperation({summary: FilesApiOperation.UploadAvatar})
   @Post(ApiRouteEnum.Avatar)
   @UseInterceptors(FileInterceptor(ParameterKey.File))
   public async uploadAvatar(
@@ -36,7 +36,7 @@ export class FilesController {
     return this.filesService.uploadAvatar(file.filename);
   }
 
-  @ApiOperation({description: FilesApiOperation.UploadCertificate})
+  @ApiOperation({summary: FilesApiOperation.UploadCertificate})
   @Post(ApiRouteEnum.Certificate)
   @UseInterceptors(FileInterceptor(ParameterKey.File))
   public async uploadCertificate(
@@ -52,7 +52,7 @@ export class FilesController {
     return this.filesService.uploadCertificate(file.filename);
   }
 
-  @ApiOperation({description: FilesApiOperation.UploadVideo})
+  @ApiOperation({summary: FilesApiOperation.UploadVideo})
   @Post(ApiRouteEnum.Video)
   @UseInterceptors(FileInterceptor(ParameterKey.File))
   public async uploadVideo(

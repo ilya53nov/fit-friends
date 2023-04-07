@@ -21,7 +21,7 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @ApiOperation({description: UsersApiOperation.FindAll})
+  @ApiOperation({summary: UsersApiOperation.FindAll})
   @ApiQuery({schema: {example: getSchemaPath(BaseQuery)}, required: false})
   @ApiResponse({
     type: SportsmanUserRdo || CoachUserRdo,
@@ -33,7 +33,7 @@ export class UsersController {
     return this.usersService.findAll(query);
   }
 
-  @ApiOperation({description: UsersApiOperation.FindOne})
+  @ApiOperation({summary: UsersApiOperation.FindOne})
   @ApiResponse({
     type: SportsmanUserRdo || CoachUserRdo,
     status: HttpStatus.OK,
@@ -49,6 +49,7 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @ApiOperation({summary: UsersApiOperation.Update})
   @ApiResponse({
     type: SportsmanUserRdo,
     status: HttpStatus.OK,

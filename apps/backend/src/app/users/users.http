@@ -1,18 +1,51 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+@emailCoach = user@notfound3.local
+@password = 123456
+
+@authTokenCoach = {{loginCoach.response.body.accessToken}}
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+# Login coach
+# @name loginCoach
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailCoach}}",
+  "password": "{{password}}"
+}
+
+###
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
 # Get all users
-GET http://localhost:3333/api/users HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk2MDYyMzQsImV4cCI6MTY3OTYwNzEzNH0._vAAwaBHTGp3oGPhUWvs_pWjQBcrbhtf6OSVSUT-Tt8
+GET {{host}}/api/users HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
 
 ###
 
 # Get user 
 GET http://localhost:3333/api/users/c733fe4-712d-4adb-848c-51d22fd035e1 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk2MDYyMzQsImV4cCI6MTY3OTYwNzEzNH0._vAAwaBHTGp3oGPhUWvs_pWjQBcrbhtf6OSVSUT-Tt8
+Authorization: Bearer {{authTokenSportsman}}
 
 ###
 
 # Update user
 PATCH http://localhost:3333/api/users/update HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OWIyOWU4MC1mMzUyLTQzYTQtYTU2Zi0yMTY1MDU4Nzk0YzYiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMS5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibmFtZSI6ItCc0L7RgdC60LLQsCIsImlhdCI6MTY4MDcyOTQ0NywiZXhwIjoxNjgwNzMwMzQ3fQ.B7JBZyxmP9O3Lz9hZ8OdU7z_ZlbYvthoCtx2EbEIVdA
+Authorization: Bearer {{authTokenSportsman}}
 Content-Type: application/json
 
 {
