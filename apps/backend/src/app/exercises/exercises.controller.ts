@@ -23,7 +23,7 @@ import { ExercisesApiOperation } from '@fit-friends/shared-description-operation
 export class ExercisesController {
   constructor(private readonly exercisesService: ExercisesService) {}
 
-  @ApiOperation({description: ExercisesApiOperation.Create})
+  @ApiOperation({summary: ExercisesApiOperation.Create})
   @ApiResponse({
     type: ExerciseRdo,
     status: HttpStatus.CREATED,
@@ -45,7 +45,7 @@ export class ExercisesController {
     return this.exercisesService.create(userId, createExerciseDto);
   }
 
-  @ApiOperation({description: ExercisesApiOperation.FindAll})
+  @ApiOperation({summary: ExercisesApiOperation.FindAll})
   @ApiQuery({schema: {example: getSchemaPath(ExercisesQuery)}, required: false})
   @ApiResponse({
     type: ExerciseRdo,
@@ -65,7 +65,7 @@ export class ExercisesController {
     return this.exercisesService.findAll(coachId, query);
   }
 
-  @ApiOperation({description: ExercisesApiOperation.FindOne})
+  @ApiOperation({summary: ExercisesApiOperation.FindOne})
   @ApiResponse({
     type: ExerciseRdo,
     status: HttpStatus.OK,
@@ -79,7 +79,7 @@ export class ExercisesController {
     return this.exercisesService.findOne(id);
   }
 
-  @ApiOperation({description: ExercisesApiOperation.Update})
+  @ApiOperation({summary: ExercisesApiOperation.Update})
   @ApiResponse({
     type: ExerciseRdo,
     status: HttpStatus.OK,

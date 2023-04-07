@@ -21,7 +21,7 @@ import { PurchasesApiOperation } from '@fit-friends/shared-description-operation
 export class PurchasesController {
   constructor(private readonly purchasesService: PurchasesService) {}
 
-  @ApiOperation({description: PurchasesApiOperation.Create})
+  @ApiOperation({summary: PurchasesApiOperation.Create})
   @ApiResponse({
     type: PurchaseRdo,
     status: HttpStatus.CREATED,
@@ -44,7 +44,7 @@ export class PurchasesController {
     return await this.purchasesService.create(createPurchaseDto, exerciseId, userId);
   }
 
-  @ApiOperation({description: PurchasesApiOperation.FindAll})
+  @ApiOperation({summary: PurchasesApiOperation.FindAll})
   @ApiQuery({schema: {example: getSchemaPath(BaseQuery)}, required: false})
   @Roles(RoleEnum.Coach)
   @UseGuards(RolesGuard)

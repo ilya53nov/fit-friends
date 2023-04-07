@@ -22,7 +22,7 @@ import { AuthApiOperation } from '@fit-friends/shared-description-operation';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiOperation({description: AuthApiOperation.Register})
+  @ApiOperation({summary: AuthApiOperation.Register})
   @Post(ApiRouteEnum.Register)
   @ApiResponse({
     type: SportsmanUserRdo,
@@ -41,7 +41,7 @@ export class AuthController {
     return await this.authService.register(userDto);    
   }
 
-  @ApiOperation({description: AuthApiOperation.Login})
+  @ApiOperation({summary: AuthApiOperation.Login})
   @Post(ApiRouteEnum.Login)
   @ApiResponse({
     type: LoggedUserRdo,
@@ -56,7 +56,7 @@ export class AuthController {
     return this.authService.loginUser(loginUserDto);
   }
 
-  @ApiOperation({description: AuthApiOperation.RefreshTokens})
+  @ApiOperation({summary: AuthApiOperation.RefreshTokens})
   @UseGuards(RefreshTokenGuard)
   @Get(ApiRouteEnum.RefreshToken)
   public async refreshTokens(@Request() req, @Headers(ParameterKey.Authorization) bearerToken: string) {

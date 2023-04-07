@@ -1,6 +1,39 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+@emailCoach = user@notfound3.local
+@password = 123456
+
+@authTokenCoach = {{loginCoach.response.body.accessToken}}
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+# Login coach
+# @name loginCoach
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailCoach}}",
+  "password": "{{password}}"
+}
+
+###
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
 # Create a new purchase
-POST http://localhost:3333/api/purchases/bef656a4-9eaf-41ad-b12d-64d37a834e73 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OWIyOWU4MC1mMzUyLTQzYTQtYTU2Zi0yMTY1MDU4Nzk0YzYiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMS5sb2NhbCIsInJvbGUiOiJ1c2VyIiwibmFtZSI6ItCc0L7RgdC60LLQsCIsImlhdCI6MTY4MDcyMzM2OSwiZXhwIjoxNjgwNzI0MjY5fQ.2K_gk7kNXWdbuQIOMvGpTbLzh5ZALO87tAEfvlfDQzQ
+POST {{host}}/api/purchases/bef656a4-9eaf-41ad-b12d-64d37a834e73 HTTP/1.1
+Authorization: Bearer {{authTokenCoach}}
 Content-Type: application/json
 
 {
@@ -13,6 +46,6 @@ Content-Type: application/json
 
 # Get my purchases
 GET http://localhost:3333/api/purchases HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU3MzE0MC0wNWQxLTQxMTktYjU2My1lODRhZmQwNjk3ODAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA3MjMyMzEsImV4cCI6MTY4MDcyNDEzMX0.vGKX5ITxUS-FPmEo6OTHk5a-SWf6JFDgs4y2KxmqaCc
+Authorization: Bearer {{authTokenCoach}}
 
 ###

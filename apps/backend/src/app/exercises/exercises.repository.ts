@@ -18,6 +18,8 @@ export class ExercisesRepository {
   }
 
   public async findAll(coachId: string, {limit, page, sortDirection, durations, rating, priceRange, calorieRange}: ExercisesQuery): Promise<ExerciseInterface[]> {
+    console.log(durations);
+    
     return await this.prisma.exercise.findMany({
       where: {
         coachId,

@@ -19,7 +19,7 @@ import { FriendsApiOperation } from '@fit-friends/shared-description-operation';
 export class FriendsController {
   constructor(private readonly friendsService: FriendsService) {}
 
-  @ApiOperation({description: FriendsApiOperation.Create})
+  @ApiOperation({summary: FriendsApiOperation.Create})
   @UseGuards(AccessTokenGuard)
   @Post()
   public async create(
@@ -29,14 +29,14 @@ export class FriendsController {
     return await this.friendsService.create(createFriendDto, userId);
   }
 
-  @ApiOperation({description: FriendsApiOperation.FindAll})
+  @ApiOperation({summary: FriendsApiOperation.FindAll})
   @UseGuards(AccessTokenGuard)
   @Get()
   public async findAll(@GetUser(ParameterKey.Id) userId: string,) {
     return this.friendsService.findAll(userId);
   }
 
-  @ApiOperation({description: FriendsApiOperation.Delete})
+  @ApiOperation({summary: FriendsApiOperation.Delete})
   @Delete(ParameterKey.Rout)
   public async remove(@Param(ParameterKey.Id) id: string) {
     return this.friendsService.remove(+id);

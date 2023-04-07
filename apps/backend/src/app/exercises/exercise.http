@@ -1,6 +1,40 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+@emailCoach = user@notfound3.local
+@password = 123456
+
+@authTokenCoach = {{loginCoach.response.body.accessToken}}
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+# Login coach
+# @name loginCoach
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailCoach}}",
+  "password": "{{password}}"
+}
+
+###
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
 # Create a new exercise 
-POST http://localhost:3333/api/exercises HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU3MzE0MC0wNWQxLTQxMTktYjU2My1lODRhZmQwNjk3ODAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA3MTM5ODgsImV4cCI6MTY4MDcxNDg4OH0.AUzPsgCqGIB4iyE6nYev9Xtw1BoR8wUjhJe951gMx4k
+# @name createExercise
+POST {{host}}/api/exercises HTTP/1.1
+Authorization: Bearer {{authTokenCoach}}
 Content-Type: application/json
 
 {
@@ -18,20 +52,22 @@ Content-Type: application/json
 
 ###
 
+@exerciseId = {{createExercise.response.body.$.id}}
+
 # Get my exercises
-GET http://localhost:3333/api/exercises  HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU3MzE0MC0wNWQxLTQxMTktYjU2My1lODRhZmQwNjk3ODAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA3MjI2NjYsImV4cCI6MTY4MDcyMzU2Nn0.IHsGHH0uQKl2TMadBrOftQ1ae8uGvI7trQ2QFKNCrwg
+GET {{host}}/api/exercises  HTTP/1.1
+Authorization: Bearer {{authTokenCoach}}
 ###
 
 # Get exercise by id
-GET http://localhost:3333/api/exercises/887b6b07-c474-423b-9d3e-eb5a14b3aab5 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk5Mjg5MjYsImV4cCI6MTY3OTkyOTgyNn0.zGFi-SOyaEc1WThhFhQ62otMS1w_xqON4FFy4bCWdHY
+GET {{host}}/api/exercises/{{exerciseId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
 
 ###
 
 # Update exercise 
-PATCH  http://localhost:3333/api/exercises/887b6b07-c474-423b-9d3e-eb5a14b3aab5 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDAwMjk1Zi00NDE2LTQ1YjgtYTk5NC0xNmY5MDVjMTU0ZDUiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2Nzk5Mjg5MjYsImV4cCI6MTY3OTkyOTgyNn0.zGFi-SOyaEc1WThhFhQ62otMS1w_xqON4FFy4bCWdHY
+PATCH  http://localhost:3333/api/exercises/{{exerciseId}} HTTP/1.1
+Authorization: Bearer {{authTokenCoach}}
 Content-Type: application/json
 
 {

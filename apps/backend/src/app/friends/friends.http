@@ -1,6 +1,39 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+@emailCoach = user@notfound3.local
+@password = 123456
+
+@authTokenCoach = {{loginCoach.response.body.accessToken}}
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+# Login coach
+# @name loginCoach
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailCoach}}",
+  "password": "{{password}}"
+}
+
+###
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
 # Add a new friend
-POST http://localhost:3333/api/friends HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU3MzE0MC0wNWQxLTQxMTktYjU2My1lODRhZmQwNjk3ODAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA1NDc1NjAsImV4cCI6MTY4MDU0ODQ2MH0.TeqeWuiubqdk82NsTNOt57MsflKIM6ZxxKjxWHEuIiY
+POST {{host}}/api/friends HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
 Content-Type: application/json
 
 {
@@ -10,7 +43,7 @@ Content-Type: application/json
 ###
 
 # Get my friends
-GET http://localhost:3333/api/friends HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0ZWU3MzE0MC0wNWQxLTQxMTktYjU2My1lODRhZmQwNjk3ODAiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQyMC5sb2NhbCIsInJvbGUiOiJjb2FjaCIsIm5hbWUiOiLQnNC-0YHQutCy0LAiLCJpYXQiOjE2ODA1NDc1NjAsImV4cCI6MTY4MDU0ODQ2MH0.TeqeWuiubqdk82NsTNOt57MsflKIM6ZxxKjxWHEuIiY
+GET {{host}}/api/friends HTTP/1.1
+Authorization: Bearer {{authTokenCoach}}
 
 ###
