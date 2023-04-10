@@ -12,6 +12,7 @@ import { UsersModule } from './users/users.module';
 import { UsersService } from './users/users.service';
 import { FriendsModule } from './friends/friends.module';
 import { FilesModule } from './files/files.module';
+import { FoodDiaryModule } from './user-personal-account/food-diary/food-diary.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { FilesModule } from './files/files.module';
     PurchasesModule,
     FriendsModule,
     FilesModule,
+    FoodDiaryModule,
   ],
   providers: [UsersService],
   exports: [UsersModule]

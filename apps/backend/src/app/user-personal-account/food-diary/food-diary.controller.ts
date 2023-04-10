@@ -6,18 +6,25 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { FoodDiaryService } from './food-diary.service';
-import { CreateFoodDiaryDto } from './dto/create-food-diary.dto';
-import { UpdateFoodDiaryDto } from './dto/update-food-diary.dto';
+import { CreateFoodDiaryDto, UpdateFoodDiaryDto } from '@fit-friends/shared-dto';
+import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core';
+import { ParameterKey, RoleEnum } from '@fit-friends/shared-types';
 
 @Controller('food-diary')
 export class FoodDiaryController {
   constructor(private readonly foodDiaryService: FoodDiaryService) {}
 
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
   @Post()
-  create(@Body() createFoodDiaryDto: CreateFoodDiaryDto) {
-    return this.foodDiaryService.create(createFoodDiaryDto);
+  public async create(
+    @GetUser(ParameterKey.Id) userId: string,
+    @Body() createFoodDiaryDto: CreateFoodDiaryDto) {
+    return this.foodDiaryService.create(createFoodDiaryDto, userId);
   }
 
   @Get()
@@ -30,12 +37,16 @@ export class FoodDiaryController {
     return this.foodDiaryService.findOne(+id);
   }
 
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @GetUser(ParameterKey.Id) userId: string,
+    @Param('id') foodDiaryid: string,
     @Body() updateFoodDiaryDto: UpdateFoodDiaryDto
   ) {
-    return this.foodDiaryService.update(+id, updateFoodDiaryDto);
+    return this.foodDiaryService.update(foodDiaryid, userId, updateFoodDiaryDto);
   }
 
   @Delete(':id')

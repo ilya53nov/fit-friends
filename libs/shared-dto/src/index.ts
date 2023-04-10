@@ -11,3 +11,5 @@ export * from './lib/update-user-dto.type';
 export * from './lib/create-exercise.dto';
 export * from './lib/update-exercise.dto';
 export * from './lib/create-purchase.dto';
+export * from './lib/create-food-diary.dto';
+export * from './lib/update-food-diary.dto';

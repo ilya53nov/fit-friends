@@ -34,6 +34,7 @@ model User {
   purchases Purchase[]
   friendBy Friend[] @relation("user")
   friends  Friend[] @relation("friend")
+  foodDiary FoodDiary[]
 }
 
 model Exercise {
@@ -76,4 +77,13 @@ model Friend {
   friendId String
 
   @@id([userId, friendId])
+}
+
+model FoodDiary {
+  id String @id @default(uuid())
+  user User @relation(fields: [userId], references: [id])
+  userId  String
+  caloriesCount Int
+  foodType String
+  date DateTime  
 }
