@@ -1,0 +1,49 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+@password = 123456
+
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
+# Create a new food diary
+# @name createFoodDiary
+POST {{host}}/api/food-diary HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+Content-Type: application/json
+
+{
+  "caloriesCount": 1000,
+  "foodType": "ужин",
+  "date": "2020-12-23"
+}
+
+###
+
+@foodDiaryId = {{createFoodDiary.response.body.$.id}}
+
+# Update food diary
+PATCH {{host}}/api/food-diary/{{foodDiaryId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+Content-Type: application/json
+
+{
+  "caloriesCount": 1000,
+  "foodType": "завтрак",
+  "date": "2020-12-23"
+}
+
+###

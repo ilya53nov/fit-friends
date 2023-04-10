@@ -1,5 +1,5 @@
 export interface ExerciseDiaryInterface {
-  id: string;
+  id?: string;
   userId: string;
   exerciseId: string;
   caloriesSpentCount: number;

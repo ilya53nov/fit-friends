@@ -1,5 +1,5 @@
 export interface FoodDiaryInterface {
-  id: string;
+  id?: string;
   userId: string;
   caloriesCount: number;
   foodType: string;
