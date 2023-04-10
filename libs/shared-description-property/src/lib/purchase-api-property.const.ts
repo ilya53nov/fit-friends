@@ -35,4 +35,4 @@ export const PurchaseApiProperty = {
     description: 'Способ оплаты',
     example: 'visa',       
   }
-}
+} as const

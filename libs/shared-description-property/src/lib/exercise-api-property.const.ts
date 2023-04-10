@@ -59,4 +59,4 @@ export const ExerciseApiProperty = {
     description: 'Дата создания тренировки',
     example: '2023-03-22T16:29:03.561Z',      
   },
-}
+} as const
