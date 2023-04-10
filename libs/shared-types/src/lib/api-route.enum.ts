@@ -15,5 +15,7 @@ export enum ApiRouteEnum {
   Files = 'files',
   Avatar = 'avatar',
   Certificate = 'certificate',
-  Video = 'video'
+  Video = 'video',
+  ExersiceDiary = 'exercise-diary',
+  FoodDiary = 'food-diary',
 }

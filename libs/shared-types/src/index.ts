@@ -22,3 +22,7 @@ export * from './lib/jwt-payload.type';
 export * from './lib/jwt-token.type';
 export * from './lib/port-db.enum';
 export * from './lib/query-parameter.const';
+export * from './lib/exercise-diary.interface';
+export * from './lib/food-diary.interface';
+export * from './lib/food-type.enum';
+export * from './lib/user-balance.interface';
