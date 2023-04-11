@@ -28,7 +28,7 @@ Content-Type: application/json
 {
   "caloriesCount": 1000,
   "foodType": "ужин",
-  "date": "2020-12-23"
+  "date": "2020-12-25"
 }
 
 ###
@@ -45,5 +45,11 @@ Content-Type: application/json
   "foodType": "завтрак",
   "date": "2020-12-23"
 }
+
+###
+
+# Get my food diary
+GET {{host}}/api/food-diary HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
 
 ###
