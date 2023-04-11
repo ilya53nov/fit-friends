@@ -34,5 +34,12 @@ export class FoodDiaryRepository {
     });
   }
 
+  public async findAll(userId: string): Promise<FoodDiaryInterface[]>{
+    return await this.prisma.foodDiary.findMany({
+      where: {
+        userId,
+      }
+    });
+  }
 
 }

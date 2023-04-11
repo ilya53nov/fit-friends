@@ -2,6 +2,9 @@ import { CreateFoodDiaryDto, UpdateFoodDiaryDto } from '@fit-friends/shared-dto'
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { FoodDiaryRepository } from './food-diary.repository';
 import { FoodDiaryEntity } from './food-diary.entity';
+import { fillObject } from '@fit-friends/core';
+import { FoodDiaryRdo } from '@fit-friends/shared-rdo';
+import { FoodDiaryDescription } from './food-diary.constants';
 
 @Injectable()
 export class FoodDiaryService {
@@ -14,36 +17,31 @@ export class FoodDiaryService {
 
     const newFoodDiary = await this.foodDiaryRepository.create(entity);
 
-    return newFoodDiary;
+    return fillObject(FoodDiaryRdo, newFoodDiary) ;
   }
 
-  findAll() {
-    return `This action returns all foodDiary`;
-  }
+  public async findAll(userId: string) {
+    const finded = await this.foodDiaryRepository.findAll(userId);
 
-  findOne(id: number) {
-    return `This action returns a #${id} foodDiary`;
+    return finded.map((item) => fillObject(FoodDiaryRdo, item));
   }
 
   public async update(foodDiaryid: string, userId: string, updateFoodDiaryDto: UpdateFoodDiaryDto) {
     const existFoodDiary = await this.foodDiaryRepository.findById(foodDiaryid);
 
     if (!existFoodDiary) {
-      throw new NotFoundException('Дневник тренировок не найден');
+      throw new NotFoundException(FoodDiaryDescription.NotFound);
     }
 
     if (existFoodDiary.userId !== userId) {
-      throw new ForbiddenException('Вы не являетесь владельцем данного дневника тренировок');
+      throw new ForbiddenException(FoodDiaryDescription.NotOwner);
     }
 
     const foodDiaryEntity = await new FoodDiaryEntity({...existFoodDiary, ...updateFoodDiaryDto});
 
     const updatedFoodDiary = await this.foodDiaryRepository.update(foodDiaryid, foodDiaryEntity);
 
-    return updatedFoodDiary;
+    return fillObject(FoodDiaryRdo, updatedFoodDiary);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} foodDiary`;
-  }
 }
