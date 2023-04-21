@@ -3,6 +3,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 
 export class FoodDiaryRdo {
+  @ApiProperty(FoodDiaryApiProperty.Id)
+  @Expose()
+  id!: string;
+
   @ApiProperty(FoodDiaryApiProperty.CaloriesCount)
   @Expose()
   caloriesCount!: number;

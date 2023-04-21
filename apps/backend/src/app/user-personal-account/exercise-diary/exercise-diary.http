@@ -19,37 +19,37 @@ Content-Type: application/json
 
 ###
 
-# Create a new food diary
-# @name createFoodDiary
-POST {{host}}/api/food-diary HTTP/1.1
+# Create a new exercise diary
+# @name createExerciseDiary
+POST {{host}}/api/exercise-diary HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 Content-Type: application/json
 
 {
-  "caloriesCount": 1000,
-  "foodType": "завтрак",
+  "exerciseId": "82bf6fc9-ff20-4ee3-93b5-4210bb4fe460",
+  "caloriesSpentCount": 1000,
+  "timeSpentExercise": 10,
   "date": "2020-12-26"
 }
 
 ###
 
-@foodDiaryId = {{createFoodDiary.response.body.$.id}}
+@exerciseDiaryId = {{createExerciseDiary.response.body.$.id}}
 
-# Update food diary
-PATCH {{host}}/api/food-diary/{{foodDiaryId}} HTTP/1.1
+# Update exercise diary
+PATCH {{host}}/api/exercise-diary/{{exerciseDiaryId}} HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 Content-Type: application/json
 
 {
-  "caloriesCount": 1000,
-  "foodType": "завтрак",
-  "date": "2020-12-26"
+  "caloriesSpentCount": 1000,
+  "timeSpentExercise": 20,
 }
 
 ###
 
-# Get my food diary
-GET {{host}}/api/food-diary HTTP/1.1
+# Get my exercise diary
+GET {{host}}/api/exercise-diary HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 
 ###
