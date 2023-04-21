@@ -5,41 +5,78 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
+  HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { ExerciseDiaryService } from './exercise-diary.service';
-import { CreateExerciseDiaryDto } from './dto/create-exercise-diary.dto';
-import { UpdateExerciseDiaryDto } from './dto/update-exercise-diary.dto';
+import { CreateExerciseDiaryDto, UpdateExerciseDiaryDto } from '@fit-friends/shared-dto';
+import { ApiRouteEnum, ParameterKey, RoleEnum } from '@fit-friends/shared-types';
+import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ExeciseDiaryApiOperation } from '@fit-friends/shared-description-operation';
+import { ExerciseDiaryRdo } from '@fit-friends/shared-rdo';
 
-@Controller('exercise-diary')
+@Controller(ApiRouteEnum.ExersiceDiary)
 export class ExerciseDiaryController {
   constructor(private readonly exerciseDiaryService: ExerciseDiaryService) {}
 
+  @ApiOperation({summary: ExeciseDiaryApiOperation.Create})
+  @ApiResponse({
+    type: ExerciseDiaryRdo,
+    status: HttpStatus.CREATED,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+  })
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
   @Post()
-  create(@Body() createExerciseDiaryDto: CreateExerciseDiaryDto) {
-    return this.exerciseDiaryService.create(createExerciseDiaryDto);
+  public async create(
+    @GetUser(ParameterKey.Id) userId: string,
+    @Body() createExerciseDiaryDto: CreateExerciseDiaryDto) {
+    return this.exerciseDiaryService.create(createExerciseDiaryDto, userId);
   }
 
+  @ApiOperation({summary: ExeciseDiaryApiOperation.FindAll})
+  @ApiResponse({
+    type: ExerciseDiaryRdo,
+    status: HttpStatus.OK,
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+  })
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
   @Get()
-  findAll() {
-    return this.exerciseDiaryService.findAll();
+  public async findAll(@GetUser(ParameterKey.Id) userId: string,) {
+    return this.exerciseDiaryService.findAll(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.exerciseDiaryService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
+  @ApiOperation({summary: ExeciseDiaryApiOperation.Update})
+  @ApiResponse({
+    type: ExerciseDiaryRdo,
+    status: HttpStatus.OK,
+  })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+  })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+  })  
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
+  @Patch(ParameterKey.Rout)
+  public async update(
+    @GetUser(ParameterKey.Id) userId: string,
+    @Param(ParameterKey.Id) exerciseDiaryid: string,
     @Body() updateExerciseDiaryDto: UpdateExerciseDiaryDto
   ) {
-    return this.exerciseDiaryService.update(+id, updateExerciseDiaryDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.exerciseDiaryService.remove(+id);
+    return this.exerciseDiaryService.update(exerciseDiaryid, userId, updateExerciseDiaryDto);
   }
 }

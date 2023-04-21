@@ -27,8 +27,8 @@ Content-Type: application/json
 
 {
   "caloriesCount": 1000,
-  "foodType": "ужин",
-  "date": "2020-12-25"
+  "foodType": "завтрак",
+  "date": "2020-12-26"
 }
 
 ###
@@ -43,7 +43,7 @@ Content-Type: application/json
 {
   "caloriesCount": 1000,
   "foodType": "завтрак",
-  "date": "2020-12-23"
+  "date": "2020-12-26"
 }
 
 ###
