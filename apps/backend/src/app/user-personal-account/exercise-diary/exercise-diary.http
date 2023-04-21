@@ -1,0 +1,55 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+@password = 123456
+
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
+# Create a new exercise diary
+# @name createExerciseDiary
+POST {{host}}/api/exercise-diary HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+Content-Type: application/json
+
+{
+  "exerciseId": "82bf6fc9-ff20-4ee3-93b5-4210bb4fe460",
+  "caloriesSpentCount": 1000,
+  "timeSpentExercise": 10,
+  "date": "2020-12-26"
+}
+
+###
+
+@exerciseDiaryId = {{createExerciseDiary.response.body.$.id}}
+
+# Update exercise diary
+PATCH {{host}}/api/exercise-diary/{{exerciseDiaryId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+Content-Type: application/json
+
+{
+  "caloriesSpentCount": 1000,
+  "timeSpentExercise": 20,
+}
+
+###
+
+# Get my exercise diary
+GET {{host}}/api/exercise-diary HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+
+###
