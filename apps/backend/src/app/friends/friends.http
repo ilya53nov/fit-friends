@@ -2,48 +2,55 @@
 @port = 3333
 @host = http://{{hostname}}:{{port}}
 
-@emailSportsman = user@notfound2.local
-@emailCoach = user@notfound3.local
+@emailSportsman1 = user@notfound2.local
+@emailSportsman2 = user@notfound4.local
 @password = 123456
 
-@authTokenCoach = {{loginCoach.response.body.accessToken}}
-@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
-# Login coach
-# @name loginCoach
+@authTokenSportsman1 = {{loginSportsman1.response.body.accessToken}}
+@authTokenSportsman2 = {{loginSportsman2.response.body.accessToken}}
+# Login sportsman1
+# @name loginSportsman1
 POST {{host}}/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "{{emailCoach}}",
+  "email": "{{emailSportsman1}}",
   "password": "{{password}}"
 }
 
 ###
-# Login sportsman
-# @name loginSportsman
+# Login sportsman2
+# @name loginSportsman2
 POST {{host}}/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "{{emailSportsman}}",
+  "email": "{{emailSportsman2}}",
   "password": "{{password}}"
 }
 
 ###
 
 # Add a new friend
-POST {{host}}/api/friends HTTP/1.1
-Authorization: Bearer {{authTokenSportsman}}
-Content-Type: application/json
-
-{
-  "friendId": "e9ede6f8-6210-4dd2-9215-e8446663fa14"
-}
+POST {{host}}/api/friends/f4c257ad-efe0-423f-9a96-cde90f153622 HTTP/1.1
+Authorization: Bearer {{authTokenSportsman1}}
 
 ###
 
-# Get my friends
+# Get my friends (sportsman1)
 GET {{host}}/api/friends HTTP/1.1
-Authorization: Bearer {{authTokenCoach}}
+Authorization: Bearer {{authTokenSportsman1}}
+
+###
+
+# Get my friends (sportsman2)
+GET {{host}}/api/friends HTTP/1.1
+Authorization: Bearer {{authTokenSportsman2}}
+
+###
+
+# Delete friend
+DELETE {{host}}/api/friends/f4c257ad-efe0-423f-9a96-cde90f153622 HTTP/1.1
+Authorization: Bearer {{authTokenSportsman1}}
 
 ###

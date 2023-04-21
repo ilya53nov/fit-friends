@@ -5,22 +5,41 @@ import { PrismaService } from '../prisma/prisma.service';
 export class FriendsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async create(friendId: string, userId: string) {
-    return await this.prisma.friend.create({      
+  public async create(userId: string, friendId: string) {
+    await this.prisma.friend.create({      
       data: {
-        friendId: friendId,
-        userId: userId,
+        userId,
+        friendId,
       },
     })
   }
 
-  public async findAll(userId: string) {
-    return await this.prisma.friend.findMany({
+  public async delete(id: string) {
+    return await this.prisma.friend.delete({      
       where: {
-        userId: userId,
+        id,
+      }
+    })
+  }
+
+  public async findAll(userId: string) {
+    return await this.prisma.friend.findMany({      
+      where: {
+        userId,
       },
       select: {
         friend: true,
+      }
+    })
+  }
+
+  public async findById(friendId: string, userId: string) {
+    return await this.prisma.friend.findFirst({      
+      where: {
+        AND: {
+          userId,
+          friendId,
+        }        
       }
     })
   }

@@ -2,13 +2,11 @@ import {
   Controller,
   Get,
   Post,
-  Body,
   Param,
   Delete,
   UseGuards,
 } from '@nestjs/common';
 import { FriendsService } from './friends.service';
-import { CreateFriendDto } from './dto/create-friend.dto';
 import { AccessTokenGuard, GetUser } from '@fit-friends/core';
 import { ApiRouteEnum, ParameterKey } from '@fit-friends/shared-types';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -17,16 +15,18 @@ import { FriendsApiOperation } from '@fit-friends/shared-description-operation';
 @ApiTags(ApiRouteEnum.Friends)
 @Controller(ApiRouteEnum.Friends)
 export class FriendsController {
-  constructor(private readonly friendsService: FriendsService) {}
+  constructor(
+    private readonly friendsService: FriendsService,
+  ) {}
 
   @ApiOperation({summary: FriendsApiOperation.Create})
   @UseGuards(AccessTokenGuard)
-  @Post()
+  @Post(ParameterKey.Rout)
   public async create(
     @GetUser(ParameterKey.Id) userId: string,
-    @Body() createFriendDto: CreateFriendDto,
+    @Param(ParameterKey.Id) friendId: string,
   ) {
-    return await this.friendsService.create(createFriendDto, userId);
+    return await this.friendsService.create(friendId, userId);
   }
 
   @ApiOperation({summary: FriendsApiOperation.FindAll})
@@ -37,8 +37,12 @@ export class FriendsController {
   }
 
   @ApiOperation({summary: FriendsApiOperation.Delete})
+  @UseGuards(AccessTokenGuard)
   @Delete(ParameterKey.Rout)
-  public async remove(@Param(ParameterKey.Id) id: string) {
-    return this.friendsService.remove(+id);
+  public async delete(
+    @GetUser(ParameterKey.Id) userId: string,
+    @Param(ParameterKey.Id) friendId: string
+  ) {
+    return this.friendsService.delete(friendId, userId)
   }
 }

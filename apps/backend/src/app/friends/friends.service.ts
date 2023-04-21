@@ -1,5 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CreateFriendDto } from './dto/create-friend.dto';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { FriendsRepository } from './friends.repository';
 import { fillObject } from '@fit-friends/core';
 import { RoleEnum } from '@fit-friends/shared-types';
@@ -14,16 +13,25 @@ export class FriendsService {
     private readonly userRepository: UserRepository,
   ) {}  
 
-  public async create(createFriendDto: CreateFriendDto, userId: string) {
-    const friendId = createFriendDto.friendId;
+  public async create(friendId: string, userId: string) {
+    if (userId === friendId) {
+      throw new ConflictException('Вы не можете добавить самого себя в друзья');
+    }
 
     const existUser = await this.userRepository.findById(friendId);
     
     if (!existUser) {
-      throw new UnauthorizedException(AuthUserDescription.NotFound);
+      throw new NotFoundException(AuthUserDescription.NotFound);
+    }
+
+    const existFriend = await this.friendsRepository.findById(friendId, userId);
+
+    if (existFriend) {
+      throw new ConflictException('Данный пользователь уже у вас в друзьях');
     }
     
-    return await this.friendsRepository.create(friendId, userId);
+    await this.friendsRepository.create(friendId, userId);
+    await this.friendsRepository.create(userId, friendId);
   }
 
   public async findAll(userId: string) {
@@ -32,7 +40,16 @@ export class FriendsService {
     return friends.map(({friend}) => friend.role === RoleEnum.Coach ? fillObject(CoachUserRdo, friend) : fillObject(SportsmanUserRdo, friend));
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} friend`;
-  }
+  public async delete(friendId: string, userId: string) {
+    const existFriend = await this.friendsRepository.findById(friendId, userId);
+
+    if (!existFriend) {
+      throw new NotFoundException('Данный пользователь не найден у вас в друзьях');
+    }
+
+    const friendshipWithMe = await this.friendsRepository.findById(userId, friendId);
+
+    await this.friendsRepository.delete(existFriend.id);
+    await this.friendsRepository.delete(friendshipWithMe.id);
+  }  
 }
