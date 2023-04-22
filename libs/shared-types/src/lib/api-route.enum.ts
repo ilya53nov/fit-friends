@@ -18,4 +18,8 @@ export enum ApiRouteEnum {
   Video = 'video',
   ExersiceDiary = 'exercise-diary',
   FoodDiary = 'food-diary',
+  FavoriteGym = 'favorite-gym',
+  Balance = 'balance',
+  Increment = 'increment',
+  Decrement = 'decrement',
 }
