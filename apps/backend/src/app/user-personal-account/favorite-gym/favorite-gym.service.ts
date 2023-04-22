@@ -1,26 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import { CreateFavoriteGymDto } from './dto/create-favorite-gym.dto';
-import { UpdateFavoriteGymDto } from './dto/update-favorite-gym.dto';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { FavoriteGymRepository } from './favorite-gym.repository';
+import { FavoriteGymDescription } from './favorite-gym.constants';
 
 @Injectable()
 export class FavoriteGymService {
-  create(createFavoriteGymDto: CreateFavoriteGymDto) {
-    return 'This action adds a new favoriteGym';
+  constructor(private readonly favoriteGymRepository: FavoriteGymRepository) {}
+  
+  public async create(userId: string, gymId: string) {
+    const findedFavoriteGym = await this.favoriteGymRepository.findById(userId, gymId);
+
+    if (findedFavoriteGym) {
+      throw new ConflictException(FavoriteGymDescription.FoundFavorite);
+    }
+
+    return await this.favoriteGymRepository.create(userId, gymId);
   }
 
-  findAll() {
-    return `This action returns all favoriteGym`;
+  public async findAll(userId: string) {
+    return await this.favoriteGymRepository.findAll(userId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} favoriteGym`;
-  }
+  public async delete(userId: string, gymId: string) {
+    const findedFavoriteGym = await this.favoriteGymRepository.findById(userId, gymId);
 
-  update(id: number, updateFavoriteGymDto: UpdateFavoriteGymDto) {
-    return `This action updates a #${id} favoriteGym`;
-  }
+    if (!findedFavoriteGym) {
+      throw new NotFoundException(FavoriteGymDescription.NotFoundFavorite);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} favoriteGym`;
+    await this.favoriteGymRepository.delete(findedFavoriteGym.id);
   }
 }
