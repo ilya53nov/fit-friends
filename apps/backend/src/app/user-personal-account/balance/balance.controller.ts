@@ -1,42 +1,52 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
-  Param,
-  Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { BalanceService } from './balance.service';
-import { CreateBalanceDto } from './dto/create-balance.dto';
-import { UpdateBalanceDto } from './dto/update-balance.dto';
+import { UpdateUserBalanceDto } from '@fit-friends/shared-dto';
+import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core';
+import { ApiRouteEnum, ParameterKey, RoleEnum } from '@fit-friends/shared-types';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { UserBalanceApiOperation } from '@fit-friends/shared-description-operation';
 
-@Controller('balance')
+@ApiTags(ApiRouteEnum.Balance)
+@Controller(ApiRouteEnum.Balance)
 export class BalanceController {
   constructor(private readonly balanceService: BalanceService) {}
 
-  @Post()
-  create(@Body() createBalanceDto: CreateBalanceDto) {
-    return this.balanceService.create(createBalanceDto);
-  }
-
+  @ApiOperation({summary: UserBalanceApiOperation.FindAll})
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
   @Get()
-  findAll() {
-    return this.balanceService.findAll();
+  public async findAll(@GetUser(ParameterKey.Id) userId: string) {
+    return await this.balanceService.findAll(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.balanceService.findOne(+id);
+  @ApiOperation({summary: UserBalanceApiOperation.Increment})
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
+  @Patch(ApiRouteEnum.Increment)
+  public async increment(
+    @Body() updateBalanceDto: UpdateUserBalanceDto,
+    @GetUser(ParameterKey.Id) userId: string
+  ) {
+    return await this.balanceService.increment(userId, updateBalanceDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBalanceDto: UpdateBalanceDto) {
-    return this.balanceService.update(+id, updateBalanceDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.balanceService.remove(+id);
+  @ApiOperation({summary: UserBalanceApiOperation.Decrement})
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
+  @Patch(ApiRouteEnum.Decrement)
+  public async decrement(
+    @Body() updateBalanceDto: UpdateUserBalanceDto,
+    @GetUser(ParameterKey.Id) userId: string
+  ) {
+    return await this.balanceService.decrement(userId, updateBalanceDto);
   }
 }

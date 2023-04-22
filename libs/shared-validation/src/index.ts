@@ -6,3 +6,4 @@ export * from './lib/personal-exercise.validation';
 export * from './lib/purchase.validation';
 export * from './lib/user.validation';
 export * from './lib/food-diary.validation';
+export * from './lib/user-balance.validation';

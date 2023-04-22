@@ -14,6 +14,8 @@ import { FriendsModule } from './friends/friends.module';
 import { FilesModule } from './files/files.module';
 import { FoodDiaryModule } from './user-personal-account/food-diary/food-diary.module';
 import { ExerciseDiaryModule } from './user-personal-account/exercise-diary/exercise-diary.module';
+import { FavoriteGymModule } from './user-personal-account/favorite-gym/favorite-gym.module';
+import { BalanceModule } from './user-personal-account/balance/balance.module';
 
 @Module({
   imports: [
@@ -37,6 +39,8 @@ import { ExerciseDiaryModule } from './user-personal-account/exercise-diary/exer
     FilesModule,
     FoodDiaryModule,
     ExerciseDiaryModule,
+    FavoriteGymModule,
+    BalanceModule,
   ],
   providers: [UsersService],
   exports: [UsersModule]

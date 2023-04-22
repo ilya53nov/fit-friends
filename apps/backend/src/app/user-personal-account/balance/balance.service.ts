@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBalanceDto } from './dto/create-balance.dto';
-import { UpdateBalanceDto } from './dto/update-balance.dto';
+import { BalanceRepository } from './balance.repository';
+import { UpdateUserBalanceDto } from '@fit-friends/shared-dto';
 
 @Injectable()
 export class BalanceService {
-  create(createBalanceDto: CreateBalanceDto) {
-    return 'This action adds a new balance';
+  constructor(private readonly balanceRepository: BalanceRepository) {}
+  
+  public async findAll(userId: string) {
+    const findedAll = await this.balanceRepository.findAll(userId);
+
+    return findedAll;
   }
 
-  findAll() {
-    return `This action returns all balance`;
+  public async increment(userId: string, updateUserBalanceDto: UpdateUserBalanceDto) {
+    const finded = await this.balanceRepository.findByType(userId, updateUserBalanceDto.purchaseType);
+
+    finded
+    ? this.balanceRepository.increment(finded.id, updateUserBalanceDto.count)
+    : this.balanceRepository.create(userId,updateUserBalanceDto);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} balance`;
-  }
+  public async decrement(userId: string, updateUserBalanceDto: UpdateUserBalanceDto) {
+    const finded = await this.balanceRepository.findByType(userId, updateUserBalanceDto.purchaseType);
 
-  update(id: number, updateBalanceDto: UpdateBalanceDto) {
-    return `This action updates a #${id} balance`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} balance`;
+    finded
+    ? this.balanceRepository.decrement(finded.id, updateUserBalanceDto.count)
+    : this.balanceRepository.create(userId,updateUserBalanceDto);
   }
 }

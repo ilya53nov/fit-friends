@@ -1,0 +1,39 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+
+@password = 123456
+
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
+# Add favorite-gym
+POST {{host}}/api/favorite-gym/f4c257ad-efe0-423f-9a96-cde90f153622 HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+
+###
+
+# Get my favorite-gyms
+GET {{host}}/api/favorite-gym HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+
+###
+
+# Delete favorite-gym
+DELETE {{host}}/api/favorite-gym/f4c257ad-efe0-423f-9a96-cde90f153622 HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+
+###

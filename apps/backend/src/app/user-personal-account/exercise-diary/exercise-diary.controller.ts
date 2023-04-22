@@ -12,10 +12,11 @@ import { ExerciseDiaryService } from './exercise-diary.service';
 import { CreateExerciseDiaryDto, UpdateExerciseDiaryDto } from '@fit-friends/shared-dto';
 import { ApiRouteEnum, ParameterKey, RoleEnum } from '@fit-friends/shared-types';
 import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ExeciseDiaryApiOperation } from '@fit-friends/shared-description-operation';
 import { ExerciseDiaryRdo } from '@fit-friends/shared-rdo';
 
+@ApiTags(ApiRouteEnum.ExersiceDiary)
 @Controller(ApiRouteEnum.ExersiceDiary)
 export class ExerciseDiaryController {
   constructor(private readonly exerciseDiaryService: ExerciseDiaryService) {}

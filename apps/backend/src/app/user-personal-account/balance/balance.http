@@ -1,0 +1,48 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+
+@password = 123456
+
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
+# Get balance
+GET  {{host}}/api/balance HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+###
+
+# Increment balance
+PATCH   {{host}}/api/balance/increment HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+Content-Type: application/json
+
+{
+  "purchaseType": "абонемент",
+  "count": 3
+}
+###
+
+# Decrement balance
+PATCH   {{host}}/api/balance/decrement HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+Content-Type: application/json
+
+{
+  "purchaseType": "тренировка",
+  "count": 7
+}
+###

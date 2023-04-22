@@ -5,6 +5,7 @@ import { RoleEnum } from '@fit-friends/shared-types';
 import { CoachUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
 import { UserRepository } from '../users/users.repository';
 import { AuthUserDescription } from '../auth/auth.constants';
+import { FriendsDescription } from './friends.constants';
 
 @Injectable()
 export class FriendsService {
@@ -15,7 +16,7 @@ export class FriendsService {
 
   public async create(friendId: string, userId: string) {
     if (userId === friendId) {
-      throw new ConflictException('Вы не можете добавить самого себя в друзья');
+      throw new ConflictException(FriendsDescription.YourselfFriendship);
     }
 
     const existUser = await this.userRepository.findById(friendId);
@@ -27,7 +28,7 @@ export class FriendsService {
     const existFriend = await this.friendsRepository.findById(friendId, userId);
 
     if (existFriend) {
-      throw new ConflictException('Данный пользователь уже у вас в друзьях');
+      throw new ConflictException(FriendsDescription.ExistFriend);
     }
     
     await this.friendsRepository.create(friendId, userId);
@@ -44,7 +45,7 @@ export class FriendsService {
     const existFriend = await this.friendsRepository.findById(friendId, userId);
 
     if (!existFriend) {
-      throw new NotFoundException('Данный пользователь не найден у вас в друзьях');
+      throw new NotFoundException(FriendsDescription.NotFountFriend);
     }
 
     const friendshipWithMe = await this.friendsRepository.findById(userId, friendId);
