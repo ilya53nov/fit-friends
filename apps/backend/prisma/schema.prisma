@@ -116,3 +116,12 @@ model UserBalance {
   purchaseType String
   count Int
 }
+
+model Subscriber {
+  id String @id @default(uuid())
+  subscribeDate DateTime @default(now())
+  isActive Boolean @default(true)
+  subscriberId String
+  coachId String
+  lastNotifyDate DateTime @default(now())
+}
