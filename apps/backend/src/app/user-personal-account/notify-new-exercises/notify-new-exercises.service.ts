@@ -1,29 +1,54 @@
-import { Injectable } from '@nestjs/common';
-import { CreateNotifyNewExerciseDto } from './dto/create-notify-new-exercise.dto';
-import { UpdateNotifyNewExerciseDto } from './dto/update-notify-new-exercise.dto';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { SubscriberRepository } from './subscriber.repository';
+import { SubscriberEntity } from './subscriber.entity';
+import { SubscriberInterface } from '@fit-friends/shared-types';
 
 @Injectable()
 export class NotifyNewExercisesService {
   constructor(private readonly subscriberRepository: SubscriberRepository) {}
 
-  public async create(userId: string, coachId: string) {
-    
+  public async addSubscribe(userId: string, coachId: string) {
+    const existSubscribe = await this.subscriberRepository.findSubscribe(userId, coachId);
+
+    if (existSubscribe && existSubscribe.isActiveSubscribe) {
+      throw new ConflictException('Вы уже подписаны на данного тренера')
+    }
+
+    const subscriber: SubscriberInterface = {
+      coachId: coachId,
+      userId: userId,
+      isActiveSubscribe: true,
+      subscribeDate: new Date(),
+    }
+
+    const subscriberEntity = new SubscriberEntity({...existSubscribe, ...subscriber});
+
+    return await this.subscriberRepository.createOrUpdate(subscriberEntity);
   }
 
-  findAll() {
-    return `This action returns all notifyNewExercises`;
+  //test
+  public async findAll(userId: string, coachId: string) {
+    return await this.subscriberRepository.findSubscribe(userId, coachId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} notifyNewExercise`;
+  public async updateManyByCoachId(coachId: string, exerciseId: string) {
+    await this.subscriberRepository.updateManyByCoachId(coachId, exerciseId);
   }
 
-  update(id: number, updateNotifyNewExerciseDto: UpdateNotifyNewExerciseDto) {
-    return `This action updates a #${id} notifyNewExercise`;
+
+  public async removeSubscribe(userId: string, coachId: string) {
+    const existSubscribe = await this.subscriberRepository.findSubscribe(userId, coachId);
+
+    if (!existSubscribe || !existSubscribe.isActiveSubscribe) {
+      throw new NotFoundException('Вы не подписаны на данного тренера');
+    }
+
+    const subscriberEntity = new SubscriberEntity(existSubscribe);
+
+    subscriberEntity.isActiveSubscribe = false;
+
+    return await this.subscriberRepository.update(existSubscribe.id, subscriberEntity);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} notifyNewExercise`;
-  }
+
 }

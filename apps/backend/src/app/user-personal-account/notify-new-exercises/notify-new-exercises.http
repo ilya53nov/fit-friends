@@ -1,0 +1,38 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+
+@password = 123456
+
+@coachId = 4cc6a9c4-2d74-4c48-b58b-e726d018a237
+
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
+# Subscribe to a trainer
+POST {{host}}/api/notify-new-exercises/{{coachId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+###
+
+#Unsubscribe from the coach
+DELETE  {{host}}/api/notify-new-exercises/{{coachId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+###
+
+#TEST find subscribe
+GET {{host}}/api/notify-new-exercises/{{coachId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+###

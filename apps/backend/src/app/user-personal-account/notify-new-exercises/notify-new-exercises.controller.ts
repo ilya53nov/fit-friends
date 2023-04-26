@@ -2,14 +2,13 @@ import {
   Controller,
   Get,
   Post,
-  Body,
-  Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { NotifyNewExercisesService } from './notify-new-exercises.service';
-import { CreateNotifyNewExerciseDto } from './dto/create-notify-new-exercise.dto';
-import { UpdateNotifyNewExerciseDto } from './dto/update-notify-new-exercise.dto';
+import { ParameterKey, RoleEnum } from '@fit-friends/shared-types';
+import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core';
 
 @Controller('notify-new-exercises')
 export class NotifyNewExercisesController {
@@ -17,34 +16,36 @@ export class NotifyNewExercisesController {
     private readonly notifyNewExercisesService: NotifyNewExercisesService
   ) {}
 
-  @Post()
-  create(@Body() createNotifyNewExerciseDto: CreateNotifyNewExerciseDto) {
-    return this.notifyNewExercisesService.create(createNotifyNewExerciseDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.notifyNewExercisesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.notifyNewExercisesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateNotifyNewExerciseDto: UpdateNotifyNewExerciseDto
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
+  @Post(ParameterKey.Rout)
+  public async create(
+    @GetUser(ParameterKey.Id) userId: string,
+    @Param(ParameterKey.Id) coachId: string,
   ) {
-    return this.notifyNewExercisesService.update(
-      +id,
-      updateNotifyNewExerciseDto
-    );
+    return await this.notifyNewExercisesService.addSubscribe(userId, coachId);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.notifyNewExercisesService.remove(+id);
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
+  @Get(ParameterKey.Rout)
+  public async findAll(
+    @GetUser(ParameterKey.Id) userId: string,
+    @Param(ParameterKey.Id) coachId: string,
+  ) {
+    return await this.notifyNewExercisesService.findAll(userId, coachId);
+  }
+
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
+  @Delete(ParameterKey.Rout)
+  public async remove(
+    @GetUser(ParameterKey.Id) userId: string,
+    @Param(ParameterKey.Id) coachId: string,
+  ) {
+    return await this.notifyNewExercisesService.removeSubscribe(userId, coachId);
   }
 }

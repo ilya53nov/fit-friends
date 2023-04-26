@@ -120,7 +120,6 @@ model UserBalance {
 model Subscriber {
   id String @id @default(uuid())
   subscribeDate DateTime @default(now())
-  unsubscribeDate DateTime
   isActiveSubscribe Boolean @default(true)
   userId String
   coachId String
