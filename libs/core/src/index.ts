@@ -5,6 +5,7 @@ export * from './lib/common';
 export * from './lib/config/jwt.config';
 export * from './lib/config/multer.config';
 export * from './lib/config/static.config';
+export * from './lib/config/mail.config';
 export * from './lib/strategies/jwt-access.strategy';
 export * from './lib/strategies/jwt-refresh.strategy';
 export * from './lib/decorators/get-user.decorator';

@@ -1,4 +1,4 @@
-import { getServeStaticConfig, jwtAccessOptions, jwtRefreshOptions, staticOptions } from '@fit-friends/core';
+import { getServeStaticConfig, jwtAccessOptions, jwtRefreshOptions, mailOptions, staticOptions } from '@fit-friends/core';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -24,7 +24,7 @@ import { NotifyNewExercisesModule } from './user-personal-account/notify-new-exe
       cache: true,
       isGlobal: true,
       envFilePath: BACKEND_ENV_FILE_PATH,
-      load: [jwtAccessOptions, jwtRefreshOptions, staticOptions],
+      load: [jwtAccessOptions, jwtRefreshOptions, staticOptions, mailOptions],
       validate: validateEnvironments,
     }),
     ServeStaticModule.forRootAsync({

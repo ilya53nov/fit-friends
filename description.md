@@ -25,6 +25,12 @@ PORT=3333                                                       - номер п�
 HOST=localhost                                                  - хост сервера
 
 DATABASE_URL=postgres://admin:test@localhost:5432/fit-friends   - url для подключения к базе данных
+
+MAIL_SMTP_HOST=localhost                                        - host почтового сервиса
+MAIL_SMTP_PORT=5025                                             - port почтового сервиса
+MAIL_USER_NAME=admin                                            - пользователь почтового сервиса
+MAIL_USER_PASSWORD=test                                         - пароль пользователя почтового сервиса
+MAIL_FROM=<noreply@notify.fit-friends.local>                    - от кого
 ```
 
 ## Запуск Docker

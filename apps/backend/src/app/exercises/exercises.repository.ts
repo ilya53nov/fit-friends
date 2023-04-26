@@ -4,6 +4,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ExerciseEntity } from './exercises.entity';
 import { ExercisesQuery } from './query/exercises.query';
 import { BaseQuery } from '@fit-friends/core';
+import { asyncScheduler } from 'rxjs';
 
 @Injectable()
 export class ExercisesRepository {
@@ -61,6 +62,16 @@ export class ExercisesRepository {
       },
       data: {
         ...entityData,
+      }
+    })
+  }
+
+  public async findMany(exercisesId: string[]) {
+    return await this.prisma.exercise.findMany({
+      where: {
+        id: {
+          in: exercisesId,
+        }
       }
     })
   }

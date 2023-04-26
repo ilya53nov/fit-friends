@@ -1,5 +1,12 @@
 version: '3.5'
 services:
+  fakesmtp:
+    image: gessnerfl/fake-smtp-server
+    container_name: 'taskforce.notify.fakesmtp'
+    hostname: 'fakesmtp'
+    ports:
+      - '5025:5025'
+      - '1085:5080'
   postgres:
     user: root
     image: postgres:14-alpine

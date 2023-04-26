@@ -48,4 +48,14 @@ export class NotifyNewExercisesController {
   ) {
     return await this.notifyNewExercisesService.removeSubscribe(userId, coachId);
   }
+
+  @Roles(RoleEnum.Sportsman)
+  @UseGuards(RolesGuard)
+  @UseGuards(AccessTokenGuard)
+  @Get()
+  public async sendNotify(
+    @GetUser(ParameterKey.Id) userId: string,
+  ) {
+    return await this.notifyNewExercisesService.sendNotify(userId);
+  }
 }

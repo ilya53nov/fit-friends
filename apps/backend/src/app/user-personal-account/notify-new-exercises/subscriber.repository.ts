@@ -24,14 +24,6 @@ export class SubscriberRepository {
 
   }
 
-  public async create(item: SubscriberEntity) {
-    const entityData = item.toObject();
-
-    return await this.prisma.subscriber.create({
-      data: {...entityData},
-    })
-  }
-
   public async findSubscribe(userId: string, coachId: string) {
     return await this.prisma.subscriber.findFirst({
       where: {
@@ -40,17 +32,6 @@ export class SubscriberRepository {
           coachId,
         }
       }
-    })
-  }
-
-  public async update(id: string, item: SubscriberEntity) {
-    const entityData = item.toObject();
-
-    return await this.prisma.subscriber.update({
-      where: {
-        id,
-      },
-      data: {...entityData}
     })
   }
 
@@ -78,10 +59,18 @@ export class SubscriberRepository {
       data: {
         exercisesId: {
           set: null,
-        }
+        },
+        lastNotifyDate: new Date(),
       }
     })
   }
 
-  //public async unsubscribe
+  public async getExercisesId(userId: string) {
+    return await this.prisma.subscriber.findMany({
+      where: {
+        userId,
+      },
+      select: {exercisesId: true},
+    })
+  }
 }

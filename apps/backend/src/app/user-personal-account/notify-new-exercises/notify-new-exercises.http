@@ -6,7 +6,7 @@
 
 @password = 123456
 
-@coachId = 4cc6a9c4-2d74-4c48-b58b-e726d018a237
+@coachId = fec3a201-abf9-4faf-ad3c-275457525435
 
 @authTokenSportsman = {{loginSportsman.response.body.accessToken}}
 
@@ -29,6 +29,11 @@ Authorization: Bearer {{authTokenSportsman}}
 
 #Unsubscribe from the coach
 DELETE  {{host}}/api/notify-new-exercises/{{coachId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+###
+
+#Send notify
+GET  {{host}}/api/notify-new-exercises HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 ###
 
