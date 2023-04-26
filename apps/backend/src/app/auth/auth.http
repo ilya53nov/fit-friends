@@ -3,7 +3,7 @@
 @host = http://{{hostname}}:{{port}}
 
 @emailSportsman = user@notfound2.local
-@emailCoach = user@notfound3.local
+@emailCoach = user@notfound5.local
 @password = 123456
 
 @authToken = {{login.response.body.accessToken}}

@@ -6,6 +6,24 @@ import { SubscriberEntity } from "./subscriber.entity";
 export class SubscriberRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  public async createOrUpdate(item: SubscriberEntity) {
+    const entityData = item.toObject();
+
+    if (entityData.id) {
+      return await this.prisma.subscriber.update({
+        where: {
+          id: entityData.id,
+        },
+        data: {...entityData},
+      })
+    }
+
+    return await this.prisma.subscriber.create({
+      data: {...entityData},
+    })
+
+  }
+
   public async create(item: SubscriberEntity) {
     const entityData = item.toObject();
 
@@ -14,7 +32,7 @@ export class SubscriberRepository {
     })
   }
 
-  public async findCoachSubscriber(userId: string, coachId: string) {
+  public async findSubscribe(userId: string, coachId: string) {
     return await this.prisma.subscriber.findFirst({
       where: {
         AND: {
@@ -39,10 +57,13 @@ export class SubscriberRepository {
   public async updateManyByCoachId(coachId: string, exerciseId: string) {
     return await this.prisma.subscriber.updateMany({
       where: {
-        coachId,
+        AND: {
+          coachId,
+          isActiveSubscribe: true,
+        }        
       },
       data: {
-        exercises: {
+        exercisesId: {
           push: exerciseId,          
         }
       }
@@ -55,7 +76,7 @@ export class SubscriberRepository {
         id,
       },
       data: {
-        exercises: {
+        exercisesId: {
           set: null,
         }
       }

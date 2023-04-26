@@ -4,11 +4,10 @@ import { SubscriberInterface } from "@fit-friends/shared-types";
 export class SubscriberEntity implements Entity<SubscriberEntity, SubscriberInterface>{
   public id: string;
   public subscribeDate: Date;
-  public unsubscribeDate: Date;
   public isActiveSubscribe: boolean;
   public userId: string;
   public coachId: string;
-  public lastNotifyDate: string;
+  public lastNotifyDate: Date;
 
   constructor(subscriber: SubscriberInterface) {
     this.fillEntity(subscriber);
@@ -21,7 +20,6 @@ export class SubscriberEntity implements Entity<SubscriberEntity, SubscriberInte
   fillEntity(entity: SubscriberInterface): void {
     this.id = entity.id;
     this.subscribeDate = entity.subscribeDate;
-    this.unsubscribeDate = entity.unsubscribeDate;
     this.isActiveSubscribe = entity.isActiveSubscribe;
     this.userId = entity.userId;
     this.coachId = entity.coachId;
