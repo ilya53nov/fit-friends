@@ -2,10 +2,16 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { SubscriberRepository } from './subscriber.repository';
 import { SubscriberEntity } from './subscriber.entity';
 import { SubscriberInterface } from '@fit-friends/shared-types';
+import { ExercisesRepository } from '../../exercises/exercises.repository';
+import { MailerService } from '@nestjs-modules/mailer';
 
 @Injectable()
 export class NotifyNewExercisesService {
-  constructor(private readonly subscriberRepository: SubscriberRepository) {}
+  constructor(
+    private readonly subscriberRepository: SubscriberRepository,
+    private readonly exercisesRepository: ExercisesRepository,
+    private readonly mailerService: MailerService
+  ) {}
 
   public async addSubscribe(userId: string, coachId: string) {
     const existSubscribe = await this.subscriberRepository.findSubscribe(userId, coachId);
@@ -35,6 +41,26 @@ export class NotifyNewExercisesService {
     await this.subscriberRepository.updateManyByCoachId(coachId, exerciseId);
   }
 
+  public async sendNotify(userId: string) {
+    const exercisesItems = await this.subscriberRepository.getExercisesId(userId);
+
+    const exercisesId = [].concat(...exercisesItems.map((item) => item.exercisesId));
+
+    const exercises = await this.exercisesRepository.findMany(exercisesId);
+
+    this.mailerService.sendMail({
+      to: '123@this.mail.com',
+      subject: 'test',
+      template: './new-exercises',
+      context: {
+        user: 'sdfds',
+        exercises: exercises,
+      }
+    })
+
+    return exercises;
+  }
+
 
   public async removeSubscribe(userId: string, coachId: string) {
     const existSubscribe = await this.subscriberRepository.findSubscribe(userId, coachId);
@@ -47,7 +73,7 @@ export class NotifyNewExercisesService {
 
     subscriberEntity.isActiveSubscribe = false;
 
-    return await this.subscriberRepository.update(existSubscribe.id, subscriberEntity);
+    return await this.subscriberRepository.createOrUpdate(subscriberEntity);
   }
 
 

@@ -9,4 +9,9 @@ export enum EnvValidationMessage {
   AppPortRequired = 'App port is required',
   AppHostRequired = 'App host is required',
   DatabaseUrlRequired = 'Database url is required',
+  MailSmtpHostRequired = 'Mail smtp host is required',
+  MailSmtpPortRequired = 'Mail smtp port is required',
+  MailUserNameRequired = 'Mail user name is required',
+  MailUserPasswordRequired = 'Mail user password is required',
+  MailFromRequired = 'Mail from is required',
 }

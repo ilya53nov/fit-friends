@@ -1,0 +1,6 @@
+<h2>Привет, {{user}}</h2>
+<h3>Ниже список новых тренировок</h3>
+
+{{#exerciseList exercises}}
+  <p>Заголовок: {{title}}, описание: {{description}}, стоимость: {{price}}</p>
+{{/exerciseList}}
