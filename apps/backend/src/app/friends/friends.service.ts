@@ -5,13 +5,15 @@ import { RoleEnum } from '@fit-friends/shared-types';
 import { CoachUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
 import { UserRepository } from '../users/users.repository';
 import { AuthUserDescription } from '../auth/auth.constants';
-import { FriendsDescription } from './friends.constants';
+import { FriendsDescription, FriendsDescriptionAction } from './friends.constants';
+import { NotificationsService } from '../notifications/notifications.service';
 
 @Injectable()
 export class FriendsService {
   constructor(
     private readonly friendsRepository: FriendsRepository,
     private readonly userRepository: UserRepository,
+    private readonly notificationsService: NotificationsService,
   ) {}  
 
   public async create(friendId: string, userId: string) {
@@ -29,10 +31,12 @@ export class FriendsService {
 
     if (existFriend) {
       throw new ConflictException(FriendsDescription.ExistFriend);
-    }
+    }    
     
     await this.friendsRepository.create(friendId, userId);
     await this.friendsRepository.create(userId, friendId);
+
+    await this.notificationsService.create({userId: friendId, text: `${existUser.name} ${FriendsDescriptionAction.AddFriend}`});
   }
 
   public async findAll(userId: string) {

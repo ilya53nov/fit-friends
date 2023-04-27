@@ -3,3 +3,7 @@ export enum FriendsDescription {
   ExistFriend = 'Данный пользователь уже у вас в друзьях',
   NotFountFriend = 'Данный пользователь не найден у вас в друзьях',
 }
+
+export enum FriendsDescriptionAction {
+  AddFriend = 'добавил вас в друзья',
+}
