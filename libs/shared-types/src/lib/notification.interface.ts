@@ -1,7 +1,6 @@
-import { UserType } from "./user.interface";
-
 export interface NotificationInterface {
-  createdAt: Date;
-  user: UserType;
+  id?: string
+  createdAt?: Date;
+  userId: string;
   text: string;
 }
