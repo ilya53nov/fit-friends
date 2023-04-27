@@ -1,23 +1,26 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { SubscriberRepository } from './subscriber.repository';
 import { SubscriberEntity } from './subscriber.entity';
-import { SubscriberInterface } from '@fit-friends/shared-types';
+import { ApiRouteEnum, SubscriberInterface } from '@fit-friends/shared-types';
 import { ExercisesRepository } from '../../exercises/exercises.repository';
 import { MailerService } from '@nestjs-modules/mailer';
+import { UserRepository } from '../../users/users.repository';
+import { NotifyNewExercisesDescription } from './notify-new-exercises.constants';
 
 @Injectable()
 export class NotifyNewExercisesService {
   constructor(
     private readonly subscriberRepository: SubscriberRepository,
     private readonly exercisesRepository: ExercisesRepository,
-    private readonly mailerService: MailerService
+    private readonly mailerService: MailerService,
+    private readonly userRepository: UserRepository,
   ) {}
 
   public async addSubscribe(userId: string, coachId: string) {
     const existSubscribe = await this.subscriberRepository.findSubscribe(userId, coachId);
 
     if (existSubscribe && existSubscribe.isActiveSubscribe) {
-      throw new ConflictException('Вы уже подписаны на данного тренера')
+      throw new ConflictException(NotifyNewExercisesDescription.FoundCoach)
     }
 
     const subscriber: SubscriberInterface = {
@@ -29,12 +32,7 @@ export class NotifyNewExercisesService {
 
     const subscriberEntity = new SubscriberEntity({...existSubscribe, ...subscriber});
 
-    return await this.subscriberRepository.createOrUpdate(subscriberEntity);
-  }
-
-  //test
-  public async findAll(userId: string, coachId: string) {
-    return await this.subscriberRepository.findSubscribe(userId, coachId);
+    await this.subscriberRepository.createOrUpdate(subscriberEntity);
   }
 
   public async updateManyByCoachId(coachId: string, exerciseId: string) {
@@ -48,33 +46,33 @@ export class NotifyNewExercisesService {
 
     const exercises = await this.exercisesRepository.findMany(exercisesId);
 
+    const user = await this.userRepository.findById(userId);
+
     this.mailerService.sendMail({
-      to: '123@this.mail.com',
-      subject: 'test',
-      template: './new-exercises',
+      to: user.email,
+      subject: NotifyNewExercisesDescription.NewExercises,
+      template: ApiRouteEnum.NewExercisesTemplate,
       context: {
-        user: 'sdfds',
+        user: user.name,
         exercises: exercises,
       }
     })
 
-    return exercises;
+    await this.subscriberRepository.clearExerciseItems(userId);
   }
-
 
   public async removeSubscribe(userId: string, coachId: string) {
     const existSubscribe = await this.subscriberRepository.findSubscribe(userId, coachId);
 
     if (!existSubscribe || !existSubscribe.isActiveSubscribe) {
-      throw new NotFoundException('Вы не подписаны на данного тренера');
+      throw new NotFoundException(NotifyNewExercisesDescription.NotFoundCoach);
     }
 
     const subscriberEntity = new SubscriberEntity(existSubscribe);
 
     subscriberEntity.isActiveSubscribe = false;
 
-    return await this.subscriberRepository.createOrUpdate(subscriberEntity);
+    await this.subscriberRepository.createOrUpdate(subscriberEntity);
   }
-
 
 }

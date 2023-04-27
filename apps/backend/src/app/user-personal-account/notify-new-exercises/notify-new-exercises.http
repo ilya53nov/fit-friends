@@ -36,8 +36,3 @@ Authorization: Bearer {{authTokenSportsman}}
 GET  {{host}}/api/notify-new-exercises HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 ###
-
-#TEST find subscribe
-GET {{host}}/api/notify-new-exercises/{{coachId}} HTTP/1.1
-Authorization: Bearer {{authTokenSportsman}}
-###
