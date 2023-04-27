@@ -17,6 +17,7 @@ import { ExerciseDiaryModule } from './user-personal-account/exercise-diary/exer
 import { FavoriteGymModule } from './user-personal-account/favorite-gym/favorite-gym.module';
 import { BalanceModule } from './user-personal-account/balance/balance.module';
 import { NotifyNewExercisesModule } from './user-personal-account/notify-new-exercises/notify-new-exercises.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { NotifyNewExercisesModule } from './user-personal-account/notify-new-exe
     FavoriteGymModule,
     BalanceModule,
     NotifyNewExercisesModule,
+    NotificationsModule
   ],
   providers: [UsersService],
   exports: [UsersModule]

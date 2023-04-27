@@ -6,12 +6,23 @@ import { FilesService } from '../files/files.service';
 import { FilesModule } from '../files/files.module';
 import { NotifyNewExercisesService } from '../user-personal-account/notify-new-exercises/notify-new-exercises.service';
 import { NotifyNewExercisesModule } from '../user-personal-account/notify-new-exercises/notify-new-exercises.module';
-import { SubscriberRepository } from '../user-personal-account/notify-new-exercises/subscriber.repository';
+import { UsersModule } from '../users/users.module';
+import { UserRepository } from '../users/users.repository';
 
 @Module({
-  imports: [FilesModule, NotifyNewExercisesModule],
+  imports: [
+    FilesModule,
+    NotifyNewExercisesModule,
+    UsersModule
+  ],
   controllers: [ExercisesController],
-  providers: [ExercisesService, ExercisesRepository, FilesService, NotifyNewExercisesService],
+  providers: [
+    ExercisesService,
+    ExercisesRepository,
+    FilesService,
+    NotifyNewExercisesService,
+    UserRepository
+  ],
   exports: [ExercisesRepository, ExercisesModule]
 })
 export class ExercisesModule {}

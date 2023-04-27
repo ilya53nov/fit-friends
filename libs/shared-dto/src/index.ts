@@ -16,3 +16,4 @@ export * from './lib/update-food-diary.dto';
 export * from './lib/create-exercise-diary.dto';
 export * from './lib/update-exercise-diary.dto';
 export * from './lib/update-user-balance.dto';
+export * from './lib/create-notification.dto';
