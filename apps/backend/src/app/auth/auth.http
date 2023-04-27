@@ -2,7 +2,7 @@
 @port = 3333
 @host = http://{{hostname}}:{{port}}
 
-@emailSportsman = user@notfound2.local
+@emailSportsman = user@notfound4.local
 @emailCoach = user@notfound5.local
 @password = 123456
 

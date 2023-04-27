@@ -51,14 +51,14 @@ export class SubscriberRepository {
     })
   }
 
-  public async clearExerciseItems(id: string) {
-    return await this.prisma.subscriber.update({
+  public async clearExerciseItems(userId: string) {
+    return await this.prisma.subscriber.updateMany({
       where: {
-        id,
+        userId,
       },
       data: {
         exercisesId: {
-          set: null,
+          set: [],
         },
         lastNotifyDate: new Date(),
       }

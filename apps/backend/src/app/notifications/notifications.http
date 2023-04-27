@@ -2,15 +2,13 @@
 @port = 3333
 @host = http://{{hostname}}:{{port}}
 
-@emailSportsman = user@notfound2.local
+@emailSportsman = user@notfound4.local
 
 @password = 123456
 
-@coachId = fec3a201-abf9-4faf-ad3c-275457525435
-
 @authTokenSportsman = {{loginSportsman.response.body.accessToken}}
 
-# Login sportsman
+# Login sportsman1
 # @name loginSportsman
 POST {{host}}/api/auth/login HTTP/1.1
 Content-Type: application/json
@@ -22,17 +20,14 @@ Content-Type: application/json
 
 ###
 
-# Subscribe to a trainer
-POST {{host}}/api/notify-new-exercises/{{coachId}} HTTP/1.1
+# Get my notifications
+GET {{host}}/api/notifications HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
+
 ###
 
-#Unsubscribe from the coach
-DELETE  {{host}}/api/notify-new-exercises/{{coachId}} HTTP/1.1
+# Remove notification
+DELETE {{host}}/api/notifications/5e6c3e06-a496-48f9-aac1-7d34a53dd85f HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
-###
 
-#Send notify
-GET  {{host}}/api/notify-new-exercises HTTP/1.1
-Authorization: Bearer {{authTokenSportsman}}
 ###

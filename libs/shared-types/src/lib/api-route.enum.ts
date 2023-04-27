@@ -22,4 +22,7 @@ export enum ApiRouteEnum {
   Balance = 'balance',
   Increment = 'increment',
   Decrement = 'decrement',
+  Notifications = 'notifications',
+  NewExercisesTemplate = './new-exercises',
+  NotifyNewExercises = 'notify-new-exercises',
 }
