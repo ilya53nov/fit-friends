@@ -17,3 +17,5 @@ export * from './lib/create-exercise-diary.dto';
 export * from './lib/update-exercise-diary.dto';
 export * from './lib/update-user-balance.dto';
 export * from './lib/create-notification.dto';
+export * from './lib/create-personal-exercise.dto';
+export * from './lib/update-personal-exercise.dto';

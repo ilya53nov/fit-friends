@@ -38,6 +38,7 @@ model User {
   exerciseDiary ExerciseDiary[]
   favoriteGyms FavoriteGym[]
   balance UserBalance[]
+  personalExercises PersonalExercise[]
 }
 
 model Exercise {
@@ -132,4 +133,14 @@ model Notification {
   createdAt DateTime @default(now())
   userId String
   text String
+}
+
+model PersonalExercise {
+  id String @id @default(uuid())
+  initiator User @relation(fields: [initiatorId], references: [id])
+  initiatorId String
+  userId String
+  createdAt DateTime @default(now())
+  udatedAt DateTime @default(now())
+  status String
 }
