@@ -4,7 +4,6 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ExerciseEntity } from './exercises.entity';
 import { ExercisesQuery } from './query/exercises.query';
 import { BaseQuery } from '@fit-friends/core';
-import { asyncScheduler } from 'rxjs';
 
 @Injectable()
 export class ExercisesRepository {
@@ -18,7 +17,33 @@ export class ExercisesRepository {
     });
   }
 
-  public async findAll(coachId: string, {limit, page, sortDirection, durations, rating, priceRange, calorieRange}: ExercisesQuery): Promise<ExerciseInterface[]> {
+  public async findAll({limit, page, sortDirection, durations, rating, priceRange, calorieRange}: ExercisesQuery): Promise<ExerciseInterface[]> {
+    return await this.prisma.exercise.findMany({
+      where: {
+        duration: {
+          in: durations,
+        },
+        rating,
+        price: {
+          gte: priceRange ? priceRange[QueryParameter.IndexInRange.gte] : undefined,
+          lte: priceRange ? priceRange[QueryParameter.IndexInRange.lte] : undefined,
+        },
+        caloriesCount: {
+          gte: calorieRange ? calorieRange[QueryParameter.IndexInRange.gte] : undefined,
+          lte: calorieRange ? calorieRange[QueryParameter.IndexInRange.lte] : undefined,
+        }
+      },
+      take: limit,
+      orderBy: [
+        {
+          createdAt: sortDirection,
+        }
+      ],
+      skip: page > 0 ? limit * (page - 1) : undefined,
+    });
+  }    
+
+  public async findAllByCoachId(coachId: string, {limit, page, sortDirection, durations, rating, priceRange, calorieRange}: ExercisesQuery): Promise<ExerciseInterface[]> {
     return await this.prisma.exercise.findMany({
       where: {
         coachId,

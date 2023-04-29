@@ -28,8 +28,14 @@ export class ExercisesService {
     return fillObject(ExerciseRdo, newExercise);
   }
 
-  public async findAll(coachId: string, query: ExercisesQuery) {
-    const exercises = await this.exercisesRepository.findAll(coachId, query);
+  public async findAllByCoachId(coachId: string, query: ExercisesQuery) {
+    const exercises = await this.exercisesRepository.findAllByCoachId(coachId, query);
+
+    return exercises.map((item) => fillObject(ExerciseRdo, item));
+  }
+
+  public async findAll(query: ExercisesQuery) {
+    const exercises = await this.exercisesRepository.findAll(query);
 
     return exercises.map((item) => fillObject(ExerciseRdo, item));
   }
