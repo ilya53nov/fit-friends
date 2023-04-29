@@ -1,0 +1,58 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman1 = user@notfound2.local
+@emailSportsman2 = user@notfound4.local
+
+@password = 123456
+
+@authTokenSportsman1 = {{loginSportsman1.response.body.accessToken}}
+@authTokenSportsman2 = {{loginSportsman2.response.body.accessToken}}
+
+# Login sportsman1
+# @name loginSportsman1
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman1}}",
+  "password": "{{password}}"
+}
+
+###
+
+# Login sportsman2
+# @name loginSportsman2
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman2}}",
+  "password": "{{password}}"
+}
+
+###
+
+# Create personal exercise
+# @name createPersonalExercise
+POST {{host}}/api/personal-exercises HTTP/1.1
+Authorization: Bearer {{authTokenSportsman1}}
+Content-Type: application/json
+
+{
+  "userId": "8d136697-3bba-4b2b-a00e-d3c4ef8aca49"
+}
+###
+
+@personalExerciseId = {{createPersonalExercise.response.body.$.id}}
+
+# Update personal exercise
+PATCH  {{host}}/api/personal-exercises/{{personalExerciseId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman2}}
+Content-Type: application/json
+
+{
+  "status": "принят"
+}
+###

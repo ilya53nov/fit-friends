@@ -14,6 +14,14 @@ export class PersonalExercisesRepository {
     })
   }
 
+  public async findById(id: string) {
+    return await this.prisma.personalExercise.findFirst({
+      where: {
+        id,
+      }
+    })
+  }
+
   public async update(id: string, item: PersonalExerciseEntity) {
     const entityData = item.toObject();
 
@@ -21,7 +29,9 @@ export class PersonalExercisesRepository {
       where: {
         id,
       },
-      data: {...entityData}
+      data: {
+        ...entityData,
+      }
     })
   }
 }

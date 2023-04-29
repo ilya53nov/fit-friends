@@ -141,6 +141,6 @@ model PersonalExercise {
   initiatorId String
   userId String
   createdAt DateTime @default(now())
-  udatedAt DateTime @default(now())
+  updatedAt DateTime @default(now())
   status String
 }
