@@ -32,7 +32,7 @@ Content-Type: application/json
 ###
 
 # Add a new friend
-POST {{host}}/api/friends/f4c257ad-efe0-423f-9a96-cde90f153622 HTTP/1.1
+POST {{host}}/api/friends/8d136697-3bba-4b2b-a00e-d3c4ef8aca49 HTTP/1.1
 Authorization: Bearer {{authTokenSportsman1}}
 
 ###

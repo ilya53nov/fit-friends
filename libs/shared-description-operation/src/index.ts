@@ -10,3 +10,4 @@ export * from './lib/favorite-gym-api-operation.enum';
 export * from './lib/user-balance-api-operation.enum';
 export * from './lib/notification-api-operation.enum';
 export * from './lib/notify-new-exercises-api-operation.enum';
+export * from './lib/personal-exercises-api-operation';

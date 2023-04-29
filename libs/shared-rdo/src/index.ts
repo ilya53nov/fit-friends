@@ -7,3 +7,4 @@ export * from './lib/purchase.rdo';
 export * from './lib/food-diary.rdo';
 export * from './lib/exercise-diary.rdo';
 export * from './lib/notification.rdo';
+export * from './lib/personal-exercise.rdo';
