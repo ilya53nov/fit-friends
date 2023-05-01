@@ -18,6 +18,9 @@ import { FavoriteGymModule } from './user-personal-account/favorite-gym/favorite
 import { BalanceModule } from './user-personal-account/balance/balance.module';
 import { NotifyNewExercisesModule } from './user-personal-account/notify-new-exercises/notify-new-exercises.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { PersonalExercisesModule } from './personal-exercises/personal-exercises.module';
+import { GymsModule } from './gyms/gyms.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -44,7 +47,10 @@ import { NotificationsModule } from './notifications/notifications.module';
     FavoriteGymModule,
     BalanceModule,
     NotifyNewExercisesModule,
-    NotificationsModule
+    NotificationsModule,
+    PersonalExercisesModule,
+    GymsModule,
+    ReviewsModule,
   ],
   providers: [UsersService],
   exports: [UsersModule]

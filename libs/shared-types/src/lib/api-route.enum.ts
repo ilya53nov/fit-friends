@@ -25,4 +25,8 @@ export enum ApiRouteEnum {
   Notifications = 'notifications',
   NewExercisesTemplate = './new-exercises',
   NotifyNewExercises = 'notify-new-exercises',
+  PersonalExercises = 'personal-exercises',
+  My = 'my',
+  Gyms = 'gyms',
+  Reviews = 'reviews',
 }

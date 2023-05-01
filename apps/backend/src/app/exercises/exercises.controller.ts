@@ -45,7 +45,7 @@ export class ExercisesController {
     return this.exercisesService.create(userId, createExerciseDto);
   }
 
-  @ApiOperation({summary: ExercisesApiOperation.FindAll})
+  @ApiOperation({summary: ExercisesApiOperation.FindAllByCoachId})
   @ApiQuery({schema: {example: getSchemaPath(ExercisesQuery)}, required: false})
   @ApiResponse({
     type: ExerciseRdo,
@@ -57,12 +57,26 @@ export class ExercisesController {
   @Roles(RoleEnum.Coach)
   @UseGuards(RolesGuard)
   @UseGuards(AccessTokenGuard)
-  @Get()
-  public async findAll(
+  @Get(ApiRouteEnum.My)
+  public async findAllByCoachId(
     @GetUser(ParameterKey.Id) coachId: string,
     @Query() query: ExercisesQuery,
   ) {
-    return this.exercisesService.findAll(coachId, query);
+    return this.exercisesService.findAllByCoachId(coachId, query);
+  }
+
+  @ApiOperation({summary: ExercisesApiOperation.FindAll})
+  @ApiQuery({schema: {example: getSchemaPath(ExercisesQuery)}, required: false})
+  @ApiResponse({
+    type: ExerciseRdo,
+    status: HttpStatus.OK,
+  })
+  @UseGuards(AccessTokenGuard)
+  @Get()
+  public async findAll(
+    @Query() query: ExercisesQuery,
+  ) {
+    return this.exercisesService.findAll(query);
   }
 
   @ApiOperation({summary: ExercisesApiOperation.FindOne})

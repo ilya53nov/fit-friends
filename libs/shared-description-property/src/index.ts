@@ -6,3 +6,5 @@ export * from './lib/exercise-diary-api-property.const';
 export * from './lib/user-balance-api-property.const';
 export * from './lib/notification-api-property.const';
 export * from './lib/personal-exercise-api-property.const';
+export * from './lib/gym-api-property.const';
+export * from './lib/review-api-property.const';

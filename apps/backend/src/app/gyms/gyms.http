@@ -20,14 +20,8 @@ Content-Type: application/json
 
 ###
 
-# Get my notifications
-GET {{host}}/api/notifications HTTP/1.1
-Authorization: Bearer {{authTokenSportsman}}
-
-###
-
-# Remove notification
-DELETE {{host}}/api/notifications/5e6c3e06-a496-48f9-aac1-7d34a53dd85f HTTP/1.1
+# Get gyms
+GET {{host}}/api/gyms HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 
 ###

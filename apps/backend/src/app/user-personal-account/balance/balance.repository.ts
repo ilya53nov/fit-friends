@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../../prisma/prisma.service";
-import { PurchaseTypeEnum } from "@fit-friends/shared-types";
 import { UpdateUserBalanceDto } from "@fit-friends/shared-dto";
 
 @Injectable()

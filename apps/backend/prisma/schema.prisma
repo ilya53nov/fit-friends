@@ -59,6 +59,7 @@ model Exercise {
   isSpecialOffer Boolean 
   buyers Purchase[] 
   exerciseDiary ExerciseDiary[]
+  reviews Review[]
 }
 
 model Purchase {
@@ -141,6 +142,28 @@ model PersonalExercise {
   initiatorId String
   userId String
   createdAt DateTime @default(now())
-  udatedAt DateTime @default(now())
+  updatedAt DateTime @default(now())
   status String
+}
+
+model Gym {
+  id Int @id @default(autoincrement())
+  title String
+  location String
+  isVerified Boolean
+  types String[]
+  images String[]
+  description String
+  price Int
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id String @id @default(uuid())
+  authorId String
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId String
+  score Int
+  text String
+  createdAt DateTime @default(now())
 }

@@ -4,10 +4,12 @@
 
 @emailSportsman1 = user@notfound2.local
 @emailSportsman2 = user@notfound4.local
+
 @password = 123456
 
 @authTokenSportsman1 = {{loginSportsman1.response.body.accessToken}}
 @authTokenSportsman2 = {{loginSportsman2.response.body.accessToken}}
+
 # Login sportsman1
 # @name loginSportsman1
 POST {{host}}/api/auth/login HTTP/1.1
@@ -19,6 +21,7 @@ Content-Type: application/json
 }
 
 ###
+
 # Login sportsman2
 # @name loginSportsman2
 POST {{host}}/api/auth/login HTTP/1.1
@@ -31,26 +34,25 @@ Content-Type: application/json
 
 ###
 
-# Add a new friend
-POST {{host}}/api/friends/8d136697-3bba-4b2b-a00e-d3c4ef8aca49 HTTP/1.1
+# Create personal exercise
+# @name createPersonalExercise
+POST {{host}}/api/personal-exercises HTTP/1.1
 Authorization: Bearer {{authTokenSportsman1}}
+Content-Type: application/json
 
+{
+  "userId": "8d136697-3bba-4b2b-a00e-d3c4ef8aca49"
+}
 ###
 
-# Get my friends (sportsman1)
-GET {{host}}/api/friends HTTP/1.1
-Authorization: Bearer {{authTokenSportsman1}}
+@personalExerciseId = {{createPersonalExercise.response.body.$.id}}
 
-###
-
-# Get my friends (sportsman2)
-GET {{host}}/api/friends HTTP/1.1
+# Update personal exercise
+PATCH  {{host}}/api/personal-exercises/{{personalExerciseId}} HTTP/1.1
 Authorization: Bearer {{authTokenSportsman2}}
+Content-Type: application/json
 
-###
-
-# Delete friend
-DELETE {{host}}/api/friends/f4c257ad-efe0-423f-9a96-cde90f153622 HTTP/1.1
-Authorization: Bearer {{authTokenSportsman1}}
-
+{
+  "status": "принят"
+}
 ###

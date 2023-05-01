@@ -3,7 +3,7 @@
 @host = http://{{hostname}}:{{port}}
 
 @emailSportsman = user@notfound2.local
-@emailCoach = user@notfound5.local
+@emailCoach = user@notfound3.local
 @password = 123456
 
 @authTokenCoach = {{loginCoach.response.body.accessToken}}
@@ -55,8 +55,13 @@ Content-Type: application/json
 @exerciseId = {{createExercise.response.body.$.id}}
 
 # Get my exercises
-GET {{host}}/api/exercises  HTTP/1.1
+GET {{host}}/api/exercises/my  HTTP/1.1
 Authorization: Bearer {{authTokenCoach}}
+###
+
+# Get exercises
+GET {{host}}/api/exercises/ HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
 ###
 
 # Get exercise by id

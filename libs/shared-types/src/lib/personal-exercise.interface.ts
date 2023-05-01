@@ -4,5 +4,5 @@ export interface PersonalExerciseInterface {
   userId: string;
   createdAt?: Date;
   updatedAt?: Date;
-  status: string;
+  status?: string;
 }
