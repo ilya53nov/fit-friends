@@ -88,7 +88,7 @@
     "db-fill": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx prisma db seed",
+        "command": "dotenv -e ../../environments/.backend.env npx prisma db seed",
         "cwd": "apps/backend"
       }
     }

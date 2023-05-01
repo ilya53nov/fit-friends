@@ -60,6 +60,12 @@ nx run backend:db-generate
 nx run backend:db-migrate
 ```
 
+### Выполните начальное заполнение базы данных
+
+```
+nx run backend:db-fill
+```
+
 ### Для запуска сервисов (frontend, backend), введите следующую команду в терминале:
 
 ```

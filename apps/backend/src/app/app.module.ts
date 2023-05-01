@@ -19,6 +19,8 @@ import { BalanceModule } from './user-personal-account/balance/balance.module';
 import { NotifyNewExercisesModule } from './user-personal-account/notify-new-exercises/notify-new-exercises.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { PersonalExercisesModule } from './personal-exercises/personal-exercises.module';
+import { GymsModule } from './gyms/gyms.module';
+import { ReviewsModule } from './reviews/reviews.module';
 
 @Module({
   imports: [
@@ -46,7 +48,9 @@ import { PersonalExercisesModule } from './personal-exercises/personal-exercises
     BalanceModule,
     NotifyNewExercisesModule,
     NotificationsModule,
-    PersonalExercisesModule
+    PersonalExercisesModule,
+    GymsModule,
+    ReviewsModule,
   ],
   providers: [UsersService],
   exports: [UsersModule]
