@@ -1,4 +1,4 @@
-export * from './lib/comment.interface';
+export * from './lib/review.interface';
 export * from './lib/exercise-duration.enum';
 export * from './lib/exercise-gender.enum';
 export * from './lib/exercise-level.enum';

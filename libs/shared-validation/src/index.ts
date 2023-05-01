@@ -1,4 +1,4 @@
-export * from './lib/comment.validation';
+export * from './lib/review.validation';
 export * from './lib/exercise.validation';
 export * from './lib/gym.validation';
 export * from './lib/notification.validation';
