@@ -1,0 +1,47 @@
+@hostname = localhost
+@port = 3333
+@host = http://{{hostname}}:{{port}}
+
+@emailSportsman = user@notfound2.local
+
+@password = 123456
+
+@authTokenSportsman = {{loginSportsman.response.body.accessToken}}
+
+# Login sportsman
+# @name loginSportsman
+POST {{host}}/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "{{emailSportsman}}",
+  "password": "{{password}}"
+}
+
+###
+
+# Get exercises
+
+GET {{host}}/api/exercises/ HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+###
+
+@exerciseId = 56a7dae6-3ecc-4059-951b-511a561aa4fe
+
+# Create review
+POST {{host}}/api/reviews HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+Content-Type: application/json
+
+{
+  "exerciseId": "{{exerciseId}}",
+  "score": 5,
+  "text": "Крутая тренировка!/////////////////////////////////////////////////////////////////////////////////////////////"
+}
+###
+
+# Get reviews by exercise id
+GET {{host}}/api/reviews/{{exerciseId}} HTTP/1.1
+Authorization: Bearer {{authTokenSportsman}}
+
+###

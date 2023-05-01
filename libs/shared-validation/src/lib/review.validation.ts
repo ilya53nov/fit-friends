@@ -8,7 +8,7 @@ const enum TextLength {
   Max = 1024,
 }
 
-export const CommentValidation = {
+export const ReviewValidation = {
   Score: {
     Min: Score.Min,
     Max: Score.Max,
