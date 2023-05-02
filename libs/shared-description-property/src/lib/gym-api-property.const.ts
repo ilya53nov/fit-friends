@@ -3,7 +3,7 @@ import { GymTypeEnum, LocationEnum } from '@fit-friends/shared-types';
 export const GymApiProperty = {
   Id: {
     description: 'Уникальный индификатор зала',
-    example: '1',      
+    example: 1,      
   },
   Title:{
     description: 'Название зала',
@@ -12,20 +12,20 @@ export const GymApiProperty = {
   Location: {
     description: 'Локация зала',
     enum: LocationEnum,
-    example: 'ст. м. Пионерская',       
+    example: LocationEnum.Petrogradskaya,       
   },
   IsVerified: {
     description: 'Признак верификации зала',
-    example: 'true',     
+    example: true,     
   },
   Types: {
     description: 'Параметры зала',
     enum: GymTypeEnum,
-    example: 'бесплатная парковка',      
+    example: [GymTypeEnum.ChildrenRoom],      
   },
   Images: {
     description: 'Изображение зала',
-    example: 'gym-01.jpg',      
+    example: ['gym-01.jpg'],      
   },
   Description: {
     description: 'Описание зала',
@@ -33,10 +33,10 @@ export const GymApiProperty = {
   },
   Price: {
     description: 'Стоимость тренировки',
-    example: '1000',    
+    example: 1000,    
   },
   CreatedAt: {
     description: 'Дата создания',
-    example: '12023-03-22T16:29:03.561Z000',      
+    example: new Date('2023-03-22T16:29:03.561Z'),      
   }
-} as const
+} 

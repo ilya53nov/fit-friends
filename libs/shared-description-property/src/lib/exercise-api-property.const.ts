@@ -25,11 +25,11 @@ export const ExerciseApiProperty = {
   },
   Price: {
     description: 'Стоимость тренировки в рублях',
-    example: '1000',         
+    example: 1000,         
   },
   CaloriesCount: {
     description: 'Количество калорий',
-    example: '1000',   
+    example: 1000,   
   },
   Description: {
     description: 'Описание тренировки',
@@ -45,7 +45,7 @@ export const ExerciseApiProperty = {
   },
   Rating: {
     description: 'Рейтинг тренировки',
-    example: '5',     
+    example: 5,     
   },
   CoachId: {
     description: 'Тренер, создатель тренировки',
@@ -53,10 +53,10 @@ export const ExerciseApiProperty = {
   },
   IsSpecialOffer: {
     description: 'Признак специального предложения',
-    example: 'true',        
+    example: true,        
   },
   CreatedAt: {
     description: 'Дата создания тренировки',
-    example: '2023-03-22T16:29:03.561Z',      
+    example: new Date('2023-03-22T16:29:03.561Z'),      
   },
-} as const
+}

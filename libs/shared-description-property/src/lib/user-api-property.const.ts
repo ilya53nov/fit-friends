@@ -24,7 +24,7 @@ export const UserApiProperty = {
   },
   DateBirth: {
     description: 'Дата рождения пользователя',
-    example: '1995-05-11',
+    example: new Date('2023-03-22'),
   },
   Password: {
     description: 'Пароль пользователя',
@@ -52,7 +52,7 @@ export const UserApiProperty = {
   ExerciseTypes: {
     description: 'Тип тренировок',
     enum: ExerciseTypeEnum,
-    example: 'Бег, бокс',         
+    example: ['Бег', 'бокс'],         
   },
   DurationTraining: {
     description: 'Время на тренировку',
@@ -85,10 +85,14 @@ export const UserApiProperty = {
   },
   CreatedAt: {
     description: 'Дата создания пользователя',
-    example: '2023-03-22T16:29:03.561Z',      
+    example: new Date('2023-03-22T16:29:03.561Z'),      
   },
   AccessToken: {
     description: 'Токен доступа',
     example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',         
+  },
+  RefreshToken: {
+    description: 'Токен обновления доступа',
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',         
   }
-} as const
+} 
