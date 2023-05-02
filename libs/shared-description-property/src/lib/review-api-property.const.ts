@@ -13,7 +13,7 @@ export const ReviewApiProperty = {
   },
   Score: {
     description: 'Оценка',
-    example: '5',    
+    example: 5,    
   },
   Text: {
     description: 'Текст отзыва',
@@ -21,6 +21,6 @@ export const ReviewApiProperty = {
   },
   CreatedAt: {
     description: 'Дата создания отзыва',
-    example: '2023-03-22T16:29:03.561Z',    
+    example: new Date('2023-03-22T16:29:03.561Z'),    
   }
 }

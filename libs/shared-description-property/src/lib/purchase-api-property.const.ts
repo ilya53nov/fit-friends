@@ -5,7 +5,7 @@ export const PurchaseApiProperty = {
   },  
   CreatedAt: {
     description: 'Дата покупки',
-    example: '2023-03-22T16:29:03.561Z',      
+    example: new Date('2023-03-22T16:29:03.561Z'),      
   },
   PurchaseType: {
     description: 'Вид покупки',
@@ -21,18 +21,18 @@ export const PurchaseApiProperty = {
   },
   PriceExercise: {
     description: 'Цена тренировки',
-    example: '1000',   
+    example: 1000,   
   },
   CountExercise: {
     description: 'Количество',
-    example: '2',  
+    example: 2,  
   },
   Sum: {
     description: 'Сумма заказа',
-    example: '2000',   
+    example: 2000,   
   },
   PaymentMethod: {
     description: 'Способ оплаты',
     example: 'visa',       
   }
-} as const
+} 

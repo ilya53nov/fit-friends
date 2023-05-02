@@ -4,6 +4,8 @@ import { ExercisesMock } from "./exercises";
 import { GymsMock } from "./gyms";
 import { NotificationsMock } from "./notifications";
 import { PersonalExerciseMock } from "./personal-exercises";
+import { PurchasesMock } from './purchases';
+import { ReviewsMock } from './reviews';
 import { UsersMock } from "./users";
 
 export const Mocks = {
@@ -14,4 +16,6 @@ export const Mocks = {
   GymsMock,
   NotificationsMock,
   PersonalExerciseMock,
+  PurchasesMock,
+  ReviewsMock,
 }
