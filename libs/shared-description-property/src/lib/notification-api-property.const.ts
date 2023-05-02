@@ -9,10 +9,10 @@ export const NotificationApiProperty = {
   },
   CreatedAt: {
     description: 'Дата создания уведомления',
-    example: '2023-03-22T16:29:03.561Z',  
+    example: new Date('2023-03-22T16:29:03.561Z'),  
   },
   Text: {
     description: 'Текст уведомления',
     example: 'Алина добавила вас в друзья', 
   }
-} as const
+}

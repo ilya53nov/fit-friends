@@ -13,11 +13,11 @@ export const PersonalExerciseApiProperty = {
   },
   CreatedAt: {
     description: 'Дата создания заявки на персональную тренировку',
-    example: '2023-03-22T16:29:03.561Z',     
+    example: new Date('2023-03-22T16:29:03.561Z'),     
   },
   UpdatedAt: {
     description: 'Дата обновления заявки на персональную тренировку',
-    example: '2023-03-22T16:29:03.561Z',     
+    example: new Date('2023-03-22T16:29:03.561Z'),     
   },
   Status: {
     description: 'Статус заявки',

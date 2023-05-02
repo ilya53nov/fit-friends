@@ -17,5 +17,5 @@ export class NotificationRdo {
 
   @ApiProperty(NotificationApiProperty.CreatedAt)
   @Expose()
-  public createdAt!: string;  
+  public createdAt!: Date;  
 }
