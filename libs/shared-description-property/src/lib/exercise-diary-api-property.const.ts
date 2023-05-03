@@ -13,14 +13,14 @@ export const ExerciseDiaryApiProperty = {
   },
   CaloriesSpentCount: {
     description: 'Количество потраченных калорий',
-    example: '1000',      
+    example: 1000,      
   },
   TimeSpentExercise: {
     description: 'Время, затраченное на тренировку',
-    example: '90',      
+    example: 90,      
   },
   Date: {
     description: 'Дата тренировки',
-    example: '2023-03-22T16:29:03.561Z',     
+    example: new Date('2023-03-22T16:29:03.561Z'),     
   }
 }
