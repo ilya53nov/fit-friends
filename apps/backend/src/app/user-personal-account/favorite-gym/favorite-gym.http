@@ -21,7 +21,7 @@ Content-Type: application/json
 ###
 
 # Add favorite-gym
-POST {{host}}/api/favorite-gym/f4c257ad-efe0-423f-9a96-cde90f153622 HTTP/1.1
+POST {{host}}/api/favorite-gym/5 HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 
 ###
@@ -33,7 +33,7 @@ Authorization: Bearer {{authTokenSportsman}}
 ###
 
 # Delete favorite-gym
-DELETE {{host}}/api/favorite-gym/f4c257ad-efe0-423f-9a96-cde90f153622 HTTP/1.1
+DELETE {{host}}/api/favorite-gym/1 HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 
 ###

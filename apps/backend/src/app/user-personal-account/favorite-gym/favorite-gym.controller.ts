@@ -34,7 +34,7 @@ export class FavoriteGymController {
   @Post(ParameterKey.Rout)
   public async create(
     @GetUser(ParameterKey.Id) userId: string,
-    @Param(ParameterKey.Id) gymId: string,
+    @Param(ParameterKey.Id) gymId: number,
   ) {
     return await this.favoriteGymService.create(userId, gymId);
   }
@@ -70,7 +70,7 @@ export class FavoriteGymController {
   @Delete(ParameterKey.Rout)
   public async delete(
     @GetUser(ParameterKey.Id) userId: string,
-    @Param(ParameterKey.Id) gymId: string,
+    @Param(ParameterKey.Id) gymId: number,
   ) {
     return await this.favoriteGymService.delete(userId, gymId);
   }

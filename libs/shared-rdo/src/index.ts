@@ -10,3 +10,5 @@ export * from './lib/notification.rdo';
 export * from './lib/personal-exercise.rdo';
 export * from './lib/gym.rdo';
 export * from './lib/review.rdo';
+export * from './lib/user-balance.rdo';
+export * from './lib/favorite-gym.rdo';

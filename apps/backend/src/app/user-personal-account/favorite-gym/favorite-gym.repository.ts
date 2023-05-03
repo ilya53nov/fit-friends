@@ -5,7 +5,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 export class FavoriteGymRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async create(userId: string, gymId: string) {
+  public async create(userId: string, gymId: number) {
     return await this.prisma.favoriteGym.create({
       data: {
         userId,
@@ -22,7 +22,7 @@ export class FavoriteGymRepository {
     })
   }
 
-  public async findById(userId: string, gymId: string) {
+  public async findById(userId: string, gymId: number) {
     return await this.prisma.favoriteGym.findFirst({
       where: {
         AND: {

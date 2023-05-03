@@ -23,4 +23,4 @@ export const PersonalExerciseApiProperty = {
     description: 'Статус заявки',
     example: 'на рассмотрении',     
   },
-} as const
+}

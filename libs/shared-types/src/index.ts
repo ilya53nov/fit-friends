@@ -27,3 +27,4 @@ export * from './lib/food-diary.interface';
 export * from './lib/food-type.enum';
 export * from './lib/user-balance.interface';
 export * from './lib/subscriber.interface';
+export * from './lib/favorite-gym.interface';
