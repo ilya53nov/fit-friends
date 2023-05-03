@@ -11,7 +11,7 @@ export const FoodDiaryApiProperty = {
   },
   CaloriesCount: {
     description: 'Количество калорий',
-    example: '1000', 
+    example: 1000, 
   },
   FoodType: {
     description: 'Вид приёма пищи',
@@ -20,6 +20,6 @@ export const FoodDiaryApiProperty = {
   },
   Date: {
     description: 'Дата приёма пищи',
-    example: '2023-03-22T16:29:03.561Z',  
+    example: new Date('2023-03-22T16:29:03.561Z'),  
   }
-} as const
+}
