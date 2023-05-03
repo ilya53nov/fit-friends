@@ -13,4 +13,8 @@ export class GymsService {
     return finded.map((item) => fillObject(GymRdo, item));
   }
 
+  public async findById(id: number) {
+    return await this.gymsRepository.findById(id);
+  }  
+
 }

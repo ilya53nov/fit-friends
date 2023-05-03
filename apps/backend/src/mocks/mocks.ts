@@ -1,7 +1,10 @@
 import { AuthMock } from "./auth";
+import { BalanceMock } from './balance';
 import { QueryMock } from "./base-query";
 import { ExerciseDiaryMock } from "./exercise-diary";
 import { ExercisesMock } from "./exercises";
+import { FavoriteGymMock } from './favorite-gym';
+import { FilesMock } from './files';
 import { FoodDiaryMock } from "./food-diary";
 import { GymsMock } from "./gyms";
 import { NotificationsMock } from "./notifications";
@@ -22,4 +25,7 @@ export const Mocks = {
   ReviewsMock,
   ExerciseDiaryMock,
   FoodDiaryMock,
+  BalanceMock,
+  FavoriteGymMock,
+  FilesMock,
 }

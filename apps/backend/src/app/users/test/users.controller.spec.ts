@@ -6,7 +6,7 @@ import { fillObject } from '@fit-friends/core';
 import { Mocks } from '../../../mocks/mocks';
 import { UsersTestDescription } from './users-test.constants'
 
-const mockAuthService = {
+const mockService = {
   findAll: jest.fn().mockResolvedValue(fillObject(SportsmanUserRdo, Mocks.UsersMock.User)),
   findOne: jest.fn().mockResolvedValue(fillObject(SportsmanUserRdo, Mocks.UsersMock.User)),
   update: jest.fn().mockResolvedValue(fillObject(SportsmanUserRdo, Mocks.UsersMock.User)),
@@ -22,7 +22,7 @@ describe(UsersTestDescription.Controller, () => {
       controllers: [UsersController],
     })
       .overrideProvider(UsersService)
-      .useValue(mockAuthService)
+      .useValue(mockService)
       .compile();
 
     usersService = module.get<UsersService>(UsersService);

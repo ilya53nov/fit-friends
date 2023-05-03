@@ -6,7 +6,7 @@ import { Mocks } from '../../../mocks/mocks';
 import { PurchasesTestDescription } from './purchases-test.constants'
 import { PurchaseRdo } from '@fit-friends/shared-rdo';
 
-const mockAuthService = {
+const mockService = {
   findAll: jest.fn().mockResolvedValue(fillObject(PurchaseRdo, Mocks.PurchasesMock.Purchase)),
   create: jest.fn().mockResolvedValue(fillObject(PurchaseRdo, Mocks.PurchasesMock.Purchase)),
 };
@@ -21,7 +21,7 @@ describe(PurchasesTestDescription.Controller, () => {
       controllers: [PurchasesController],
     })
       .overrideProvider(PurchasesService)
-      .useValue(mockAuthService)
+      .useValue(mockService)
       .compile();
 
     purchasesService = module.get<PurchasesService>(PurchasesService);

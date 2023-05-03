@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { BalanceRepository } from './balance.repository';
 import { UpdateUserBalanceDto } from '@fit-friends/shared-dto';
+import { fillObject } from '@fit-friends/core';
+import { UserBalanceRdo } from '@fit-friends/shared-rdo';
 
 @Injectable()
 export class BalanceService {
@@ -9,7 +11,7 @@ export class BalanceService {
   public async findAll(userId: string) {
     const findedAll = await this.balanceRepository.findAll(userId);
 
-    return findedAll;
+    return findedAll.map((item) => fillObject(UserBalanceRdo, item));
   }
 
   public async increment(userId: string, updateUserBalanceDto: UpdateUserBalanceDto) {

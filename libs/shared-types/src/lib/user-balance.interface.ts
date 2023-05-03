@@ -1,8 +1,6 @@
 export interface UserBalanceInterface {
+  id?: string;
   purchaseType: string;
   count: number;
-  //exerciseId: string;
-  //exerciseCount: number;
-  //gymMembershipId: string;
-  //gymMembershipCount: number;
+  userId: string;
 }

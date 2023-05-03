@@ -8,3 +8,4 @@ export * from './lib/notification-api-property.const';
 export * from './lib/personal-exercise-api-property.const';
 export * from './lib/gym-api-property.const';
 export * from './lib/review-api-property.const';
+export * from './lib/favorite-gym-api-property.const';
