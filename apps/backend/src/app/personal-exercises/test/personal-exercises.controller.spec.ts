@@ -6,7 +6,7 @@ import { Mocks } from '../../../mocks/mocks';
 import { PersonalExercisesTestDescription } from './personal-exercises-test.constants'
 import { PersonalExerciseRdo } from '@fit-friends/shared-rdo';
 
-const mockAuthService = {
+const mockService = {
   create: jest.fn().mockResolvedValue(fillObject(PersonalExerciseRdo, Mocks.PersonalExerciseMock.PersonalExercise)),
   update: jest.fn().mockResolvedValue(fillObject(PersonalExerciseRdo, Mocks.PersonalExerciseMock.PersonalExercise)),
 };
@@ -21,7 +21,7 @@ describe(PersonalExercisesTestDescription.Controller, () => {
       controllers: [PersonalExercisesController],
     })
       .overrideProvider(PersonalExercisesService)
-      .useValue(mockAuthService)
+      .useValue(mockService)
       .compile();
 
     personalExercisesService = module.get<PersonalExercisesService>(PersonalExercisesService);

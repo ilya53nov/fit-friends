@@ -4,12 +4,12 @@ import { Test } from '@nestjs/testing';
 import { fillObject } from '@fit-friends/core';
 import { Mocks } from '../../../../mocks/mocks';
 import { FavoriteGymTestDescription } from './favorite-gym-test.constants'
-import {  } from '@fit-friends/shared-rdo';
+import { FavoriteGymRdo } from '@fit-friends/shared-rdo';
 
-const mockAuthService = {
-  findAll: jest.fn().mockResolvedValue(undefined),
+const mockService = {
+  findAll: jest.fn().mockResolvedValue(fillObject(FavoriteGymRdo, Mocks.FavoriteGymMock.FavoriteGym)),
   delete: jest.fn().mockResolvedValue(undefined),
-  create: jest.fn().mockResolvedValue(undefined),
+  create: jest.fn().mockResolvedValue(fillObject(FavoriteGymRdo, Mocks.FavoriteGymMock.FavoriteGym)),
 };
 
 describe(FavoriteGymTestDescription.Controller, () => {
@@ -22,7 +22,7 @@ describe(FavoriteGymTestDescription.Controller, () => {
       controllers: [FavoriteGymController],
     })
       .overrideProvider(FavoriteGymService)
-      .useValue(mockAuthService)
+      .useValue(mockService)
       .compile();
 
     favoriteGymService = module.get<FavoriteGymService>(FavoriteGymService);
@@ -32,9 +32,21 @@ describe(FavoriteGymTestDescription.Controller, () => {
   });
 
   test(FavoriteGymTestDescription.Delete, async () => {
-    const result = await favoriteGymController.delete(Mocks.UsersMock.User.id, Mocks.UsersMock.User.id);
-    expect(favoriteGymService.delete).toBeCalledWith(Mocks.UsersMock.User.id, Mocks.UsersMock.User.id);
+    const result = await favoriteGymController.delete(Mocks.UsersMock.User.id, Mocks.GymsMock.Gym.id);
+    expect(favoriteGymService.delete).toBeCalledWith(Mocks.UsersMock.User.id, Mocks.GymsMock.Gym.id);
     expect(result).toEqual(undefined);
+  });
+
+  test(FavoriteGymTestDescription.Create, async () => {
+    const result = await favoriteGymController.create(Mocks.UsersMock.User.id, Mocks.GymsMock.Gym.id);
+    expect(favoriteGymService.create).toBeCalledWith(Mocks.UsersMock.User.id, Mocks.GymsMock.Gym.id);
+    expect(result).toMatchObject(fillObject(FavoriteGymRdo, Mocks.FavoriteGymMock.FavoriteGym));
+  });
+
+  test(FavoriteGymTestDescription.FindAll, async () => {
+    const result = await favoriteGymController.findAll(Mocks.UsersMock.User.id);
+    expect(favoriteGymService.findAll).toBeCalledWith(Mocks.UsersMock.User.id);
+    expect(result).toMatchObject(fillObject(FavoriteGymRdo, Mocks.FavoriteGymMock.FavoriteGym));
   });
 
 });

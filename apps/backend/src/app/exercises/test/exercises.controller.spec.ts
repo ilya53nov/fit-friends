@@ -6,7 +6,7 @@ import { fillObject } from '@fit-friends/core';
 import { Mocks } from '../../../mocks/mocks';
 import { ExecisesTestDescription } from './exercises-test.constants'
 
-const mockExercisesService = {
+const mockService = {
   create: jest.fn().mockResolvedValue(fillObject(ExerciseRdo, Mocks.ExercisesMock.Exercise)),
   findAllByCoachId: jest.fn().mockResolvedValue(fillObject(ExerciseRdo, Mocks.ExercisesMock.Exercise)),
   findAll: jest.fn().mockResolvedValue(fillObject(ExerciseRdo, Mocks.ExercisesMock.Exercise)),
@@ -24,7 +24,7 @@ describe(ExecisesTestDescription.Controller, () => {
       controllers: [ExercisesController],
     })
       .overrideProvider(ExercisesService)
-      .useValue(mockExercisesService)
+      .useValue(mockService)
       .compile();
 
     exercisesService = module.get<ExercisesService>(ExercisesService);

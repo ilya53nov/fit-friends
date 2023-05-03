@@ -6,7 +6,7 @@ import { Mocks } from '../../../mocks/mocks';
 import { ReviewsTestDescription } from './reviews-test.constants'
 import { ReviewRdo } from '@fit-friends/shared-rdo';
 
-const mockAuthService = {
+const mockService = {
   findByExerciseId: jest.fn().mockResolvedValue(fillObject(ReviewRdo, Mocks.ReviewsMock.ReviewInterface)),
   create: jest.fn().mockResolvedValue(fillObject(ReviewRdo, Mocks.ReviewsMock.ReviewInterface)),
 };
@@ -21,7 +21,7 @@ describe(ReviewsTestDescription.Controller, () => {
       controllers: [ReviewsController],
     })
       .overrideProvider(ReviewsService)
-      .useValue(mockAuthService)
+      .useValue(mockService)
       .compile();
 
     reviewsService = module.get<ReviewsService>(ReviewsService);

@@ -6,7 +6,7 @@ import { fillObject } from '@fit-friends/core';
 import { Mocks } from '../../../mocks/mocks';
 import { GymsTestDescription } from './gyms-test.constants'
 
-const mockAuthService = {
+const mockService = {
   findAll: jest.fn().mockResolvedValue(fillObject(GymRdo, Mocks.GymsMock.Gym)),
 };
 
@@ -20,7 +20,7 @@ describe(GymsTestDescription.Controller, () => {
       controllers: [GymsController],
     })
       .overrideProvider(GymsService)
-      .useValue(mockAuthService)
+      .useValue(mockService)
       .compile();
 
     gymsService = module.get<GymsService>(GymsService);

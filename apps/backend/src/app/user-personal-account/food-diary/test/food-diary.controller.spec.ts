@@ -6,7 +6,7 @@ import { Mocks } from '../../../../mocks/mocks';
 import { FoodDiaryTestDescription } from './food-diary-test.constants'
 import { FoodDiaryRdo } from '@fit-friends/shared-rdo';
 
-const mockAuthService = {
+const mockService = {
   findAll: jest.fn().mockResolvedValue(fillObject(FoodDiaryRdo, Mocks.FoodDiaryMock.FoodDiary)),
   create: jest.fn().mockResolvedValue(fillObject(FoodDiaryRdo, Mocks.FoodDiaryMock.FoodDiary)),
   update: jest.fn().mockResolvedValue(fillObject(FoodDiaryRdo, Mocks.FoodDiaryMock.FoodDiary)),
@@ -22,7 +22,7 @@ describe(FoodDiaryTestDescription.Controller, () => {
       controllers: [FoodDiaryController],
     })
       .overrideProvider(FoodDiaryService)
-      .useValue(mockAuthService)
+      .useValue(mockService)
       .compile();
 
       foodDiaryService = module.get<FoodDiaryService>(FoodDiaryService);

@@ -6,7 +6,7 @@ import { Mocks } from '../../../mocks/mocks';
 import { NotificationsTestDescription } from './notifications-test.constants'
 import { NotificationRdo } from '@fit-friends/shared-rdo';
 
-const mockAuthService = {
+const mockService = {
   findAll: jest.fn().mockResolvedValue(fillObject(NotificationRdo, Mocks.NotificationsMock.Notification)),
   remove: jest.fn().mockResolvedValue(undefined),
 };
@@ -21,7 +21,7 @@ describe(NotificationsTestDescription.Controller, () => {
       controllers: [NotificationsController],
     })
       .overrideProvider(NotificationsService)
-      .useValue(mockAuthService)
+      .useValue(mockService)
       .compile();
 
     notificationsService = module.get<NotificationsService>(NotificationsService);

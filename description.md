@@ -112,6 +112,12 @@ nx run backend:serve
 nx run backend:lint
 ```
 
+### Запуск юнит тестов
+
+```
+nx run backend:test
+```
+
 ### Сборка проекта
 
 ```
