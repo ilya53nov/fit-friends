@@ -16,5 +16,15 @@ export class GymsRepository {
       }
     });
   }  
+
+  public async findManyById(gymsId: number[]) {
+    return await this.prisma.gym.findMany({
+      where: {
+        id: {
+          in: gymsId,
+        }
+      }
+    });
+  }
   
 }

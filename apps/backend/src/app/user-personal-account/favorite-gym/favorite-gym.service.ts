@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { FavoriteGymRepository } from './favorite-gym.repository';
 import { FavoriteGymDescription } from './favorite-gym.constants';
 import { fillObject } from '@fit-friends/core';
-import { FavoriteGymRdo } from '@fit-friends/shared-rdo';
+import { FavoriteGymRdo, GymRdo } from '@fit-friends/shared-rdo';
 import { GymsService } from '../../gyms/gyms.service';
 
 @Injectable()
@@ -33,7 +33,11 @@ export class FavoriteGymService {
   public async findAll(userId: string) {
     const favoriteGyms = await this.favoriteGymRepository.findAll(userId);
 
-    return favoriteGyms.map((item) => fillObject(FavoriteGymRdo, item));
+    const gymsId = [].concat(...favoriteGyms.map((item) => item.gymId));
+
+    const gyms = await this.gymsService.findManyById(gymsId);
+
+    return gyms.map((item) => fillObject(GymRdo, item));
   }
 
   public async delete(userId: string, gymId: number) {

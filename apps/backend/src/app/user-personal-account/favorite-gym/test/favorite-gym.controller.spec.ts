@@ -4,10 +4,10 @@ import { Test } from '@nestjs/testing';
 import { fillObject } from '@fit-friends/core';
 import { Mocks } from '../../../../mocks/mocks';
 import { FavoriteGymTestDescription } from './favorite-gym-test.constants'
-import { FavoriteGymRdo } from '@fit-friends/shared-rdo';
+import { FavoriteGymRdo, GymRdo } from '@fit-friends/shared-rdo';
 
 const mockService = {
-  findAll: jest.fn().mockResolvedValue(fillObject(FavoriteGymRdo, Mocks.FavoriteGymMock.FavoriteGym)),
+  findAll: jest.fn().mockResolvedValue(fillObject(GymRdo, Mocks.GymsMock.Gym)),
   delete: jest.fn().mockResolvedValue(undefined),
   create: jest.fn().mockResolvedValue(fillObject(FavoriteGymRdo, Mocks.FavoriteGymMock.FavoriteGym)),
 };
@@ -46,7 +46,7 @@ describe(FavoriteGymTestDescription.Controller, () => {
   test(FavoriteGymTestDescription.FindAll, async () => {
     const result = await favoriteGymController.findAll(Mocks.UsersMock.User.id);
     expect(favoriteGymService.findAll).toBeCalledWith(Mocks.UsersMock.User.id);
-    expect(result).toMatchObject(fillObject(FavoriteGymRdo, Mocks.FavoriteGymMock.FavoriteGym));
+    expect(result).toMatchObject(fillObject(GymRdo, Mocks.GymsMock.Gym));
   });
 
 });
