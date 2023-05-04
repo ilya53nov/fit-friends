@@ -15,6 +15,10 @@ export class GymsService {
 
   public async findById(id: number) {
     return await this.gymsRepository.findById(id);
-  }  
+  }
+
+  public async findManyById(gymsId: number[]) {
+    return await this.gymsRepository.findManyById(gymsId);
+  } 
 
 }

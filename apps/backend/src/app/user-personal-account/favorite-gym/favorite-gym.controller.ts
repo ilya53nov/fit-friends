@@ -12,6 +12,7 @@ import { AccessTokenGuard, GetUser, Roles, RolesGuard } from '@fit-friends/core'
 import { ApiRouteEnum, ParameterKey, RoleEnum } from '@fit-friends/shared-types';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FavoriteGymApiOperation } from '@fit-friends/shared-description-operation';
+import { FavoriteGymRdo, GymRdo } from '@fit-friends/shared-rdo';
 
 @ApiTags(ApiRouteEnum.FavoriteGym)
 @Controller(ApiRouteEnum.FavoriteGym)
@@ -20,7 +21,8 @@ export class FavoriteGymController {
 
   @ApiOperation({summary: FavoriteGymApiOperation.Create})
   @ApiResponse({
-    status: HttpStatus.OK
+    status: HttpStatus.OK,
+    type: FavoriteGymRdo,
   })
   @ApiResponse({
     status: HttpStatus.NOT_FOUND
@@ -41,7 +43,8 @@ export class FavoriteGymController {
 
   @ApiOperation({summary: FavoriteGymApiOperation.FindAll})
   @ApiResponse({
-    status: HttpStatus.OK
+    status: HttpStatus.OK,
+    type: GymRdo,
   })
   @ApiResponse({
     status: HttpStatus.FORBIDDEN

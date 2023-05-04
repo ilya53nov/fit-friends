@@ -21,7 +21,7 @@ Content-Type: application/json
 ###
 
 # Add favorite-gym
-POST {{host}}/api/favorite-gym/5 HTTP/1.1
+POST {{host}}/api/favorite-gym/1 HTTP/1.1
 Authorization: Bearer {{authTokenSportsman}}
 
 ###
