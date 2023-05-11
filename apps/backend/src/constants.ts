@@ -7,3 +7,5 @@ export enum AppOptions {
   Description = 'Fit friends service API',
   Version = '1.0',
 }
+
+export const FRONTEND_END_POINT = 'http://localhost:4200';

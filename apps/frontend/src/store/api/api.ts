@@ -3,9 +3,10 @@ import { ParameterKey } from '@fit-friends/shared-types'
 import { END_POINT_BACKEND } from '../../constants/end-point-backend';
 
 export enum ApiTag {
-  Products = 'Products',
-  User = 'User',
   Api = 'api',
+  Auth = 'auth',
+  Users = 'Users',
+  Files = 'files',
 }
 
 export enum ApiMethod {
@@ -28,6 +29,10 @@ export const api = createApi({
       return headers
     },
   }),
-  tagTypes: [ApiTag.Products, ApiTag.User],
+  tagTypes: [
+    ApiTag.Auth,
+    ApiTag.Users,
+    ApiTag.Files,
+  ],
   endpoints: () => ({}),
 });

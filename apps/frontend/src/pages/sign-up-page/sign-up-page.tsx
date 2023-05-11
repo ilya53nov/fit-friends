@@ -1,4 +1,54 @@
+import { ChangeEvent, SyntheticEvent, useRef, useState } from 'react';
+import { useRegisterUserMutation } from '../../store/auth/auth-api'
+import { useAddAvatarMutation } from '../../store/files/files-api';
+import { ParameterKey, RoleEnum, UserGenderEnum } from '@fit-friends/shared-types';
+import { CreateBaseUserDto } from '@fit-friends/shared-dto';
+
 export default function SignUpPage(): JSX.Element {
+  const [registerUser, {error: errorRegisterUser}] = useRegisterUserMutation();
+  const [user, setUser] = useState<CreateBaseUserDto>({
+    avatar: '',
+    name: '',
+    email: '',
+    exerciseLevel: '',
+    exerciseTypes: [],
+    gender: '',
+    locationDefault: '',
+    password: '',
+    role: RoleEnum.Sportsman,
+    dateBirth: new Date(),
+  });
+  const [addAvatar] = useAddAvatarMutation();
+  const filePickerRef = useRef<HTMLInputElement | null>(null);
+
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const target = evt.target as HTMLInputElement;
+    const name = target.name;
+    const value = target.value;
+    
+    setUser({...user, [name]: value});
+  }
+
+  const onAddAvatarClick = async (evt: ChangeEvent<HTMLInputElement>) => {
+    const target = evt.target as HTMLInputElement;
+    const file = target.files && target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append(ParameterKey.File, file);
+
+    const loadedAvatar = await addAvatar(formData).unwrap();
+
+    setUser({...user, avatar: loadedAvatar});
+
+    (filePickerRef.current as HTMLDivElement).style.background =
+      `url(${URL.createObjectURL(file as File)}) no-repeat center/cover`;
+  };
+
   return (
     <div className="wrapper">
       <main>
@@ -22,10 +72,12 @@ export default function SignUpPage(): JSX.Element {
                     <div className="sign-up__load-photo">
                       <div className="input-load-avatar">
                         <label>
-                          <input className="visually-hidden" type="file" accept="image/png, image/jpeg"/><span className="input-load-avatar__btn">
+                          <input className="visually-hidden" type="file" accept="image/png, image/jpeg" onChange={onAddAvatarClick}/>
+                          <span className="input-load-avatar__btn" ref={filePickerRef}>
                             <svg width="20" height="20" aria-hidden="true">
                               <use xlinkHref="#icon-import"></use>
-                            </svg></span>
+                            </svg>
+                          </span>
                         </label>
                       </div>
                       <div className="sign-up__description">
@@ -34,48 +86,69 @@ export default function SignUpPage(): JSX.Element {
                     </div>
                     <div className="sign-up__data">
                       <div className="custom-input">
-                        <label><span className="custom-input__label">Имя</span><span className="custom-input__wrapper">
-                            <input type="text" name="name"/></span>
+                        <label>
+                          <span className="custom-input__label">Имя</span>
+                          <span className="custom-input__wrapper">
+                            <input type="text" onChange={handleInputChange} value={user.name} name="name"/>
+                          </span>
                         </label>
                       </div>
                       <div className="custom-input">
-                        <label><span className="custom-input__label">E-mail</span><span className="custom-input__wrapper">
-                            <input type="email" name="email"/></span>
+                        <label>
+                          <span className="custom-input__label">E-mail</span>
+                          <span className="custom-input__wrapper">
+                            <input type="email" onChange={handleInputChange} value={user.email} name="email"/>
+                          </span>
                         </label>
                       </div>
                       <div className="custom-input">
-                        <label><span className="custom-input__label">Дата рождения</span><span className="custom-input__wrapper">
-                            <input type="date" name="birthday" max="2099-12-31"/></span>
+                        <label>
+                          <span className="custom-input__label">Дата рождения</span>
+                          <span className="custom-input__wrapper">
+                            <input type="date" name="dateBirth" max="2099-12-31"/>
+                          </span>
                         </label>
                       </div>
                       <div className="custom-select custom-select--not-selected"><span className="custom-select__label">Ваша локация</span>
-                        <button className="custom-select__button" type="button" aria-label="Выберите одну из опций"><span className="custom-select__text"></span><span className="custom-select__icon">
+                        <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
+                          <span className="custom-select__text"></span>
+                          <span className="custom-select__icon">
                             <svg width="15" height="6" aria-hidden="true">
                               <use xlinkHref="#arrow-down"></use>
-                            </svg></span></button>
+                            </svg>
+                          </span>
+                        </button>
                         <ul className="custom-select__list" role="listbox">
                         </ul>
                       </div>
                       <div className="custom-input">
-                        <label><span className="custom-input__label">Пароль</span><span className="custom-input__wrapper">
-                            <input type="password" name="password" autoComplete="off"/></span>
+                        <label><span className="custom-input__label">Пароль</span>
+                          <span className="custom-input__wrapper">
+                            <input type="password" name="password" onChange={handleInputChange} value={user.password} autoComplete="off"/>
+                          </span>
                         </label>
                       </div>
                       <div className="sign-up__radio"><span className="sign-up__label">Пол</span>
                         <div className="custom-toggle-radio custom-toggle-radio--big">
                           <div className="custom-toggle-radio__block">
                             <label>
-                              <input type="radio" name="sex"/><span className="custom-toggle-radio__icon"></span><span className="custom-toggle-radio__label">Мужской</span>
+                              <input type="radio" name="gender" onChange={handleInputChange} value={UserGenderEnum.Male} defaultChecked={user.gender === UserGenderEnum.Male}/>
+                              <span className="custom-toggle-radio__icon"></span>
+                              <span className="custom-toggle-radio__label">Мужской</span>
                             </label>
                           </div>
                           <div className="custom-toggle-radio__block">
                             <label>
-                              <input type="radio" name="sex" checked/><span className="custom-toggle-radio__icon"></span><span className="custom-toggle-radio__label">Женский</span>
+                              <input type="radio" name="gender" onChange={handleInputChange} value={UserGenderEnum.Female} defaultChecked={user.gender === UserGenderEnum.Female}/>
+                              <span className="custom-toggle-radio__icon"></span>
+                              <span className="custom-toggle-radio__label">Женский</span>
                             </label>
                           </div>
                           <div className="custom-toggle-radio__block">
                             <label>
-                              <input type="radio" name="sex"/><span className="custom-toggle-radio__icon"></span><span className="custom-toggle-radio__label">Неважно</span>
+                              <input type="radio" name="gender" onChange={handleInputChange} value={UserGenderEnum.NotMatter} defaultChecked={user.gender === UserGenderEnum.NotMatter}/>
+                              <span className="custom-toggle-radio__icon"></span>
+                              <span className="custom-toggle-radio__label">Неважно</span>
                             </label>
                           </div>
                         </div>
@@ -86,18 +159,24 @@ export default function SignUpPage(): JSX.Element {
                       <div className="role-selector sign-up__role-selector">
                         <div className="role-btn">
                           <label>
-                            <input className="visually-hidden" type="radio" name="role" value="coach" checked/><span className="role-btn__icon">
+                            <input className="visually-hidden" type="radio" name="role" value={RoleEnum.Coach} onChange={handleInputChange} defaultChecked={user.role === RoleEnum.Coach}/>
+                            <span className="role-btn__icon">
                               <svg width="12" height="13" aria-hidden="true">
                                 <use xlinkHref="#icon-cup"></use>
-                              </svg></span><span className="role-btn__btn">Я хочу тренировать</span>
+                              </svg>
+                            </span>
+                            <span className="role-btn__btn">Я хочу тренировать</span>
                           </label>
                         </div>
                         <div className="role-btn">
                           <label>
-                            <input className="visually-hidden" type="radio" name="role" value="sportsman"/><span className="role-btn__icon">
+                            <input className="visually-hidden" type="radio" name="role" value={RoleEnum.Sportsman} onChange={handleInputChange} defaultChecked={user.role === RoleEnum.Sportsman}/>
+                            <span className="role-btn__icon">
                               <svg width="12" height="13" aria-hidden="true">
                                 <use xlinkHref="#icon-weight"></use>
-                              </svg></span><span className="role-btn__btn">Я хочу тренироваться</span>
+                              </svg>
+                            </span>
+                            <span className="role-btn__btn">Я хочу тренироваться</span>
                           </label>
                         </div>
                       </div>
