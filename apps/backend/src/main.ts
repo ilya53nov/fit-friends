@@ -9,7 +9,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { AppModule } from './app/app.module';
-import { AppOptions } from './constants';
+import { AppOptions, FRONTEND_END_POINT } from './constants';
 import { ApiRouteEnum } from '@fit-friends/shared-types';
 
 async function bootstrap() {
@@ -24,6 +24,8 @@ async function bootstrap() {
   .setDescription(AppOptions.Description)
   .setVersion(AppOptions.Version)
   .build();
+
+  app.enableCors({credentials: true, origin: FRONTEND_END_POINT});
   
   const globalPrefix = AppOptions.GlobalPrefix;
   app.setGlobalPrefix(globalPrefix);
