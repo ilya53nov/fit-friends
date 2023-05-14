@@ -3,6 +3,7 @@ import { useRegisterUserMutation } from '../../store/auth/auth-api'
 import { useAddAvatarMutation } from '../../store/files/files-api';
 import { ParameterKey, RoleEnum, UserGenderEnum } from '@fit-friends/shared-types';
 import { CreateBaseUserDto } from '@fit-friends/shared-dto';
+import { UserValidation } from '@fit-friends/shared-validation';
 
 export default function SignUpPage(): JSX.Element {
   const [registerUser, {error: errorRegisterUser}] = useRegisterUserMutation();
@@ -12,7 +13,7 @@ export default function SignUpPage(): JSX.Element {
     email: '',
     exerciseLevel: '',
     exerciseTypes: [],
-    gender: '',
+    gender: UserGenderEnum.NotMatter,
     locationDefault: '',
     password: '',
     role: RoleEnum.Sportsman,
@@ -72,7 +73,7 @@ export default function SignUpPage(): JSX.Element {
                     <div className="sign-up__load-photo">
                       <div className="input-load-avatar">
                         <label>
-                          <input className="visually-hidden" type="file" accept="image/png, image/jpeg" onChange={onAddAvatarClick}/>
+                          <input required={true} className="visually-hidden" type="file" accept="image/png, image/jpeg" onChange={onAddAvatarClick}/>
                           <span className="input-load-avatar__btn" ref={filePickerRef}>
                             <svg width="20" height="20" aria-hidden="true">
                               <use xlinkHref="#icon-import"></use>
@@ -89,7 +90,7 @@ export default function SignUpPage(): JSX.Element {
                         <label>
                           <span className="custom-input__label">Имя</span>
                           <span className="custom-input__wrapper">
-                            <input type="text" onChange={handleInputChange} value={user.name} name="name"/>
+                            <input pattern={String(UserValidation.Name.SymbolsPattern)} required={true} type="text" minLength={UserValidation.Name.Length.min} maxLength={UserValidation.Name.Length.max} onChange={handleInputChange} value={user.name} name="name"/>
                           </span>
                         </label>
                       </div>
@@ -97,7 +98,7 @@ export default function SignUpPage(): JSX.Element {
                         <label>
                           <span className="custom-input__label">E-mail</span>
                           <span className="custom-input__wrapper">
-                            <input type="email" onChange={handleInputChange} value={user.email} name="email"/>
+                            <input required={true} type="email" onChange={handleInputChange} value={user.email} name="email"/>
                           </span>
                         </label>
                       </div>
@@ -105,11 +106,12 @@ export default function SignUpPage(): JSX.Element {
                         <label>
                           <span className="custom-input__label">Дата рождения</span>
                           <span className="custom-input__wrapper">
-                            <input type="date" name="dateBirth" max="2099-12-31"/>
+                            <input required={true} type="date" name="dateBirth" max="2099-12-31"/>
                           </span>
                         </label>
                       </div>
-                      <div className="custom-select custom-select--not-selected"><span className="custom-select__label">Ваша локация</span>
+                      <div className="custom-select custom-select--not-selected">
+                        <span className="custom-select__label">Ваша локация</span>
                         <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
                           <span className="custom-select__text"></span>
                           <span className="custom-select__icon">
@@ -119,12 +121,19 @@ export default function SignUpPage(): JSX.Element {
                           </span>
                         </button>
                         <ul className="custom-select__list" role="listbox">
+                            <option
+                              
+                              value={'sdfgfd'}
+                              role='listitem'
+                              className='custom-select__item capitalize'
+                              
+                            >{'sdfgfd'}</option>
                         </ul>
                       </div>
                       <div className="custom-input">
                         <label><span className="custom-input__label">Пароль</span>
                           <span className="custom-input__wrapper">
-                            <input type="password" name="password" onChange={handleInputChange} value={user.password} autoComplete="off"/>
+                            <input required={true} type="password" minLength={UserValidation.PasswordLength.min} maxLength={UserValidation.PasswordLength.max} name="password" onChange={handleInputChange} value={user.password} autoComplete="off"/>
                           </span>
                         </label>
                       </div>
