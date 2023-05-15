@@ -21,7 +21,7 @@ export const api = createApi({
   reducerPath: ApiTag.Api,
   baseQuery: fetchBaseQuery({
     baseUrl: END_POINT_BACKEND,
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers) => {
       const token = localStorage.getItem(ParameterKey.Token)
       if (token) {
         headers.set(ParameterKey.Authorization, `Bearer ${token}`)

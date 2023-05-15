@@ -12,6 +12,7 @@ const usersApi = api.injectEndpoints({
     getUser: builder.query({
       query: (id: string) => `${ApiRouteEnum.Users}/${id}`,
       transformResponse: (response: UserRdo) => response,
+      providesTags: [ApiTag.Users],
     }),
     updateUser: builder.mutation({
       query: (user: {id: string, updateUserDto: UpdateUserDto}) => ({

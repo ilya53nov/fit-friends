@@ -1,13 +1,34 @@
 import { LoginUserDto } from '@fit-friends/shared-dto';
 import { useLoginMutation } from '../../store/auth/auth-api'
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ParameterKey } from '@fit-friends/shared-types';
+import { useGetUserQuery } from '../../store/users/users-api';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
+
+const DEFAULT_LOGIN_USER_DTO = {
+  email: '',
+  password: '',  
+}
 
 export default function SignInPage() {
-  const [login, {error}] = useLoginMutation();
-  const [loginUserDto, setLoginUserDto] = useState<LoginUserDto>({
-    email: '',
-    password: '',
-  });
+  const [login, {isSuccess, data}] = useLoginMutation();
+  const [loginUserDto, setLoginUserDto] = useState<LoginUserDto>(DEFAULT_LOGIN_USER_DTO);
+  const {data: user} = useGetUserQuery(data && isSuccess ? data.id : skipToken);
+
+  const onLogin = () => {
+    if (data) {
+      localStorage.setItem(ParameterKey.Token, data.accessToken);
+      
+      console.log(localStorage.getItem(ParameterKey.Token));
+      console.log(user?.role);
+    }
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      onLogin();
+    }
+  })
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const target = evt.target as HTMLInputElement;
@@ -18,9 +39,7 @@ export default function SignInPage() {
   }
 
   const onSubmit = async (loginUserDto: LoginUserDto) => {
-    const logged = await login(loginUserDto).unwrap();
-
-    console.log(logged);
+    await login(loginUserDto);
   }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -49,13 +68,19 @@ export default function SignInPage() {
                 <form method="get" onSubmit={handleSubmit}>
                   <div className="sign-in">
                     <div className="custom-input sign-in__input">
-                      <label><span className="custom-input__label">E-mail</span><span className="custom-input__wrapper">
-                          <input required={true} onChange={handleInputChange} value={loginUserDto.email} type="email" name="email"/></span>
+                      <label>
+                        <span className="custom-input__label">E-mail</span>
+                        <span className="custom-input__wrapper">
+                          <input required={true} onChange={handleInputChange} value={loginUserDto.email} type="email" name="email"/>
+                        </span>
                       </label>
                     </div>
                     <div className="custom-input sign-in__input">
-                      <label><span className="custom-input__label">Пароль</span><span className="custom-input__wrapper">
-                          <input required={true} onChange={handleInputChange} value={loginUserDto.password} type="password" name="password"/></span>
+                      <label>
+                        <span className="custom-input__label">Пароль</span>
+                        <span className="custom-input__wrapper">
+                          <input required={true} onChange={handleInputChange} value={loginUserDto.password} type="password" name="password"/>
+                        </span>
                       </label>
                     </div>
                     <button className="btn sign-in__button" type="submit">Продолжить</button>
