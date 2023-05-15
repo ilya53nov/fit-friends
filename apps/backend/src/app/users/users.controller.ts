@@ -41,8 +41,6 @@ export class UsersController {
   @ApiResponse({
     status: HttpStatus.NOT_FOUND,
   })
-  @Roles(RoleEnum.Sportsman)
-  @UseGuards(RolesGuard)
   @UseGuards(AccessTokenGuard)
   @Get(ParameterKey.Rout)
   public async findOne(@Param(ParameterKey.Id) id: string) {
