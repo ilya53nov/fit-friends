@@ -1,7 +1,7 @@
-import { AccessTokenGuard, BaseQuery, GetUser, Roles, RolesGuard } from '@fit-friends/core';
+import { AccessTokenGuard, BaseQuery, GetUser } from '@fit-friends/core';
 import { UpdateUserDto } from '@fit-friends/shared-dto';
 import { CoachUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
-import { ApiRouteEnum, ParameterKey, RoleEnum } from '@fit-friends/shared-types';
+import { ApiRouteEnum, ParameterKey } from '@fit-friends/shared-types';
 import { UsersApiOperation } from '@fit-friends/shared-description-operation'
 import {
   Controller,

@@ -6,7 +6,7 @@ import { UserRepository } from '../users/users.repository';
 import { CreateUserDto, LoginUserDto } from '@fit-friends/shared-dto';
 import { UserEntity } from '../users/users.entity';
 import { AUTHORIZATION_BEARER, AuthUserDescription } from './auth.constants';
-import { CoachUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
+import { CoachUserRdo, LoggedUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
 
 
 @Injectable()
@@ -67,7 +67,7 @@ export class AuthService {
 
     this.updateRefreshToken(user, tokens.refreshToken);
 
-    return tokens;
+    return fillObject(LoggedUserRdo, {...user, ...tokens});
   }
 
   private getPayloadJwtService(user: UserType): JwtPayloadType {
