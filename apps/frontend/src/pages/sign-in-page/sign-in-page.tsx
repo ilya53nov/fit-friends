@@ -11,22 +11,24 @@ const DEFAULT_LOGIN_USER_DTO = {
 }
 
 export default function SignInPage() {
-  const [login, {isSuccess, data}] = useLoginMutation();
+  const [login, {isSuccess: isSuccessLogin, data: loginData}] = useLoginMutation();
   const [loginUserDto, setLoginUserDto] = useState<LoginUserDto>(DEFAULT_LOGIN_USER_DTO);
-  const {data: user} = useGetUserQuery(data && isSuccess ? data.id : skipToken);
+  const {data: myProfile, isSuccess: isSuccessGetUser} = useGetUserQuery(isSuccessLogin && loginData ? loginData.id : skipToken);
 
-  const onLogin = () => {
-    if (data) {
-      localStorage.setItem(ParameterKey.Token, data.accessToken);
+  const onLogin = async () => {
+    if (loginData) {
+      localStorage.setItem(ParameterKey.Token, loginData.accessToken);
       
-      console.log(localStorage.getItem(ParameterKey.Token));
-      console.log(user?.role);
+      console.log(localStorage.getItem(ParameterKey.Token));      
     }
   }
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccessLogin) {
       onLogin();
+    }
+    if (isSuccessGetUser) {
+      console.log(myProfile);
     }
   })
 

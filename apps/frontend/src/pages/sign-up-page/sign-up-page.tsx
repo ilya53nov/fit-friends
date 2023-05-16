@@ -110,7 +110,7 @@ export default function SignUpPage(): JSX.Element {
                           </span>
                         </label>
                       </div>
-                      <div className="custom-select custom-select--not-selected">
+                      <div className="custom-select custom-select--not-selected is-open">
                         <span className="custom-select__label">Ваша локация</span>
                         <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
                           <span className="custom-select__text"></span>
@@ -121,13 +121,8 @@ export default function SignUpPage(): JSX.Element {
                           </span>
                         </button>
                         <ul className="custom-select__list" role="listbox">
-                            <option
-                              
-                              value={'sdfgfd'}
-                              role='listitem'
-                              className='custom-select__item capitalize'
-                              
-                            >{'sdfgfd'}</option>
+                          <li className="custom-select__item">dsdfsd</li>
+                          <li>dsdfsd</li>
                         </ul>
                       </div>
                       <div className="custom-input">
