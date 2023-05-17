@@ -20,6 +20,7 @@ import { CreateUserDto, LoginUserDto } from '@fit-friends/shared-dto';
         method: ApiMethod.Post,
         body: loginUserDto,        
       }),
+      transformResponse: (response: LoggedUserRdo) => response,
     }),
     getMe: builder.query({
       query: () => `${ApiRouteEnum.Auth}/${ApiRouteEnum.Me}`,

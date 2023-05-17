@@ -1,7 +1,10 @@
 import { LoginUserDto } from '@fit-friends/shared-dto';
-import { useGetMeQuery, useLoginMutation } from '../../store/auth/auth-api'
+import { useLoginMutation } from '../../store/auth/auth-api'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { useNavigate } from 'react-router-dom';
+import { ClientRoute } from '../../constants/client-route.enum';
+import { getUserRole } from '../../utils/local-storage';
+import { RoleEnum } from '@fit-friends/shared-types';
 
 const DEFAULT_LOGIN_USER_DTO = {
   email: '',
@@ -9,13 +12,18 @@ const DEFAULT_LOGIN_USER_DTO = {
 }
 
 export default function SignInPage() {
-  const [login, {isSuccess: isSuccessLogin}] = useLoginMutation();
+  const [login, {isSuccess: isSuccessLogin, data: loginRdo}] = useLoginMutation();
   const [loginUserDto, setLoginUserDto] = useState<LoginUserDto>(DEFAULT_LOGIN_USER_DTO);
-  const {data: myProfile} = useGetMeQuery(isSuccessLogin ? {} : skipToken);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
-    if (isSuccessLogin && myProfile) { 
-      console.log(myProfile);
+    if (isSuccessLogin && loginRdo) { 
+      const userRole = getUserRole();
+
+      if (userRole === RoleEnum.Sportsman) {
+        navigate(ClientRoute.Index);
+      }
     }
   })
 
