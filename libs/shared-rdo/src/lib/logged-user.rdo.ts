@@ -11,6 +11,10 @@ export class LoggedUserRdo {
   @Expose()
   public email!: string;
 
+  @ApiProperty(UserApiProperty.Role)
+  @Expose()
+  public role!: string;
+
   @ApiProperty(UserApiProperty.AccessToken)
   @Expose()
   public accessToken!: string;
