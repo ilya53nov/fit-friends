@@ -1,4 +1,4 @@
-import { RefreshTokenGuard } from '@fit-friends/core';
+import { AccessTokenGuard, GetUser, RefreshTokenGuard } from '@fit-friends/core';
 import { CreateUserDto, LoginUserDto } from '@fit-friends/shared-dto';
 import { CoachUserRdo, LoggedUserRdo, SportsmanUserRdo } from '@fit-friends/shared-rdo';
 import { ApiRouteEnum, ParameterKey } from '@fit-friends/shared-types';
@@ -61,6 +61,20 @@ export class AuthController {
   @Get(ApiRouteEnum.RefreshToken)
   public async refreshTokens(@Request() req, @Headers(ParameterKey.Authorization) bearerToken: string) {
     return this.authService.refreshTokens(req.user.email, bearerToken);
+  }
+
+  @ApiOperation({summary: AuthApiOperation.GetMe})
+  @ApiResponse({
+    type: SportsmanUserRdo || CoachUserRdo,
+    status: HttpStatus.OK,
+  })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+  })
+  @UseGuards(AccessTokenGuard)
+  @Get(ApiRouteEnum.Me)
+  public async findOne(@GetUser(ParameterKey.Id) userId: string,) {
+    return this.authService.getMe(userId);
   }
 
   

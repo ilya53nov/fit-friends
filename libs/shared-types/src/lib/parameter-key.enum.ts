@@ -6,5 +6,6 @@ export enum ParameterKey {
   Roles = 'roles',
   Authorization = 'Authorization',
   File = 'file',
-  Token = 'token',
+  AccessToken = 'accessToken',
+  RefreshToken = 'refreshToken',
 }

@@ -29,4 +29,5 @@ export enum ApiRouteEnum {
   My = 'my',
   Gyms = 'gyms',
   Reviews = 'reviews',
+  Me = 'me',
 }

@@ -1,8 +1,6 @@
 import { LoginUserDto } from '@fit-friends/shared-dto';
-import { useLoginMutation } from '../../store/auth/auth-api'
+import { useGetMeQuery, useLoginMutation } from '../../store/auth/auth-api'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { ParameterKey } from '@fit-friends/shared-types';
-import { useGetUserQuery } from '../../store/users/users-api';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 
 const DEFAULT_LOGIN_USER_DTO = {
@@ -11,23 +9,12 @@ const DEFAULT_LOGIN_USER_DTO = {
 }
 
 export default function SignInPage() {
-  const [login, {isSuccess: isSuccessLogin, data: loginData}] = useLoginMutation();
+  const [login, {isSuccess: isSuccessLogin}] = useLoginMutation();
   const [loginUserDto, setLoginUserDto] = useState<LoginUserDto>(DEFAULT_LOGIN_USER_DTO);
-  const {data: myProfile, isSuccess: isSuccessGetUser} = useGetUserQuery(isSuccessLogin && loginData ? loginData.id : skipToken);
-
-  const onLogin = async () => {
-    if (loginData) {
-      localStorage.setItem(ParameterKey.Token, loginData.accessToken);
-      
-      console.log(localStorage.getItem(ParameterKey.Token));      
-    }
-  }
+  const {data: myProfile} = useGetMeQuery(isSuccessLogin ? {} : skipToken);
 
   useEffect(() => {
-    if (isSuccessLogin) {
-      onLogin();
-    }
-    if (isSuccessGetUser) {
+    if (isSuccessLogin && myProfile) { 
       console.log(myProfile);
     }
   })

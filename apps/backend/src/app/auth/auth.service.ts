@@ -101,7 +101,7 @@ export class AuthService {
 
     const existUser = await this.userRepository.findByEmail(email);
 
-    const userEntity = await new UserEntity(existUser);
+    const userEntity = new UserEntity(existUser);
 
     if (! await userEntity.compareRefreshToken(refreshToken)) {
       throw new UnauthorizedException(AuthUserDescription.AccessDenied);
@@ -114,6 +114,20 @@ export class AuthService {
     this.updateRefreshToken(existUser, tokens.refreshToken);
 
     return tokens;
+  }
+
+  public async getMe(userId: string) {
+    const existUser = await this.userRepository.findById(userId);
+
+    if (!existUser) {
+      throw new UnauthorizedException(AuthUserDescription.NotFound);
+    }
+
+    if (existUser.role === RoleEnum.Sportsman) {
+      return fillObject(SportsmanUserRdo, existUser);
+    }
+
+    return fillObject(CoachUserRdo, existUser);
   }
   
 }

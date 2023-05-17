@@ -3,7 +3,7 @@ import { UserRdo } from '@fit-friends/shared-rdo';
 import { UpdateUserDto } from '@fit-friends/shared-dto';
 import { ApiMethod, ApiTag, api } from '../api/api';
 
-const usersApi = api.injectEndpoints({
+export const usersApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => ApiRouteEnum.Users,
