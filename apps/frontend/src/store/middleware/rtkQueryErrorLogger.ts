@@ -1,7 +1,7 @@
-import { isRejectedWithValue, Middleware, MiddlewareAPI } from '@reduxjs/toolkit'
+import { isRejectedWithValue, Middleware } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify';
 
-export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => (next) => (action) => {
+export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
 
   if (isRejectedWithValue(action)) {
 

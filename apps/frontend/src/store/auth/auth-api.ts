@@ -1,9 +1,9 @@
-import { ApiRouteEnum, ParameterKey } from '@fit-friends/shared-types';
+import { ApiRouteEnum } from '@fit-friends/shared-types';
 import { ApiMethod, ApiTag, api } from '../api/api';
 import { LoggedUserRdo, UserRdo } from '@fit-friends/shared-rdo';
 import { CreateUserDto, LoginUserDto } from '@fit-friends/shared-dto';
 
-const authApi = api.injectEndpoints({
+ export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     registerUser: builder.mutation({
       query: (user: CreateUserDto) => ({
@@ -20,18 +20,17 @@ const authApi = api.injectEndpoints({
         method: ApiMethod.Post,
         body: loginUserDto,        
       }),
-
-      //transformResponse: (response: LoggedUserRdo) => {
-      //  localStorage.setItem(ParameterKey.Token, response.accessToken);
-
-        
-      //  return response
-      //},
-    }),    
+    }),
+    getMe: builder.query({
+      query: () => `${ApiRouteEnum.Auth}/${ApiRouteEnum.Me}`,
+      transformResponse: (response: UserRdo) => response,
+      providesTags: [ApiTag.Users],
+    }),
   })
 })
 
 export const {
   useLoginMutation,
   useRegisterUserMutation,
+  useGetMeQuery,
 } = authApi;
