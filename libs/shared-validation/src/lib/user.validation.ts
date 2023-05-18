@@ -17,7 +17,7 @@ export const UserValidation = {
       max: NameLength.Max,
       message: `Минимальная длина имени: ${NameLength.Min}, максимальная: ${NameLength.Max} (символов)`,
     },
-    SymbolsPattern: /[a-zA-Zа-яА-яеЁ\s]+$/,
+    SymbolsPattern: '[a-zA-Zа-яА-яеЁ\\s]+$',
   },    
   Avatar: {
     fileType: /image\/(jpeg|png)$/,
