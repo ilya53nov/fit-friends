@@ -1,26 +1,31 @@
-import { ChangeEvent, SyntheticEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { useRegisterUserMutation } from '../../store/auth/auth-api'
 import { useAddAvatarMutation } from '../../store/files/files-api';
-import { ParameterKey, RoleEnum, UserGenderEnum } from '@fit-friends/shared-types';
+import { LocationEnum, ParameterKey, RoleEnum, UserGenderEnum } from '@fit-friends/shared-types';
 import { CreateBaseUserDto } from '@fit-friends/shared-dto';
 import { UserValidation } from '@fit-friends/shared-validation';
+import classnames from 'classnames';
+import dayjs from 'dayjs';
 
 export default function SignUpPage(): JSX.Element {
-  const [registerUser, {error: errorRegisterUser}] = useRegisterUserMutation();
+  const [registerUser, {error: errorRegisterUser, isSuccess: isSuccessRegisterUser}] = useRegisterUserMutation();
   const [user, setUser] = useState<CreateBaseUserDto>({
     avatar: '',
     name: '',
     email: '',
-    exerciseLevel: '',
-    exerciseTypes: [],
     gender: UserGenderEnum.NotMatter,
     locationDefault: '',
     password: '',
     role: RoleEnum.Sportsman,
-    dateBirth: new Date(),
+    dateBirth: undefined,
+    exerciseLevel: '',
+    exerciseTypes: [],
   });
-  const [addAvatar] = useAddAvatarMutation();
+  const [ isLocationListOpen, setIsLocationListOpen ] = useState(false);
+  const [addAvatar, {isSuccess: isSuccessAddAvatar, data: avatarPath}] = useAddAvatarMutation();
   const filePickerRef = useRef<HTMLInputElement | null>(null);
+  const locations = Object.values(LocationEnum);
+  const [isAgreement, setIsAgreement] = useState(false);
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const target = evt.target as HTMLInputElement;
@@ -30,7 +35,7 @@ export default function SignUpPage(): JSX.Element {
     setUser({...user, [name]: value});
   }
 
-  const onAddAvatarClick = async (evt: ChangeEvent<HTMLInputElement>) => {
+  const onAddAvatarClick = (evt: ChangeEvent<HTMLInputElement>) => {
     const target = evt.target as HTMLInputElement;
     const file = target.files && target.files[0];
 
@@ -42,13 +47,49 @@ export default function SignUpPage(): JSX.Element {
 
     formData.append(ParameterKey.File, file);
 
-    const loadedAvatar = await addAvatar(formData).unwrap();
+    addAvatar(formData);
+  };  
 
-    setUser({...user, avatar: loadedAvatar});
+  useEffect(() => {
+    if (avatarPath) {
 
-    (filePickerRef.current as HTMLDivElement).style.background =
-      `url(${URL.createObjectURL(file as File)}) no-repeat center/cover`;
+      setUser({...user, avatar: avatarPath});
+
+      (filePickerRef.current as HTMLDivElement).style.background =
+        `url(${avatarPath}) no-repeat center/cover`;
+    }
+
+    if (isSuccessRegisterUser) {
+      console.log('isSuccessRegisterUser');
+    }
+  }, [avatarPath])
+
+  const locationClass = classnames({
+    'custom-select': true,
+    'custom-select--not-selected': !user.locationDefault,
+    'is-open': isLocationListOpen,
+    'not-empty': user.locationDefault,
+    //'is-invalid': errors.location
+  });
+
+  const handleLocationChange = (evt: SyntheticEvent<HTMLOptionElement>) => {
+    setUser({ ...user, locationDefault: (evt.target as HTMLOptionElement).value });
   };
+
+  const onLocationClick = (evt: SyntheticEvent<HTMLOptionElement>) => {
+    handleLocationChange(evt);
+    setIsLocationListOpen(false);
+  };
+
+  const onSubmit = async (createBaseUserDto: CreateBaseUserDto) => {
+    await registerUser(createBaseUserDto);
+  }
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    console.log(user);
+    onSubmit(user);
+  }
 
   return (
     <div className="wrapper">
@@ -68,7 +109,7 @@ export default function SignUpPage(): JSX.Element {
                 <h1 className="popup-form__title">Регистрация</h1>
               </div>
               <div className="popup-form__form">
-                <form method="get">
+                <form method="get" onSubmit={handleSubmit}>
                   <div className="sign-up">
                     <div className="sign-up__load-photo">
                       <div className="input-load-avatar">
@@ -90,7 +131,7 @@ export default function SignUpPage(): JSX.Element {
                         <label>
                           <span className="custom-input__label">Имя</span>
                           <span className="custom-input__wrapper">
-                            <input pattern={String(UserValidation.Name.SymbolsPattern)} required={true} type="text" minLength={UserValidation.Name.Length.min} maxLength={UserValidation.Name.Length.max} onChange={handleInputChange} value={user.name} name="name"/>
+                            <input pattern={UserValidation.Name.SymbolsPattern} required={true} type="text" minLength={UserValidation.Name.Length.min} maxLength={UserValidation.Name.Length.max} onChange={handleInputChange} value={user.name} name="name"/>
                           </span>
                         </label>
                       </div>
@@ -106,14 +147,14 @@ export default function SignUpPage(): JSX.Element {
                         <label>
                           <span className="custom-input__label">Дата рождения</span>
                           <span className="custom-input__wrapper">
-                            <input required={true} type="date" name="dateBirth" max="2099-12-31"/>
+                            <input required={true} type="date" name="dateBirth" value={user.dateBirth ? dayjs(user.dateBirth).format('YYYY-MM-DD').toString() : ''} onChange={handleInputChange} max="2099-12-31"/>
                           </span>
                         </label>
                       </div>
-                      <div className="custom-select custom-select--not-selected is-open">
+                      <div className={locationClass}>
                         <span className="custom-select__label">Ваша локация</span>
-                        <button className="custom-select__button" type="button" aria-label="Выберите одну из опций">
-                          <span className="custom-select__text"></span>
+                        <button className="custom-select__button" type="button" aria-label="Выберите одну из опций" onClick={() => setIsLocationListOpen(!isLocationListOpen)}>
+                          <span className="custom-select__text">{user.locationDefault}</span>
                           <span className="custom-select__icon">
                             <svg width="15" height="6" aria-hidden="true">
                               <use xlinkHref="#arrow-down"></use>
@@ -121,8 +162,19 @@ export default function SignUpPage(): JSX.Element {
                           </span>
                         </button>
                         <ul className="custom-select__list" role="listbox">
-                          <li className="custom-select__item">dsdfsd</li>
-                          <li>dsdfsd</li>
+                          {
+                            locations.map((item) => (
+                              <option
+                                key={item}
+                                value={item}
+                                role="listitem"
+                                className="custom-select__item"
+                                onClick={onLocationClick}
+                              >
+                                {item}
+                              </option>
+                            ))
+                          }
                         </ul>
                       </div>
                       <div className="custom-input">
@@ -187,7 +239,7 @@ export default function SignUpPage(): JSX.Element {
                     </div>
                     <div className="sign-up__checkbox">
                       <label>
-                        <input type="checkbox" value="user-agreement" name="user-agreement" checked/><span className="sign-up__checkbox-icon">
+                        <input type="checkbox" value="user-agreement" name="user-agreement" checked={isAgreement} onChange={() => setIsAgreement(!isAgreement)}/><span className="sign-up__checkbox-icon">
                           <svg width="9" height="6" aria-hidden="true">
                             <use xlinkHref="#arrow-check"></use>
                           </svg></span><span className="sign-up__checkbox-label">Я соглашаюсь с <span>политикой конфиденциальности</span> компании</span>
