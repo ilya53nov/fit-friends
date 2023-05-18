@@ -7,6 +7,8 @@ import IntroPage from '../../pages/intro-page/intro-page';
 import PrivateRoute from '../../private-route';
 import MainPage from '../../pages/main-page/main-page';
 import { RoleEnum } from '@fit-friends/shared-types';
+import QuestionnaireUserPage from '../../pages/questionnaire-user-page/questionnaire-user-page';
+import QuestionnaireCoachPage from '../../pages/questionnaire-coach-page/questionnaire-coach-page';
 
 function App(): JSX.Element {
   return (
@@ -17,9 +19,17 @@ function App(): JSX.Element {
 
       <Route path={ClientRoute.Index} element={
         <PrivateRoute children={<MainPage />} role={RoleEnum.Sportsman} />
-
       }
       />
+      <Route path={ClientRoute.QuestionnaireUser} element={
+        <PrivateRoute children={<QuestionnaireUserPage />} role={RoleEnum.Sportsman} />
+      }
+      />
+      <Route path={ClientRoute.QuestionnaireCoach} element={
+        <PrivateRoute children={<QuestionnaireCoachPage />} role={RoleEnum.Coach} />
+      }
+      />
+
 
       <Route path="*" element={<NotFoundPage />} />
 

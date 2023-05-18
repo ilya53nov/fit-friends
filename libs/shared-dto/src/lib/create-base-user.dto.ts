@@ -1,6 +1,7 @@
 import { UserApiProperty } from '@fit-friends/shared-description-property';
 import { UserValidation } from '@fit-friends/shared-validation';
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import { ArrayMaxSize, IsEnum, IsString, Length } from 'class-validator';
 
 export class CreateBaseUserDto {
@@ -34,6 +35,7 @@ export class CreateBaseUserDto {
   gender!: string;
 
   @ApiProperty(UserApiProperty.DateBirth)
+  @Transform(({ value }) => new Date(value))
   dateBirth?: Date;
 
   @ApiProperty(UserApiProperty.Role)

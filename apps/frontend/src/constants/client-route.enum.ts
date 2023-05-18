@@ -3,4 +3,6 @@ export enum ClientRoute {
   Login = '/login',
   Main = '/',
   Index = '/index',
+  QuestionnaireCoach = '/questionnaire-coach',
+  QuestionnaireUser = '/questionnaire-user',
 }
