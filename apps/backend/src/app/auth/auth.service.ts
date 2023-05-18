@@ -18,7 +18,7 @@ export class AuthService {
   ) {}
 
   public async register(userDto: CreateUserDto) {
-    const user = { ...userDto, passwordHash: '', refreshTokenHash: ''};
+    const user = { ...userDto, passwordHash: '', refreshTokenHash: '', dateBirth: new Date(userDto.dateBirth)};
 
     const existUser = await this.userRepository.findByEmail(userDto.email);
 

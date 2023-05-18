@@ -1,14 +1,17 @@
 import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
-import { useRegisterUserMutation } from '../../store/auth/auth-api'
+import { useLoginMutation, useRegisterMutation } from '../../store/auth/auth-api'
 import { useAddAvatarMutation } from '../../store/files/files-api';
 import { LocationEnum, ParameterKey, RoleEnum, UserGenderEnum } from '@fit-friends/shared-types';
 import { CreateBaseUserDto } from '@fit-friends/shared-dto';
 import { UserValidation } from '@fit-friends/shared-validation';
 import classnames from 'classnames';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
+import { ClientRoute } from '../../constants/client-route.enum';
 
 export default function SignUpPage(): JSX.Element {
-  const [registerUser, {error: errorRegisterUser, isSuccess: isSuccessRegisterUser}] = useRegisterUserMutation();
+  const [registerUser, {data: registeredUser}] = useRegisterMutation();
+  const [login, {isSuccess: isSuccessLogin}] = useLoginMutation();
   const [user, setUser] = useState<CreateBaseUserDto>({
     avatar: '',
     name: '',
@@ -22,10 +25,11 @@ export default function SignUpPage(): JSX.Element {
     exerciseTypes: [],
   });
   const [ isLocationListOpen, setIsLocationListOpen ] = useState(false);
-  const [addAvatar, {isSuccess: isSuccessAddAvatar, data: avatarPath}] = useAddAvatarMutation();
+  const [addAvatar, {data: avatarPath}] = useAddAvatarMutation();
   const filePickerRef = useRef<HTMLInputElement | null>(null);
   const locations = Object.values(LocationEnum);
   const [isAgreement, setIsAgreement] = useState(false);
+  const navigate = useNavigate();
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const target = evt.target as HTMLInputElement;
@@ -52,17 +56,26 @@ export default function SignUpPage(): JSX.Element {
 
   useEffect(() => {
     if (avatarPath) {
-
       setUser({...user, avatar: avatarPath});
 
       (filePickerRef.current as HTMLDivElement).style.background =
         `url(${avatarPath}) no-repeat center/cover`;
-    }
-
-    if (isSuccessRegisterUser) {
-      console.log('isSuccessRegisterUser');
-    }
+    }    
   }, [avatarPath])
+
+  useEffect(() => {
+    if (registeredUser) {
+      login({email: user.email, password: user.password});
+    }
+  }, [registeredUser])
+
+  useEffect(() => {
+    if (isSuccessLogin) {
+      user.role === RoleEnum.Coach
+      ? navigate(ClientRoute.QuestionnaireCoach)
+      : navigate(ClientRoute.QuestionnaireUser)
+    }
+  })
 
   const locationClass = classnames({
     'custom-select': true,
@@ -87,7 +100,6 @@ export default function SignUpPage(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    console.log(user);
     onSubmit(user);
   }
 

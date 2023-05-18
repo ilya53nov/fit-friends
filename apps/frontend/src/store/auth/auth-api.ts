@@ -5,7 +5,7 @@ import { CreateUserDto, LoginUserDto } from '@fit-friends/shared-dto';
 
  export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    registerUser: builder.mutation({
+    register: builder.mutation({
       query: (user: CreateUserDto) => ({
         url: `${ApiRouteEnum.Auth}/${ApiRouteEnum.Register}`,
         method: ApiMethod.Post,
@@ -32,6 +32,6 @@ import { CreateUserDto, LoginUserDto } from '@fit-friends/shared-dto';
 
 export const {
   useLoginMutation,
-  useRegisterUserMutation,
+  useRegisterMutation,
   useGetMeQuery,
 } = authApi;
