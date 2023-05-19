@@ -1,4 +1,23 @@
+import { ChangeEvent, useState } from 'react';
+import SpecializationCheckbox from '../../components/specialization/specialization-checkbox';
+import { ExerciseTypeEnum } from '@fit-friends/shared-types';
+
+const exerciseTypeValues = Object.values(ExerciseTypeEnum)
+const exerciseTypeKeys = Object.keys(ExerciseTypeEnum)
+const exerciseTypes = exerciseTypeKeys.map((item, index) => ({item: item.toLowerCase(), value: exerciseTypeValues[index], checked: false}));
+
 export default function QuestionnaireUserPage(): JSX.Element {
+  const [specializations, setSpecializations] = useState(exerciseTypes); 
+
+  const handleSpecializationCheckboxChange = (index: number) => {
+    setSpecializations([
+      ...specializations.slice(0, index),
+      { ...specializations[index], checked: !specializations[index].checked },
+      ...specializations.slice(index + 1),
+    ]);
+  };  
+
+
   return (
     <div className="wrapper">
       <main>
@@ -20,53 +39,24 @@ export default function QuestionnaireUserPage(): JSX.Element {
                     <div className="questionnaire-user__wrapper">
                       <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Ваша специализация (тип) тренировок</span>
                         <div className="specialization-checkbox questionnaire-user__specializations">
-                          <div className="btn-checkbox">
-                            <label>
-                              <input className="visually-hidden" type="checkbox" name="specialisation" value="yoga"/><span className="btn-checkbox__btn">Йога</span>
-                            </label>
-                          </div>
-                          <div className="btn-checkbox">
-                            <label>
-                              <input className="visually-hidden" type="checkbox" name="specialisation" value="running"/><span className="btn-checkbox__btn">Бег</span>
-                            </label>
-                          </div>
-                          <div className="btn-checkbox">
-                            <label>
-                              <input className="visually-hidden" type="checkbox" name="specialisation" value="power" defaultChecked={true}/><span className="btn-checkbox__btn">Силовые</span>
-                            </label>
-                          </div>
-                          <div className="btn-checkbox">
-                            <label>
-                              <input className="visually-hidden" type="checkbox" name="specialisation" value="aerobics"/><span className="btn-checkbox__btn">Аэробика</span>
-                            </label>
-                          </div>
-                          <div className="btn-checkbox">
-                            <label>
-                              <input className="visually-hidden" type="checkbox" name="specialisation" value="crossfit" defaultChecked={true}/><span className="btn-checkbox__btn">Кроссфит</span>
-                            </label>
-                          </div>
-                          <div className="btn-checkbox">
-                            <label>
-                              <input className="visually-hidden" type="checkbox" name="specialisation" value="boxing" defaultChecked={true}/><span className="btn-checkbox__btn">Бокс</span>
-                            </label>
-                          </div>
-                          <div className="btn-checkbox">
-                            <label>
-                              <input className="visually-hidden" type="checkbox" name="specialisation" value="pilates"/><span className="btn-checkbox__btn">Пилатес</span>
-                            </label>
-                          </div>
-                          <div className="btn-checkbox">
-                            <label>
-                              <input className="visually-hidden" type="checkbox" name="specialisation" value="stretching"/><span className="btn-checkbox__btn">Стрейчинг</span>
-                            </label>
-                          </div>
+                          {specializations.map((specialization, index) => (
+                            <SpecializationCheckbox
+                              key={specialization.item}
+                              description={specialization.value}
+                              isChecked={specialization.checked}
+                              value={specialization.item}
+                              onChange={() => handleSpecializationCheckboxChange(index)}
+                            />
+                          ))}
                         </div>
                       </div>
                       <div className="questionnaire-user__block"><span className="questionnaire-user__legend">Сколько времени вы готовы уделять на тренировку в день</span>
                         <div className="custom-toggle-radio custom-toggle-radio--big questionnaire-user__radio">
                           <div className="custom-toggle-radio__block">
                             <label>
-                              <input type="radio" name="time"/><span className="custom-toggle-radio__icon"></span><span className="custom-toggle-radio__label">10-30 мин</span>
+                              <input type="radio" name="time"/>
+                              <span className="custom-toggle-radio__icon"></span>
+                              <span className="custom-toggle-radio__label">10-30 мин</span>
                             </label>
                           </div>
                           <div className="custom-toggle-radio__block">
