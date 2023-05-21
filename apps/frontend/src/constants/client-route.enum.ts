@@ -5,4 +5,9 @@ export enum ClientRoute {
   Index = '/index',
   QuestionnaireCoach = '/questionnaire-coach',
   QuestionnaireUser = '/questionnaire-user',
+  PersonalAccountCoach = '/personal-account-coach',
+  MyExercises = '/my-exercises',
+  CreateExercise = '/create-exercise',
+  CoachFriends = '/coach-friends',
+  MyOrders = '/my-orders',
 }

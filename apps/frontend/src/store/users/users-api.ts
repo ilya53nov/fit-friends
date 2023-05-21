@@ -15,10 +15,10 @@ export const usersApi = api.injectEndpoints({
       providesTags: [ApiTag.Users],
     }),
     updateUser: builder.mutation({
-      query: (user: {id: string, updateUserDto: UpdateUserDto}) => ({
-        url: `${ApiRouteEnum.Users}/${user.id}`,
+      query: (updateUserDto: UpdateUserDto) => ({
+        url: `${ApiRouteEnum.Users}/${ApiRouteEnum.Update}`,
         method: ApiMethod.Patch,
-        body: user.updateUserDto,
+        body: updateUserDto,
       }),
       invalidatesTags: [ApiTag.Users],
     }),

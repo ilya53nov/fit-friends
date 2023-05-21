@@ -11,16 +11,16 @@ export class UpdateBaseUserDto {
     UserValidation.Name.Length.max,
     {message: UserValidation.Name.Length.message}
   )
-  name!: string;
+  name?: string;
 
   @ApiProperty(UserApiProperty.Avatar)
   @IsOptional()
-  avatar!: string;
+  avatar?: string;
 
   @ApiProperty(UserApiProperty.Gender)
   @IsOptional()
   @IsEnum(UserValidation.Gender)
-  gender!: string;
+  gender?: string;
 
   @ApiProperty(UserApiProperty.DateBirth)
   @IsOptional()
@@ -29,16 +29,16 @@ export class UpdateBaseUserDto {
   @ApiProperty(UserApiProperty.LocationDefault)
   @IsOptional()
   @IsEnum(UserValidation.Location)
-  locationDefault!: string;
+  locationDefault?: string;
 
   @ApiProperty(UserApiProperty.ExerciseLevel)
   @IsOptional()
   @IsEnum(UserValidation.ExerciseLevel)
-  exerciseLevel!: string;
+  exerciseLevel?: string;
 
   @ApiProperty(UserApiProperty.ExerciseTypes)
   @IsOptional()
   @IsEnum(UserValidation.ExerciseType.items, {each: true})
   @ArrayMaxSize(UserValidation.ExerciseType.maxCount)
-  exerciseTypes!: string[];
+  exerciseTypes?: string[];
 }

@@ -8,6 +8,7 @@ import classnames from 'classnames';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
 import { ClientRoute } from '../../constants/client-route.enum';
+import Listbox from '../../components/listbox/listbox';
 
 export default function SignUpPage(): JSX.Element {
   const [registerUser, {data: registeredUser}] = useRegisterMutation();
@@ -77,21 +78,8 @@ export default function SignUpPage(): JSX.Element {
     }
   })
 
-  const locationClass = classnames({
-    'custom-select': true,
-    'custom-select--not-selected': !user.locationDefault,
-    'is-open': isLocationListOpen,
-    'not-empty': user.locationDefault,
-    //'is-invalid': errors.location
-  });
-
   const handleLocationChange = (evt: SyntheticEvent<HTMLOptionElement>) => {
-    setUser({ ...user, locationDefault: (evt.target as HTMLOptionElement).value });
-  };
-
-  const onLocationClick = (evt: SyntheticEvent<HTMLOptionElement>) => {
-    handleLocationChange(evt);
-    setIsLocationListOpen(false);
+    setUser({ ...user, locationDefault: (evt.target as HTMLOptionElement).label });
   };
 
   const onSubmit = async (createBaseUserDto: CreateBaseUserDto) => {
@@ -163,32 +151,14 @@ export default function SignUpPage(): JSX.Element {
                           </span>
                         </label>
                       </div>
-                      <div className={locationClass}>
-                        <span className="custom-select__label">Ваша локация</span>
-                        <button className="custom-select__button" type="button" aria-label="Выберите одну из опций" onClick={() => setIsLocationListOpen(!isLocationListOpen)}>
-                          <span className="custom-select__text">{user.locationDefault}</span>
-                          <span className="custom-select__icon">
-                            <svg width="15" height="6" aria-hidden="true">
-                              <use xlinkHref="#arrow-down"></use>
-                            </svg>
-                          </span>
-                        </button>
-                        <ul className="custom-select__list" role="listbox">
-                          {
-                            locations.map((item) => (
-                              <option
-                                key={item}
-                                value={item}
-                                role="listitem"
-                                className="custom-select__item"
-                                onClick={onLocationClick}
-                              >
-                                {item}
-                              </option>
-                            ))
-                          }
-                        </ul>
-                      </div>
+                      <Listbox 
+                        name='location'
+                        description='Ваша локация'
+                        className=''
+                        onOptionClick={handleLocationChange}
+                        optionItems={locations}
+                        text={user.locationDefault}                        
+                      />                      
                       <div className="custom-input">
                         <label><span className="custom-input__label">Пароль</span>
                           <span className="custom-input__wrapper">
