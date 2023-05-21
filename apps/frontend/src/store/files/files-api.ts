@@ -10,10 +10,19 @@ const filesApi = api.injectEndpoints({
         body: file, 
         responseHandler: 'text',
       }),
-    }),    
+    }),
+    addCertificate: builder.mutation({
+      query: (file: FormData) => ({
+        url: `${ApiRouteEnum.Files}/${ApiRouteEnum.Certificate}`,
+        method: ApiMethod.Post,
+        body: file, 
+        responseHandler: 'text',
+      }),
+    }),
   })
 })
 
 export const {
   useAddAvatarMutation,
+  useAddCertificateMutation,
 } = filesApi;

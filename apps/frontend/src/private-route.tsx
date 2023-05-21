@@ -1,7 +1,9 @@
 import { RoleEnum } from '@fit-friends/shared-types';
-import { Navigate, RouteProps, useNavigate } from 'react-router-dom';
+import { Navigate, RouteProps } from 'react-router-dom';
 import { getUserRole } from './utils/local-storage';
 import { ClientRoute } from './constants/client-route.enum';
+import browserHistory from './browser-history';
+import { useGetMeQuery } from './store/auth/auth-api';
 
 type PrivateRouteProps = RouteProps & {
   children: JSX.Element;
@@ -11,19 +13,15 @@ type PrivateRouteProps = RouteProps & {
 export default function PrivateRoute(props: PrivateRouteProps): JSX.Element {
   const {children, role} = props;
   const userRole = getUserRole();
-  const navigate = useNavigate();
 
   if (!userRole) {
-    return(<Navigate to={ClientRoute.Login} />)
+    return(<Navigate to={ClientRoute.Login} />);
   }
 
   if (userRole !== role) {
-    navigate(-1)
+    browserHistory.back()
+    return(<div></div>);
   }
 
-
-  //if (userRole === role) {
-    return(children)
-  //} 
-  
+  return(children);
 }

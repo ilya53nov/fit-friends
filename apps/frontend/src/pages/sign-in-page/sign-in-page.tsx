@@ -21,9 +21,7 @@ export default function SignInPage() {
     if (isSuccessLogin && loginRdo) { 
       const userRole = getUserRole();
 
-      if (userRole === RoleEnum.Sportsman) {
-        navigate(ClientRoute.Index);
-      }
+      userRole === RoleEnum.Sportsman ? navigate(ClientRoute.Index) : navigate(ClientRoute.PersonalAccountCoach);      
     }
   })
 

@@ -1,7 +1,7 @@
 import { UserApiProperty } from '@fit-friends/shared-description-property';
 import { UserValidation } from '@fit-friends/shared-validation';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsOptional, Length, ValidateIf } from 'class-validator';
+import { ArrayMaxSize, IsBoolean, IsEnum, IsOptional, Length, ValidateIf } from 'class-validator';
 import { UpdateBaseUserDto } from './update-base-user.dto';
 import { RoleEnum } from '@fit-friends/shared-types';
 

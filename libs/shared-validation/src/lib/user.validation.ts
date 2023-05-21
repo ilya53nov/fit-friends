@@ -10,6 +10,26 @@ const enum PasswordLength {
   Max = 12,
 }
 
+const enum ExerciseTypeCount {
+  Min = 1,
+  Max = 3,
+}
+
+const enum CaloriesResetCount {
+  Min = 1000,
+  Max = 5000,  
+}
+
+const enum CaloriesSpendPerDayCount {
+  Min = 1000,
+  Max = 5000,  
+}
+
+const enum CommentLength {
+  Min = 10,
+  Max = 140,  
+}
+
 export const UserValidation = {
   Name: {
     Length: {
@@ -26,7 +46,7 @@ export const UserValidation = {
   PasswordLength: {
     min: PasswordLength.Min,
     max: PasswordLength.Max,
-    message: `Минимальная длина пароля: ${PasswordLength.Min}, максимальная: ${PasswordLength.Max} (символов)`
+    message: `Минимальная длина пароля: ${PasswordLength.Min}, максимальная: ${PasswordLength.Max} (символов)`,
   },
   Gender: UserGenderEnum,
   Role: RoleEnum,
@@ -34,22 +54,27 @@ export const UserValidation = {
   ExerciseLevel: ExerciseLevelEnum,
   ExerciseType: {
     items: ExerciseTypeEnum,
-    maxCount: 3,
+    maxCount: ExerciseTypeCount.Max,
+    message: `Минимальное количество типа тренировок: ${ExerciseTypeCount.Min}, максимальное: ${ExerciseTypeCount.Max}`,
   },
   DurationTraining: ExerciseDurationEnum,
   CaloriesResetCount: {
-    min: 1000,
-    max: 5000,
+    min: CaloriesResetCount.Min,
+    max: CaloriesResetCount.Max,
+    message: `Минимальное количество калорий для сброса: ${CaloriesResetCount.Min}, максимальное: ${CaloriesResetCount.Max}`,
   },
   CaloriesSpendPerDayCount: {
-    min: 1000,
-    max: 5000,
+    min: CaloriesSpendPerDayCount.Min,
+    max: CaloriesSpendPerDayCount.Max,
+    message: `Минимальное количество калорий в день: ${CaloriesSpendPerDayCount.Min}, максимальное: ${CaloriesSpendPerDayCount.Max}`,
   },
   Certificate: {
     fileType: /application\/pdf$/,
+    message: 'Необходимо загрузить сертификат в формате PDF',
   },
   CommentLength: {
-    min: 10,
-    max: 140,
+    min: CommentLength.Min,
+    max: CommentLength.Max,
+    message: `Минимальная длина комментария: ${CommentLength.Min}, максимальная: ${CommentLength.Max}`
   },
 }

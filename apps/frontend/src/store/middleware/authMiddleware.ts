@@ -7,7 +7,9 @@ export const authMiddleware: Middleware  = () => (next) => (action) => {
   if (isFulfilled(action) && action.meta.arg.endpointName === ApiRouteEnum.Login ) {
     const loggedUser: LoggedUserRdo = action.payload;
 
-    saveLoggedData(loggedUser.accessToken, loggedUser.refreshToken, loggedUser.role);
+    const {accessToken, id, refreshToken, role} = loggedUser;
+
+    saveLoggedData(accessToken, refreshToken, role, id);
   }
 
   return next(action);
