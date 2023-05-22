@@ -5,17 +5,18 @@ import { useGetUserQuery } from '../../store/users/users-api';
 import { getUserId } from '../../utils/local-storage';
 import { useNavigate } from 'react-router-dom';
 import { ClientRoute } from '../../constants/client-route.enum';
-import classnames from 'classnames';
-import Listbox from '../../components/listbox/listbox';
-import { ExerciseLevelEnum, ExerciseTypeEnum, LocationEnum, UserGenderEnum } from '@fit-friends/shared-types';
-import SpecializationCheckbox from '../../components/checkbox/specialization-checkbox';
-import { UserValidation } from '@fit-friends/shared-validation';
-import { toast } from 'react-toastify';
 import UserInfo from '../../components/user-info/user-info';
 import CoachNavigation from '../../components/coach-navigation/coach-navigation';
 import CertificateSlider from '../../components/certificate-slider/certificate-slider';
 
-
+const certificates = [
+  'https://wp-s.ru/wallpapers/9/18/438540442363429/izgib-reki-na-fone-zakata.jpg',
+  'https://i.pinimg.com/originals/16/74/32/167432185b15978f3b26d33e70df79b7.jpg',
+  'https://i.pinimg.com/736x/cc/25/91/cc25911a8e23fa11515ed0eb06ee6785.jpg',
+  'https://wp-s.ru/wallpapers/9/18/438540442363429/izgib-reki-na-fone-zakata.jpg',
+  'https://i.pinimg.com/originals/16/74/32/167432185b15978f3b26d33e70df79b7.jpg',
+  'https://i.pinimg.com/736x/cc/25/91/cc25911a8e23fa11515ed0eb06ee6785.jpg',
+]
 
 export default function PersonalAccountCoachPage(): JSX.Element {
   const {data: userData, isSuccess: isSuccessMyProfile, isLoading: isLoadingMyProfile, isError} = useGetMeQuery({});
@@ -113,7 +114,7 @@ export default function PersonalAccountCoachPage(): JSX.Element {
               <div className="inner-page__content">
                 <div className="personal-account-coach">
                   <CoachNavigation/>
-                  <CertificateSlider/>
+                  <CertificateSlider certificates={certificates}/>
                 </div>
               </div>
             </div>
