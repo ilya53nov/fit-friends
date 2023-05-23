@@ -1,11 +1,10 @@
-import { fillObject } from '@fit-friends/core';
+import { ExercisesQuery, fillObject } from '@fit-friends/core';
 import { CreateExerciseDto, UpdateExerciseDto } from '@fit-friends/shared-dto';
 import { ExerciseRdo } from '@fit-friends/shared-rdo';
 import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { ExercisesDescription } from './exercises.constants';
 import { ExerciseEntity } from './exercises.entity';
 import { ExercisesRepository } from './exercises.repository';
-import { ExercisesQuery } from './query/exercises.query';
 import { FilesService } from '../files/files.service';
 import { NotifyNewExercisesService } from '../user-personal-account/notify-new-exercises/notify-new-exercises.service';
 

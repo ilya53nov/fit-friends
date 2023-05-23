@@ -1,8 +1,12 @@
 import { ParameterKey } from '@fit-friends/shared-types'
 
-export const saveLoggedData = (accessToken: string, refreshToken: string, role: string, id: string) => {
+export const saveTokens = (accessToken: string, refreshToken: string) => {
   localStorage.setItem(ParameterKey.AccessToken, accessToken);
-  localStorage.setItem(ParameterKey.RefreshToken, refreshToken);
+  localStorage.setItem(ParameterKey.RefreshToken, refreshToken);  
+}
+
+export const saveLoggedData = (accessToken: string, refreshToken: string, role: string, id: string) => {
+  saveTokens(accessToken, refreshToken);
   localStorage.setItem(ParameterKey.Role, role);
   localStorage.setItem(ParameterKey.Id, id);
 }

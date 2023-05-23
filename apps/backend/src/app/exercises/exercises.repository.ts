@@ -2,8 +2,7 @@ import { ExerciseInterface, QueryParameter } from '@fit-friends/shared-types';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ExerciseEntity } from './exercises.entity';
-import { ExercisesQuery } from './query/exercises.query';
-import { BaseQuery } from '@fit-friends/core';
+import { BaseQuery, ExercisesQuery } from '@fit-friends/core';
 
 @Injectable()
 export class ExercisesRepository {
