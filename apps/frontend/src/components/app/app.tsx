@@ -14,6 +14,7 @@ import MyExercisesPage from '../../pages/my-exercises-page/my-exercises-page';
 import CreateExercisePage from '../../pages/create-exercise-page/create-exercise-page';
 import CoachFriendsPage from '../../pages/my-friends-page/my-friends-page';
 import MyOrdersPage from '../../pages/my-orders-page/my-orders-page';
+import ExercisesCatalogPage from '../../pages/exercises-catalog-page/exercises-catalog-page';
 
 function App(): JSX.Element {
   return (
@@ -30,6 +31,9 @@ function App(): JSX.Element {
       <Route path={ClientRoute.CreateExercise} element={<PrivateRoute children={<CreateExercisePage/>} role={RoleEnum.Coach}/>}/>
       <Route path={ClientRoute.CoachFriends} element={<PrivateRoute children={<CoachFriendsPage/>} role={RoleEnum.Coach}/>}/>
       <Route path={ClientRoute.MyOrders} element={<PrivateRoute children={<MyOrdersPage/>} role={RoleEnum.Coach}/>}/>
+
+
+      <Route path={ClientRoute.ExercisesCatalog} element={<PrivateRoute children={<ExercisesCatalogPage/>} role={RoleEnum.Sportsman}/>}/>
 
       <Route path="*" element={<NotFoundPage />} />
 

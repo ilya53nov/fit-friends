@@ -11,7 +11,7 @@ export default function CarouselSlider({slides, currentSlide, visibleSlides}: Ca
   return (
     <CarouselProvider
       naturalSlideWidth={1}
-      naturalSlideHeight={visibleSlides / 2}
+      naturalSlideHeight={visibleSlides / 1}
       totalSlides={slides.length}
       visibleSlides={visibleSlides}
       currentSlide={currentSlide}

@@ -1,13 +1,43 @@
+import { useEffect, useState } from 'react';
+import PdfToImg from "pdftoimg-js";
+
+const getConvertedPdfToPngUrl = async (pdfPath: string) => {
+  const buffer = await PdfToImg(pdfPath, {imgType: 'png', returnType: 'buffer'});
+  const blob = new Blob(buffer);
+  const url = URL.createObjectURL(blob);
+
+  return url;
+}
+
 type CertificateSlideProps = {
   certificate: string;
 }
 
 export default function CertificateSlide({certificate}: CertificateSlideProps): JSX.Element {
+  const [url, setUrl] = useState('');
+  const [isNotFound, setIsNotFound] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getConvertedPdfToPngUrl(certificate);
+
+      data
+      ? setUrl(data)
+      : setIsNotFound(true)      
+    }
+
+    if (!isNotFound) {  
+      fetchData();
+      console.log('fetch', url, isNotFound, certificate);
+    }
+
+  }, [isNotFound])
+
   return(
     <div className="certificate-card">
     <div className="certificate-card__image">
       <picture>
-        <img src={certificate}></img>
+        <img src={url}></img>
       </picture>
     </div>
     <div className="certificate-card__buttons">
