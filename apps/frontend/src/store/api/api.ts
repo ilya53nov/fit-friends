@@ -8,6 +8,7 @@ export enum ApiTag {
   Auth = 'auth',
   Users = 'Users',
   Files = 'files',
+  Exercises = 'exercises',
 }
 
 export enum ApiMethod {
@@ -34,6 +35,7 @@ export const api = createApi({
     ApiTag.Auth,
     ApiTag.Users,
     ApiTag.Files,
+    ApiTag.Exercises,
   ],
   endpoints: () => ({}),
 });

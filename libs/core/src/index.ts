@@ -13,3 +13,5 @@ export * from './lib/decorators/roles.decorator';
 export * from './lib/guards/access-token.guard';
 export * from './lib/guards/refresh-token.guard';
 export * from './lib/guards/roles.guard';
+export * from './lib/query/base-query';
+export * from './lib/query/exercises-query';

@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags, getSchemaPath } from '@nestjs/swagger';
 import { ExercisesService } from './exercises.service';
-import { ExercisesQuery } from './query/exercises.query';
+import { ExercisesQuery } from '@fit-friends/core';
 import { ExercisesApiOperation } from '@fit-friends/shared-description-operation';
 
 @ApiTags(ApiRouteEnum.Exercises)

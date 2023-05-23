@@ -15,4 +15,5 @@ export const QueryParameter = {
     lte: 1,
   },
   DefaultSortDirection: SortDirection.Desc,
+  DefaultPageNumber: 1,
 }
