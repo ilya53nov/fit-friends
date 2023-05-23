@@ -20,6 +20,7 @@ const certificates = [
 
 export default function PersonalAccountCoachPage(): JSX.Element {
   const {data: userData, isSuccess: isSuccessMyProfile, isLoading: isLoadingMyProfile, isError} = useGetMeQuery({});
+  const [certificates, setCertificates] = useState<string[]>([]);
   
   const navigate = useNavigate();  
 
@@ -28,6 +29,14 @@ export default function PersonalAccountCoachPage(): JSX.Element {
       navigate(ClientRoute.Login);      
     }
   }, [isError])
+
+  useEffect(() => {
+    if (userData && userData.certificate) {
+      const cert = [userData.certificate, userData.certificate, userData.certificate, userData.certificate, userData.certificate];
+      console.log(cert);
+      setCertificates(cert);
+    }
+  }, [userData])
 
   if (!userData) {
     return(<div>Loading...</div>)

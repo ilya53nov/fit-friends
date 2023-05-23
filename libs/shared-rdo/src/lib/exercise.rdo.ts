@@ -53,7 +53,7 @@ export class ExerciseRdo {
 
   @ApiProperty(ExerciseApiProperty.Rating) 
   @Expose()
-  rating!: string;
+  rating!: number;
 
   @ApiProperty(ExerciseApiProperty.IsSpecialOffer)   
   @Expose()
