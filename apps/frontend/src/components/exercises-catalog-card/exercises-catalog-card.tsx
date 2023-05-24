@@ -24,7 +24,7 @@ export default function ExercisesCatalogCard({exercise}: ExercisesCatalogCardPro
               <div className="hashtag thumbnail-training__hashtag"><span>#{exercise.type}</span></div>
             </li>
             <li className="thumbnail-training__hashtags-item">
-              <div className="hashtag thumbnail-training__hashtag"><span>#{exercise.caloriesCount}</span></div>
+              <div className="hashtag thumbnail-training__hashtag"><span>#{exercise.caloriesCount}ккал</span></div>
             </li>
           </ul>
           <div className="thumbnail-training__rate">
