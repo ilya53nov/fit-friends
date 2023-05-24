@@ -5,20 +5,26 @@ type CarouselSliderProps = {
   slides: JSX.Element[];
   currentSlide: number;
   visibleSlides: number;
+  naturalSlideWidth: number;
+  naturalSlideHeight: number;
+  classNameSlide?: string;
+  classNameSlider?: string;
 }
 
-export default function CarouselSlider({slides, currentSlide, visibleSlides}: CarouselSliderProps): JSX.Element {
+export default function CarouselSlider({slides, currentSlide, visibleSlides, naturalSlideHeight, naturalSlideWidth, classNameSlide, classNameSlider}: CarouselSliderProps): JSX.Element {
   return (
     <CarouselProvider
-      naturalSlideWidth={1}
-      naturalSlideHeight={visibleSlides / 1}
+      naturalSlideWidth={naturalSlideWidth}
+      naturalSlideHeight={naturalSlideHeight}
       totalSlides={slides.length}
       visibleSlides={visibleSlides}
       currentSlide={currentSlide}
-    >
-      <Slider>
+      isIntrinsicHeight={true}
+
+    >     
+      <Slider  className={classNameSlider}>
         {slides.map((slide, index) => (
-          <Slide key={index} index={index}>{slide}</Slide>
+          <Slide className={classNameSlide} key={index} index={index}>{slide}</Slide>
         ))}
       </Slider>
     </CarouselProvider>

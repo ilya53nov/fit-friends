@@ -47,6 +47,8 @@ export default function CertificateSlider({certificates}: CertificateSliderProps
     </div>
 
       <CarouselSlider
+        naturalSlideHeight={1}
+        naturalSlideWidth={1}
         currentSlide={currentSlide}
         visibleSlides={visibleSlides}
         slides={certificates.map((certificate) => <CertificateSlide key={certificate} certificate={certificate} />)}

@@ -8,6 +8,7 @@ import { ClientRoute } from '../../constants/client-route.enum';
 import UserInfo from '../../components/user-info/user-info';
 import CoachNavigation from '../../components/coach-navigation/coach-navigation';
 import CertificateSlider from '../../components/certificate-slider/certificate-slider';
+import LoadingSpinner from '../../components/spinner/loading-spinner';
 
 const certificates = [
   'https://wp-s.ru/wallpapers/9/18/438540442363429/izgib-reki-na-fone-zakata.jpg',
@@ -39,7 +40,7 @@ export default function PersonalAccountCoachPage(): JSX.Element {
   }, [userData])
 
   if (!userData) {
-    return(<div>Loading...</div>)
+    return(<LoadingSpinner />)
   }
 
   return(

@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import CarouselSlider from '../slider/carousel-slider';
 import { useGetExercisesQuery } from '../../store/exercises/exercises-api';
-import SpecialForYouSlide from './special-for-you-slide';
-import { ExerciseRdo } from '@fit-friends/shared-rdo';
+import CarouselSlider from '../slider/carousel-slider';
+import LoadingSpinner from '../spinner/loading-spinner';
+import SpecialForYouSlide from './special-for-you-slider/special-for-you-slide';
+import SpecialForYouSlider from './special-for-you-slider/special-for-you-slider';
 
-export default function SpecialForYouSlider(): JSX.Element {
-
+export default function SpecialForYou(): JSX.Element {
   const {data: exercises = [], isLoading} = useGetExercisesQuery(undefined);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   if (isLoading) {
-    return(<div>Loading...</div>)
+    return(<LoadingSpinner />)
   }
 
   const visibleSlides = 3;
@@ -46,13 +46,9 @@ export default function SpecialForYouSlider(): JSX.Element {
               </button>
             </div>
           </div>
-          {/* <ul className="special-for-you__list"> */}
-            <CarouselSlider
-              currentSlide={currentSlide}
-              visibleSlides={visibleSlides}
-              slides={exercises.map((exercise: ExerciseRdo) => <SpecialForYouSlide key={exercise.id} exercise={exercise} />)}
-            />            
-          {/* </ul> */}
+          <ul className="special-for-you__list">
+            <SpecialForYouSlider currentSlide={currentSlide} exercises={exercises} visibleSlides={visibleSlides} />         
+          </ul>
         </div>
       </div>
     </section>

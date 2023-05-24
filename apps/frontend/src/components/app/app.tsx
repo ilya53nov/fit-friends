@@ -6,7 +6,7 @@ import SignUpPage from '../../pages/sign-up-page/sign-up-page';
 import IntroPage from '../../pages/intro-page/intro-page';
 import PrivateRoute from '../../private-route';
 import MainPage from '../../pages/main-page/main-page';
-import { RoleEnum } from '@fit-friends/shared-types';
+import { ParameterKey, RoleEnum } from '@fit-friends/shared-types';
 import QuestionnaireUserPage from '../../pages/questionnaire-user-page/questionnaire-user-page';
 import QuestionnaireCoachPage from '../../pages/questionnaire-coach-page/questionnaire-coach-page';
 import PersonalAccountCoachPage from '../../pages/personal-account-coach-page/personal-account-coach-page';
@@ -15,6 +15,7 @@ import CreateExercisePage from '../../pages/create-exercise-page/create-exercise
 import CoachFriendsPage from '../../pages/my-friends-page/my-friends-page';
 import MyOrdersPage from '../../pages/my-orders-page/my-orders-page';
 import ExercisesCatalogPage from '../../pages/exercises-catalog-page/exercises-catalog-page';
+import ExerciseCardUserPage from '../../pages/exercise-card-user-page/exercise-card-user-page';
 
 function App(): JSX.Element {
   return (
@@ -34,7 +35,7 @@ function App(): JSX.Element {
 
 
       <Route path={ClientRoute.ExercisesCatalog} element={<PrivateRoute children={<ExercisesCatalogPage/>} role={RoleEnum.Sportsman}/>}/>
-
+      <Route path={`${ClientRoute.ExerciseCardUser}/${ParameterKey.Rout}`} element={<PrivateRoute children={<ExerciseCardUserPage/>} role={RoleEnum.Sportsman}/>}/>
       <Route path="*" element={<NotFoundPage />} />
 
     </Routes>
