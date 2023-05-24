@@ -28,7 +28,6 @@ export default function CertificateSlide({certificate}: CertificateSlideProps): 
 
     if (!isNotFound) {  
       fetchData();
-      console.log('fetch', url, isNotFound, certificate);
     }
 
   }, [isNotFound])
