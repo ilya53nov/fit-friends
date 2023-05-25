@@ -12,4 +12,5 @@ export enum ClientRoute {
   MyOrders = '/my-orders',
   ExercisesCatalog = '/exercises-catalog',
   ExerciseCardUser = '/exercise-card-user',
+  UserCatalog = '/user-catalog',
 }
