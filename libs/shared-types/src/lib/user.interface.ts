@@ -24,7 +24,7 @@ export interface SportsmanInterface extends BaseUserInterface {
 
 export interface CoachInterface extends BaseUserInterface {
   comment?: string;
-  certificate?: string;
+  certificate?: string[];
   isReadyCoach?: boolean;
 }
 

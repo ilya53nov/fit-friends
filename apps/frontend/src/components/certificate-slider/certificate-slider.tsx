@@ -1,15 +1,36 @@
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import CarouselSlider from '../slider/carousel-slider';
 import CertificateSlide from './certificate-slide';
+import { ParameterKey } from '@fit-friends/shared-types';
+import { useAddCertificateMutation } from '../../store/files/files-api';
+import { useUpdateUserMutation } from '../../store/users/users-api';
+
+const DEFAULT_VISIBLE_SLIDES = 3;
 
 type CertificateSliderProps = {
-  certificates: string[];
+  certificatesData: string[];
 }
 
-export default function CertificateSlider({certificates}: CertificateSliderProps): JSX.Element {
+export default function CertificateSlider({certificatesData}: CertificateSliderProps): JSX.Element {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [addCertificate, {data: certificatePath, }] = useAddCertificateMutation();
+  const [certificates, setCertificate] = useState<string[]>([]);
+  const filePickerRef = useRef<HTMLInputElement | null>(null);
+  const [updateUser, {isSuccess: isSuccessUpdateUser}] = useUpdateUserMutation();
+  
+  useEffect(() => {
+    if (certificatePath) {
+      setCertificate([...certificates, certificatePath]);
+      console.log(certificates);
+      updateUser({certificate: certificates});
+    }
+  }, [certificatePath])
 
-  const visibleSlides = 3;
+  useEffect(() => {
+    if (certificatesData) {
+      setCertificate([...certificatesData]);
+    }
+  }, [certificatesData])
 
   const handleButtonBackClick = () => {
     if (currentSlide > 0) {
@@ -17,22 +38,43 @@ export default function CertificateSlider({certificates}: CertificateSliderProps
     }
   }
 
+  const handleAddCertificateClick = () => {
+    filePickerRef.current?.click();
+  }
+
   const handleButtonNextClick = () => {
-    if (currentSlide < certificates.length - visibleSlides) {
+    if (currentSlide < certificates.length - DEFAULT_VISIBLE_SLIDES) {
       setCurrentSlide(currentSlide + 1);
     }
   }
+
+  const onAddCertificateClick = async (evt: ChangeEvent<HTMLInputElement>) => {
+    const target = evt.target as HTMLInputElement;
+    const file = target.files && target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append(ParameterKey.File, file);
+
+    await addCertificate(formData);
+  }; 
 
   return(
   <div className="personal-account-coach__additional-info">
     <div className="personal-account-coach__label-wrapper">
       <h2 className="personal-account-coach__label">Дипломы и сертификаты</h2>
-      <button className="btn-flat btn-flat--underlined personal-account-coach__button" type="button">
+      <button onClick={handleAddCertificateClick} className="btn-flat btn-flat--underlined personal-account-coach__button" type="button">
         <svg width="14" height="14" aria-hidden="true">
           <use xlinkHref="#icon-import"></use>
-        </svg><span>Загрузить</span>
+        </svg>
+        <input ref={filePickerRef} className='visually-hidden' type="file" onChange={onAddCertificateClick} required={true}  name="import" tabIndex={-1} accept=".pdf"/>
+        <span>Загрузить</span>
       </button>
-      <div className="personal-account-coach__controls">
+      <div className="personal-account-coach__controls"> 
         <button onClick={handleButtonBackClick} className="btn-icon personal-account-coach__control" type="button" aria-label="previous">
           <svg width="16" height="14" aria-hidden="true">
             <use xlinkHref="#arrow-left"></use>
@@ -50,7 +92,8 @@ export default function CertificateSlider({certificates}: CertificateSliderProps
         naturalSlideHeight={1}
         naturalSlideWidth={1}
         currentSlide={currentSlide}
-        visibleSlides={visibleSlides}
+        isIntrinsicHeight={true}
+        visibleSlides={DEFAULT_VISIBLE_SLIDES}
         slides={certificates.map((certificate) => <CertificateSlide key={certificate} certificate={certificate} />)}
       />
     

@@ -13,7 +13,7 @@ export class CreateCoachUserDto extends CreateBaseUserDto {
 
   @ApiProperty(UserApiProperty.Certificate)
   @ValidateIf((user) => user.role === RoleEnum.Coach)
-  certificate?: string;
+  certificate?: string[];
 
   @ApiProperty(UserApiProperty.IsReadyCoach)
   @ValidateIf((user) => user.role === RoleEnum.Coach)

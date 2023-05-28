@@ -141,7 +141,7 @@ export default function QuestionnaireCoachPage(): JSX.Element {
       const specializationsChecked = getSpecializationsChecked();
 
       const user: UpdateCoachUserDto = {
-        certificate: certificate,
+        certificate: [certificate],
         isReadyCoach: isReadyCoach,
         comment: description,
         exerciseLevel: exerciseLevel,

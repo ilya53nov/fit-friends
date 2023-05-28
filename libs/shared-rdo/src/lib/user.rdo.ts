@@ -50,7 +50,7 @@ export class UserRdo {
   comment?: string;
 
   @Expose()
-  certificate?: string;
+  certificate?: string[];
 
   @Expose()
   isReadyCoach?: boolean;

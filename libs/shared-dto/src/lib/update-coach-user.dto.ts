@@ -15,7 +15,7 @@ export class UpdateCoachUserDto extends UpdateBaseUserDto {
   @ApiProperty(UserApiProperty.Certificate)
   @ValidateIf((user) => user.role === RoleEnum.Coach)
   @IsOptional()
-  certificate?: string;
+  certificate?: string[];
 
   @ApiProperty(UserApiProperty.IsReadyCoach)
   @ValidateIf((user) => user.role === RoleEnum.Coach)

@@ -29,7 +29,7 @@ model User {
   caloriesSpendPerDayCount Int?
   isReadyUser Boolean?
   comment String?
-  certificate String?
+  certificate String[]
   isReadyCoach Boolean?
   purchases Purchase[]
   friendBy Friend[] @relation("user")

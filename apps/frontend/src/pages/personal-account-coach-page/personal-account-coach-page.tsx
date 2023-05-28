@@ -33,9 +33,9 @@ export default function PersonalAccountCoachPage(): JSX.Element {
 
   useEffect(() => {
     if (userData && userData.certificate) {
-      const cert = [userData.certificate, userData.certificate, userData.certificate, userData.certificate, userData.certificate];
-      console.log(cert);
-      setCertificates(cert);
+      //const cert = [userData.certificate, userData.certificate, userData.certificate, userData.certificate, userData.certificate];
+      console.log(userData.certificate);
+      setCertificates(userData.certificate);
     }
   }, [userData])
 
@@ -124,7 +124,7 @@ export default function PersonalAccountCoachPage(): JSX.Element {
               <div className="inner-page__content">
                 <div className="personal-account-coach">
                   <CoachNavigation/>
-                  <CertificateSlider certificates={certificates}/>
+                  <CertificateSlider certificatesData={certificates}/>
                 </div>
               </div>
             </div>

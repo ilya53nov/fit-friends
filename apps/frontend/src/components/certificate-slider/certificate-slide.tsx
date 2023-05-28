@@ -36,7 +36,7 @@ export default function CertificateSlide({certificate}: CertificateSlideProps): 
     <div className="certificate-card">
     <div className="certificate-card__image">
       <picture>
-        <img src={url}></img>
+        <img src={url} width="294" height="360"></img>
       </picture>
     </div>
     <div className="certificate-card__buttons">
