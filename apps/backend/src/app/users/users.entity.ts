@@ -20,7 +20,7 @@ export class UserEntity implements Entity<UserEntity, UserType> {
   public caloriesSpendPerDayCount?: number;
   public isReadyUser?: boolean;
   public comment?: string;
-  public certificate?: string;
+  public certificate?: string[];
   public isReadyCoach?: boolean;
 
   constructor(user: UserType) {

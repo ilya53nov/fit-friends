@@ -8,6 +8,7 @@ import Listbox from '../listbox/listbox';
 import { useUpdateUserMutation } from '../../store/users/users-api';
 import { UpdateCoachUserDto } from '@fit-friends/shared-dto';
 import { useAddAvatarMutation } from '../../store/files/files-api';
+import LoadingSpinner from '../spinner/loading-spinner';
 
 type UserInfoProps = {
   userData: UserRdo | undefined,
@@ -29,22 +30,32 @@ const ListboxOption = {
   },
 }
 
+const locations = Object.values(LocationEnum);
+const genders = Object.values(UserGenderEnum);
+const levels = Object.values(ExerciseLevelEnum);
+
+const exerciseTypeValues = Object.values(ExerciseTypeEnum)
+const exerciseTypeKeys = Object.keys(ExerciseTypeEnum)
+
 export default function UserInfo({userData}: UserInfoProps): JSX.Element {
   const [updateUser, {isSuccess: isSuccessUpdateUser}] = useUpdateUserMutation();
   const [addAvatar, {data: avatarPath}] = useAddAvatarMutation();
   const filePickerRef = useRef<HTMLInputElement | null>(null);
   const [isEdit, setIsEdit] = useState(false);
-  const [user, setUser] = useState<UserRdo>({
-    avatar: '',
-    email: '',
-    exerciseLevel: '',
-    exerciseTypes: [],
-    gender: '',
-    id: '',
-    locationDefault: '',
-    name: '',
-    role: ''
-  });
+  const [user, setUser] = useState<UserRdo>({} as UserRdo);
+  // const [user, setUser] = useState<UserRdo>({
+  //   avatar: '',
+  //   email: '',
+  //   exerciseLevel: '',
+  //   exerciseTypes: [],
+  //   gender: '',
+  //   id: '',
+  //   locationDefault: '',
+  //   name: '',
+  //   role: ''
+  // });
+
+
 
   useEffect(() => {
     if (userData) {
@@ -58,16 +69,13 @@ export default function UserInfo({userData}: UserInfoProps): JSX.Element {
     }
   }, [user.exerciseTypes])
 
-  const locations = Object.values(LocationEnum);
-  const genders = Object.values(UserGenderEnum);
-  const levels = Object.values(ExerciseLevelEnum);
 
-  const exerciseTypeValues = Object.values(ExerciseTypeEnum)
-  const exerciseTypeKeys = Object.keys(ExerciseTypeEnum)
+
+
   const defaultExerciseTypes = exerciseTypeKeys.map((item, index) => ({
     item: item.toLowerCase(),
     value: exerciseTypeValues[index],
-    checked: user.exerciseTypes.some((type) => type === exerciseTypeValues[index])
+    checked: user && user.exerciseTypes ? user.exerciseTypes.some((type) => type === exerciseTypeValues[index]) : false
   }));
   const [specializations, setSpecializations] = useState(defaultExerciseTypes); 
 
@@ -157,6 +165,10 @@ export default function UserInfo({userData}: UserInfoProps): JSX.Element {
       setUser({...user, avatar: avatarPath});
     }    
   }, [avatarPath])
+
+  if (!userData) {
+    return(<LoadingSpinner />)
+  }
 
   return(
     <section className="user-info-edit">

@@ -7,11 +7,10 @@ type CarouselSliderProps = {
   visibleSlides: number;
   naturalSlideWidth: number;
   naturalSlideHeight: number;
-  classNameSlide?: string;
-  classNameSlider?: string;
+  isIntrinsicHeight?: boolean;
 }
 
-export default function CarouselSlider({slides, currentSlide, visibleSlides, naturalSlideHeight, naturalSlideWidth, classNameSlide, classNameSlider}: CarouselSliderProps): JSX.Element {
+export default function CarouselSlider({slides, currentSlide, visibleSlides, naturalSlideHeight, naturalSlideWidth, isIntrinsicHeight}: CarouselSliderProps): JSX.Element {
   return (
     <CarouselProvider
       naturalSlideWidth={naturalSlideWidth}
@@ -19,15 +18,13 @@ export default function CarouselSlider({slides, currentSlide, visibleSlides, nat
       totalSlides={slides.length}
       visibleSlides={visibleSlides}
       currentSlide={currentSlide}
-      isIntrinsicHeight={true}
-
+      isIntrinsicHeight={isIntrinsicHeight}
     >     
-      <Slider  className={classNameSlider}>
+      <Slider>
         {slides.map((slide, index) => (
-          <Slide className={classNameSlide} key={index} index={index}>{slide}</Slide>
+          <Slide key={index} index={index}>{slide}</Slide>
         ))}
       </Slider>
-      <DotGroup/>
     </CarouselProvider>
   );
 }
