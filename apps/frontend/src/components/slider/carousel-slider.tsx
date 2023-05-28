@@ -1,4 +1,4 @@
-import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
+import { CarouselProvider, Slider, Slide, DotGroup } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
 type CarouselSliderProps = {
@@ -27,6 +27,7 @@ export default function CarouselSlider({slides, currentSlide, visibleSlides, nat
           <Slide className={classNameSlide} key={index} index={index}>{slide}</Slide>
         ))}
       </Slider>
+      <DotGroup/>
     </CarouselProvider>
   );
 }
