@@ -4,6 +4,7 @@ import CarouselSlider from '../slider/carousel-slider';
 import LoadingSpinner from '../spinner/loading-spinner';
 import SpecialForYouSlide from './special-for-you-slider/special-for-you-slide';
 import SpecialForYouSlider from './special-for-you-slider/special-for-you-slider';
+import InFuture from '../text-stub/in-future';
 
 export default function SpecialForYou(): JSX.Element {
   const {data: exercises = [], isLoading} = useGetExercisesQuery(undefined);
@@ -47,7 +48,10 @@ export default function SpecialForYou(): JSX.Element {
             </div>
           </div>
           <ul className="special-for-you__list">
-            <SpecialForYouSlider currentSlide={currentSlide} exercises={exercises} visibleSlides={visibleSlides} />         
+            {exercises.length > 0
+            ? <SpecialForYouSlider currentSlide={currentSlide} exercises={exercises} visibleSlides={visibleSlides} /> 
+            : <InFuture />
+            }            
           </ul>
         </div>
       </div>

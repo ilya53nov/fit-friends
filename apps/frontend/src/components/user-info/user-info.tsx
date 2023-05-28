@@ -96,11 +96,6 @@ export default function UserInfo({userData}: UserInfoProps): JSX.Element {
     const target = evt.target as HTMLInputElement;
     const name = target.name;
     const value = target.value;
-
-    // if (name === 'ready-for-training') {
-    //   console.log(user)
-    //   setUser({...user, isReadyCoach: !user.isReadyCoach});
-    // }
     
     setUser({...user, [name]: value});
   }
@@ -230,7 +225,7 @@ export default function UserInfo({userData}: UserInfoProps): JSX.Element {
           <h2 className="user-info-edit__title user-info-edit__title--status">Статус</h2>
           <div className="custom-toggle custom-toggle--switch user-info-edit__toggle">
             <label>
-              <input readOnly={!isEdit} type="checkbox" name="ready-for-training" checked={user?.isReadyCoach} onChange={() => setUser({...user, isReadyCoach: !user.isReadyCoach})}/>
+              <input disabled={!isEdit} type="checkbox" name="isReadyCoach" checked={user?.isReadyCoach} onChange={() => setUser({...user, isReadyCoach: !user.isReadyCoach})}/>
               <span className="custom-toggle__icon" >
                 <svg width="9" height="6" aria-hidden="true">
                   <use xlinkHref="#arrow-check"></use>

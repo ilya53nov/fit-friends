@@ -20,7 +20,7 @@ const certificates = [
 ]
 
 export default function PersonalAccountCoachPage(): JSX.Element {
-  const {data: userData, isSuccess: isSuccessMyProfile, isLoading: isLoadingMyProfile, isError} = useGetMeQuery({});
+  const {data: userData = {} as UserRdo, isSuccess: isSuccessMyProfile, isLoading: isLoadingMyProfile, isError} = useGetMeQuery({});
   const [certificates, setCertificates] = useState<string[]>([]);
   
   const navigate = useNavigate();  
