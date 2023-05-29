@@ -20,9 +20,8 @@ export default function CertificateSlider({certificatesData}: CertificateSliderP
   
   useEffect(() => {
     if (certificatePath) {
+      updateUser({certificate: [...certificates, certificatePath]});
       setCertificate([...certificates, certificatePath]);
-      console.log(certificates);
-      updateUser({certificate: certificates});
     }
   }, [certificatePath])
 
@@ -46,6 +45,13 @@ export default function CertificateSlider({certificatesData}: CertificateSliderP
     if (currentSlide < certificates.length - DEFAULT_VISIBLE_SLIDES) {
       setCurrentSlide(currentSlide + 1);
     }
+  }
+
+  const handleDeleteClick = (certificate: string) => {
+    const filteredCertificates = certificates.filter((item) => item !== certificate);
+
+    updateUser({certificate: [...filteredCertificates]});
+    setCertificate([...filteredCertificates]);
   }
 
   const onAddCertificateClick = async (evt: ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +100,7 @@ export default function CertificateSlider({certificatesData}: CertificateSliderP
         currentSlide={currentSlide}
         isIntrinsicHeight={true}
         visibleSlides={DEFAULT_VISIBLE_SLIDES}
-        slides={certificates.map((certificate) => <CertificateSlide key={certificate} certificate={certificate} />)}
+        slides={certificates.map((certificate) => <CertificateSlide key={certificate} certificate={certificate} onDeleteClick={() => handleDeleteClick(certificate)}/>)}
       />
     
   </div>

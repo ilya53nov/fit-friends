@@ -34,7 +34,7 @@ export default function PersonalAccountCoachPage(): JSX.Element {
   useEffect(() => {
     if (userData && userData.certificate) {
       //const cert = [userData.certificate, userData.certificate, userData.certificate, userData.certificate, userData.certificate];
-      console.log(userData.certificate);
+      // console.log(userData.certificate);
       setCertificates(userData.certificate);
     }
   }, [userData])
