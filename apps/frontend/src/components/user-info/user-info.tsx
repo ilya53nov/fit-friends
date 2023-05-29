@@ -43,19 +43,6 @@ export default function UserInfo({userData}: UserInfoProps): JSX.Element {
   const filePickerRef = useRef<HTMLInputElement | null>(null);
   const [isEdit, setIsEdit] = useState(false);
   const [user, setUser] = useState<UserRdo>({} as UserRdo);
-  // const [user, setUser] = useState<UserRdo>({
-  //   avatar: '',
-  //   email: '',
-  //   exerciseLevel: '',
-  //   exerciseTypes: [],
-  //   gender: '',
-  //   id: '',
-  //   locationDefault: '',
-  //   name: '',
-  //   role: ''
-  // });
-
-
 
   useEffect(() => {
     if (userData) {
@@ -68,9 +55,6 @@ export default function UserInfo({userData}: UserInfoProps): JSX.Element {
       setSpecializations(defaultExerciseTypes);
     }
   }, [user.exerciseTypes])
-
-
-
 
   const defaultExerciseTypes = exerciseTypeKeys.map((item, index) => ({
     item: item.toLowerCase(),
