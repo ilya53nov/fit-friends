@@ -1,7 +1,7 @@
 import { ExerciseApiProperty } from '@fit-friends/shared-description-property';
 import { ExerciseValidation } from '@fit-friends/shared-validation';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEnum, IsNumber, IsString, Length, Max, Min } from 'class-validator';
+import { IsBoolean, IsEnum, IsNumber, IsOptional, IsString, Length, Max, Min } from 'class-validator';
 
 export class CreateExerciseDto {
   @ApiProperty(ExerciseApiProperty.Title)
@@ -14,7 +14,8 @@ export class CreateExerciseDto {
 
   @ApiProperty(ExerciseApiProperty.Level)
   @IsEnum(ExerciseValidation.Level)
-  level!: string;
+  @IsOptional()
+  level?: string;
 
   @ApiProperty(ExerciseApiProperty.Type)
   @IsEnum(ExerciseValidation.ExerciseType)  
@@ -52,5 +53,6 @@ export class CreateExerciseDto {
 
   @ApiProperty(ExerciseApiProperty.IsSpecialOffer)   
   @IsBoolean()
-  isSpecialOffer!: boolean;  
+  @IsOptional()
+  isSpecialOffer?: boolean;  
 }

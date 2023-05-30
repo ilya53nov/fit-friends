@@ -1,8 +1,9 @@
-import { ChangeEvent, SyntheticEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { useCreateExerciseMutation } from '../../store/exercises/exercises-api'
 import { CreateExerciseDto } from '@fit-friends/shared-dto';
 import Listbox from '../listbox/listbox';
-import { ExerciseDurationEnum, ExerciseGenderEnum, ExerciseTypeEnum } from '@fit-friends/shared-types';
+import { ExerciseDurationEnum, ExerciseGenderEnum, ExerciseTypeEnum, ParameterKey } from '@fit-friends/shared-types';
+import { useAddVideoMutation } from '../../store/files/files-api';
 
 const ListboxOption = {
   Type: {
@@ -21,6 +22,14 @@ const durations = Object.values(ExerciseDurationEnum);
 export default function CreateExercise(): JSX.Element {
   const [createExercise] = useCreateExerciseMutation({});
   const [exercise, setExercise] = useState<CreateExerciseDto>({gender: ExerciseGenderEnum.All} as CreateExerciseDto)
+  const [addVideo, {data: videoPath }] = useAddVideoMutation();
+  const filePickerRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (videoPath) {
+      setExercise({...exercise, video: videoPath});
+    }
+  }, [videoPath])
 
   const handleOptionChange = (evt: SyntheticEvent<HTMLOptionElement>) => {
     const target = evt.target as HTMLOptionElement;
@@ -38,7 +47,29 @@ export default function CreateExercise(): JSX.Element {
     setExercise({ ...exercise, [name]: value});
   }
 
+  const onAddVideoClick = async (evt: ChangeEvent<HTMLInputElement>) => {
+    const target = evt.target as HTMLInputElement;
+    const file = target.files && target.files[0];
 
+    if (!file) {
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append(ParameterKey.File, file);
+
+    await addVideo(formData);
+  }; 
+
+  const onSubmit = async (createExerciseDto: CreateExerciseDto) => {
+    await createExercise(createExerciseDto);
+  }
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    onSubmit({...exercise, caloriesCount: +exercise.caloriesCount, price: +exercise.price});
+  }
 
   return(
     <div className="popup-form popup-form--create-training">
@@ -48,7 +79,7 @@ export default function CreateExercise(): JSX.Element {
             <h1 className="popup-form__title">Создание тренировки</h1>
           </div>
           <div className="popup-form__form">
-            <form method="get">
+            <form method="get" onSubmit={handleSubmit}>
               <div className="create-training">
                 <div className="create-training__wrapper">
                   <div className="create-training__block">
@@ -56,7 +87,7 @@ export default function CreateExercise(): JSX.Element {
                     <div className="custom-input create-training__input">
                       <label>
                         <span className="custom-input__wrapper">
-                          <input onChange={handleInputChange} type="text" name="title" value={exercise.title}/>
+                          <input required={true} onChange={handleInputChange} type="text" name="title" value={exercise.title}/>
                         </span>
                       </label>
                     </div>
@@ -74,7 +105,7 @@ export default function CreateExercise(): JSX.Element {
                       />
                       <div className="custom-input custom-input--with-text-right">
                         <label><span className="custom-input__label">Сколько калорий потратим</span><span className="custom-input__wrapper">
-                            <input onChange={handleInputChange} type="number" name="caloriesCount" value={exercise.caloriesCount}/><span className="custom-input__text">ккал</span></span>
+                            <input required={true} onChange={handleInputChange} type="number" name="caloriesCount" value={exercise.caloriesCount}/><span className="custom-input__text">ккал</span></span>
                         </label>
                       </div>
                       <Listbox
@@ -87,7 +118,7 @@ export default function CreateExercise(): JSX.Element {
                       />
                       <div className="custom-input custom-input--with-text-right">
                         <label><span className="custom-input__label">Стоимость тренировки</span><span className="custom-input__wrapper">
-                            <input onChange={handleInputChange} type="number" name="price" value={exercise.price}/><span className="custom-input__text">₽</span></span>
+                            <input required={true} onChange={handleInputChange} type="number" name="price" value={exercise.price}/><span className="custom-input__text">₽</span></span>
                         </label>
                       </div>
                     </div>
@@ -115,7 +146,7 @@ export default function CreateExercise(): JSX.Element {
                     <h2 className="create-training__legend">Описание тренировки</h2>
                     <div className="custom-textarea create-training__textarea">
                       <label>
-                        <textarea onChange={handleInputChange} value={exercise.description} name="description" placeholder=" "></textarea>
+                        <textarea required={true} onChange={handleInputChange} value={exercise.description} name="description" placeholder=" "></textarea>
                       </label>
                     </div>
                   </div>
@@ -123,12 +154,12 @@ export default function CreateExercise(): JSX.Element {
                     <h2 className="create-training__legend">Загрузите видео-тренировку</h2>
                     <div className="drag-and-drop create-training__drag-and-drop">
                       <label>
-                        <span className="drag-and-drop__label" tabIndex={0}>Загрузите сюда файлы формата MOV, AVI или MP4
+                        <span className="drag-and-drop__label" tabIndex={0}>{exercise.video ? exercise.video : 'Загрузите сюда файлы формата MOV, AVI или MP4'}
                           <svg width="20" height="20" aria-hidden="true">
                             <use xlinkHref="#icon-import-video"></use>
                           </svg>
                         </span>
-                        <input type="file" name="import" tabIndex={-1} accept=".mov, .avi, .mp4"/>
+                        <input required={true} ref={filePickerRef} onChange={onAddVideoClick} type="file" name="import" tabIndex={-1} accept=".mov, .avi, .mp4"/>
                       </label>
                     </div>
                   </div>

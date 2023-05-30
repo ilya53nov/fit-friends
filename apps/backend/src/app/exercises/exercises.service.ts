@@ -7,6 +7,7 @@ import { ExerciseEntity } from './exercises.entity';
 import { ExercisesRepository } from './exercises.repository';
 import { FilesService } from '../files/files.service';
 import { NotifyNewExercisesService } from '../user-personal-account/notify-new-exercises/notify-new-exercises.service';
+import { ExerciseLevelEnum } from '@fit-friends/shared-types';
 
 @Injectable()
 export class ExercisesService {
@@ -18,7 +19,7 @@ export class ExercisesService {
 
   public async create(coachId: string, createExerciseDto: CreateExerciseDto) {
     const randomImage = await this.filesService.getRandomAssetsImage();
-    const exerciseEntity = new ExerciseEntity({...createExerciseDto, image: randomImage, coachId, rating: 0});
+    const exerciseEntity = new ExerciseEntity({...createExerciseDto, image: randomImage, coachId, rating: 0, isSpecialOffer: false, level: ExerciseLevelEnum.Amateur});
     const newExercise = await this.exercisesRepository.create(exerciseEntity);
 
     
