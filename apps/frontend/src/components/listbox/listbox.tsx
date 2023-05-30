@@ -5,7 +5,7 @@ type ListboxProps = {
   text: string,
   description: string,
   optionItems: string[],
-  className: string,
+  className?: string,
   onOptionClick: (evt: SyntheticEvent<HTMLOptionElement>) => void;
 }
 

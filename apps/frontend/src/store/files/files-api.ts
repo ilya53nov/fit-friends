@@ -19,10 +19,19 @@ const filesApi = api.injectEndpoints({
         responseHandler: 'text',
       }),
     }),
+    addVideo: builder.mutation({
+      query: (file: FormData) => ({
+        url: `${ApiRouteEnum.Files}/${ApiRouteEnum.Video}`,
+        method: ApiMethod.Post,
+        body: file, 
+        responseHandler: 'text',
+      }),
+    }),
   })
 })
 
 export const {
   useAddAvatarMutation,
   useAddCertificateMutation,
+  useAddVideoMutation,
 } = filesApi;

@@ -2,7 +2,7 @@ export interface ExerciseInterface {
   id?: string;
   title: string;
   image: string;
-  level: string;
+  level?: string;
   type: string;
   duration: string;
   price: number;
@@ -12,6 +12,6 @@ export interface ExerciseInterface {
   video: string;
   rating?: number;
   coachId: string;
-  isSpecialOffer: boolean;
+  isSpecialOffer?: boolean;
   createdAt?: Date;
 }
