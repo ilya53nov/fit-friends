@@ -2,10 +2,6 @@ import { UserRdo } from '@fit-friends/shared-rdo'
 import { useGetUsersQuery } from '../../store/users/users-api'
 import UserCatalogUser from './user-catalog-user';
 
-type UserCatalogUsersProps = {
-  //users: UserRdo[];
-}
-
 export default function UserCatalogUsers(): JSX.Element {
   const {data: users = []} = useGetUsersQuery({});
   

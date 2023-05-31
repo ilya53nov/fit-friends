@@ -1,44 +1,19 @@
 import { ExercisesQuery } from '@fit-friends/core'
 import { useGetExercisesQuery } from '../../store/exercises/exercises-api';
-import { useEffect, useState } from 'react';
 import ExercisesCatalogCard from '../exercises-catalog-card/exercises-catalog-card';
 import { ExerciseRdo } from '@fit-friends/shared-rdo';
+import LoadingSpinner from '../spinner/loading-spinner';
 
 type ExercisesCatalogProps = {
   query: ExercisesQuery | undefined;
   onMoreButtonClick: () => void;
 }
 
-const test: ExerciseRdo[] = [];
-
 export default function ExercisesCatalog({query, onMoreButtonClick}: ExercisesCatalogProps): JSX.Element {
   const {data: exercisesData, isLoading} = useGetExercisesQuery(query);
-  // const [exercises, setExercises] = useState<ExerciseRdo[]>([]);
-
-  // console.log(isLoading, exercisesData, exercises);
-
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     console.log(exercises);
-  //     if (exercisesData) {
-  //       if (exercises) {
-  //         const exer = exercises.push(...exercisesData);
-  //         console.log(exer, 'exer');
-  //       }
-  //       test.push(...exercisesData);
-  //       console.log(test, 'test');
-
-  //       exercises
-  //       ? setExercises(exercisesData)
-  //       : setExercises(exercisesData)
-
-  //     }
-      
-  //   }
-  // }, [isLoading])
 
   if (isLoading) {
-    return(<div>Loading...</div>);
+    return(<LoadingSpinner />);
   }
 
   return(

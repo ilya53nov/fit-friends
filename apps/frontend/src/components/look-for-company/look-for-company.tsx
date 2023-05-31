@@ -1,13 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import LookForCompanySlider from './look-for-company-slider/look-for-company-slider';
+import { ClientRoute } from '../../constants/client-route.enum';
 
 export default function LookForCompany(): JSX.Element {
+  const navigate = useNavigate();
+
+  const navigateToUserCatalog = () => navigate(ClientRoute.UserCatalog);
+
+  const handleButtonShowAllClick = () => navigateToUserCatalog();
+
   return(
     <section className="look-for-company">
       <div className="container">
         <div className="look-for-company__wrapper">
           <div className="look-for-company__title-wrapper">
             <h2 className="look-for-company__title">Ищут компанию для тренировки</h2>
-            <button className="btn-flat btn-flat--light look-for-company__button" type="button"><span>Смотреть все</span>
+            <button onClick={handleButtonShowAllClick} className="btn-flat btn-flat--light look-for-company__button" type="button"><span>Смотреть все</span>
               <svg width="14" height="10" aria-hidden="true">
                 <use xlinkHref="#arrow-right"></use>
               </svg>
