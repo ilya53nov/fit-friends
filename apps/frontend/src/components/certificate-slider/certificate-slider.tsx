@@ -93,7 +93,7 @@ export default function CertificateSlider({certificatesData}: CertificateSliderP
         </button>
       </div>
     </div>
-
+    <ul className="personal-account-coach__list">
       <CarouselSlider
         naturalSlideHeight={1}
         naturalSlideWidth={1}
@@ -102,7 +102,7 @@ export default function CertificateSlider({certificatesData}: CertificateSliderP
         visibleSlides={DEFAULT_VISIBLE_SLIDES}
         slides={certificates.map((certificate) => <CertificateSlide key={certificate} certificate={certificate} onDeleteClick={() => handleDeleteClick(certificate)}/>)}
       />
-    
+    </ul>
   </div>
   )
 }

@@ -10,15 +10,6 @@ import CoachNavigation from '../../components/coach-navigation/coach-navigation'
 import CertificateSlider from '../../components/certificate-slider/certificate-slider';
 import LoadingSpinner from '../../components/spinner/loading-spinner';
 
-const certificates = [
-  'https://wp-s.ru/wallpapers/9/18/438540442363429/izgib-reki-na-fone-zakata.jpg',
-  'https://i.pinimg.com/originals/16/74/32/167432185b15978f3b26d33e70df79b7.jpg',
-  'https://i.pinimg.com/736x/cc/25/91/cc25911a8e23fa11515ed0eb06ee6785.jpg',
-  'https://wp-s.ru/wallpapers/9/18/438540442363429/izgib-reki-na-fone-zakata.jpg',
-  'https://i.pinimg.com/originals/16/74/32/167432185b15978f3b26d33e70df79b7.jpg',
-  'https://i.pinimg.com/736x/cc/25/91/cc25911a8e23fa11515ed0eb06ee6785.jpg',
-]
-
 export default function PersonalAccountCoachPage(): JSX.Element {
   const {data: userData = {} as UserRdo, isSuccess: isSuccessMyProfile, isLoading: isLoadingMyProfile, isError} = useGetMeQuery({});
   const [certificates, setCertificates] = useState<string[]>([]);
@@ -33,8 +24,6 @@ export default function PersonalAccountCoachPage(): JSX.Element {
 
   useEffect(() => {
     if (userData && userData.certificate) {
-      //const cert = [userData.certificate, userData.certificate, userData.certificate, userData.certificate, userData.certificate];
-      // console.log(userData.certificate);
       setCertificates(userData.certificate);
     }
   }, [userData])
