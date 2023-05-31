@@ -3,6 +3,8 @@ import LoadingSpinner from '../spinner/loading-spinner';
 import PopularExercisesSlider from './popular-exercises-slider/popular-exercises-slider';
 import { useGetExercisesQuery } from '../../store/exercises/exercises-api';
 
+const DEFAULT_VISIBLE_SLIDES = 4;
+
 export default function PopularExercises(): JSX.Element {
   const {data: exercises = [], isLoading} = useGetExercisesQuery(undefined);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,8 +13,6 @@ export default function PopularExercises(): JSX.Element {
     return(<LoadingSpinner />)
   }
 
-  const visibleSlides = 4;
-
   const handleButtonBackClick = () => {
     if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
@@ -20,7 +20,7 @@ export default function PopularExercises(): JSX.Element {
   }
 
   const handleButtonNextClick = () => {
-    if (currentSlide < exercises.length - visibleSlides) {
+    if (currentSlide < exercises.length - DEFAULT_VISIBLE_SLIDES) {
       setCurrentSlide(currentSlide + 1);
     }
   }
@@ -50,7 +50,7 @@ export default function PopularExercises(): JSX.Element {
             </div>
           </div>
           <ul className="popular-trainings__list">
-            <PopularExercisesSlider currentSlide={currentSlide} exercises={exercises} visibleSlides={visibleSlides} />
+            <PopularExercisesSlider currentSlide={currentSlide} exercises={exercises} visibleSlides={DEFAULT_VISIBLE_SLIDES} />
           </ul>
         </div>
       </div>

@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useGetExercisesQuery } from '../../store/exercises/exercises-api';
-import CarouselSlider from '../slider/carousel-slider';
 import LoadingSpinner from '../spinner/loading-spinner';
-import SpecialForYouSlide from './special-for-you-slider/special-for-you-slide';
 import SpecialForYouSlider from './special-for-you-slider/special-for-you-slider';
 import InFuture from '../text-stub/in-future';
 

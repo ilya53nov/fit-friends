@@ -25,7 +25,6 @@ const myOrdersLink = {
   description: 'Мои заказы',  
 }
 
-
 const links = [
   myExercisesLink,
   createExerciseLink,

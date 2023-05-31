@@ -1,12 +1,10 @@
-import { ExerciseRdo } from '@fit-friends/shared-rdo';
-import ExercisesCatalogCard from '../../components/exercises-catalog-card/exercises-catalog-card';
 import { useState } from 'react';
-import { BaseQuery, ExercisesQuery } from '@fit-friends/core';
+import { ExercisesQuery } from '@fit-friends/core';
 import ExercisesCatalog from '../../components/exercises-catalog/exercises-catalog';
 import { QueryParameter } from '@fit-friends/shared-types';
 
 const defaultQuery: ExercisesQuery = {
-  limit: 3, //QueryParameter.DefaultExerciseCountLimit,
+  limit: 6, 
   page: QueryParameter.DefaultPageNumber,
   sortDirection: QueryParameter.DefaultSortDirection,
 }
@@ -15,7 +13,7 @@ export default function ExercisesCatalogPage(): JSX.Element {
   const [query, setQuery] = useState<ExercisesQuery>(defaultQuery);
 
   const handleMoreButtonClick = () => {
-    setQuery({...query, limit: query.limit! + 3})
+    setQuery({...query, limit: query.limit! + defaultQuery.limit})
   }
 
 
